@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .embla {
+        @apply overflow-hidden;
+    }
+    .embla__container {
+        @apply flex;
+    }
+    .embla__slide {
+        @apply flex-[0_0_100%] min-w-0;
+    }
+
+    .toast__container {
+        @apply dark:dark light:light text-foreground bg-secondary-background py-3 px-5 m-0 rounded-xl gap-4 border-0 shadow-xl;
+    }
+
+    .toast__title {
+        @apply font-bold text-sm md:text-base;
+    }
+
+    .toast__description {
+        @apply text-xs;
+    }
+}
+
+@layer utilities {
+    .absolute-center {
+        @apply float-none absolute -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2 !important;
+    }
+}
