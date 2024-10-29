@@ -6,7 +6,7 @@ import "../styles/globals.css";
 import Providers from "./providers";
 import TopNavbar from "@/components/ui/layout/TopNavbar";
 import BottomNavbar from "@/components/ui/layout/BottomNavbar";
-
+import Sidebar from "@/components/ui/layout/Sidebar";
 
 export const metadata: Metadata = {
   title: siteConfig.name,
@@ -23,16 +23,16 @@ export const viewport: Viewport = {
   ],
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode; }>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html suppressHydrationWarning lang="en">
-      <body className={clsx("min-h-screen bg-background antialiased select-none", Poppins.className)}>
-        <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
-          <TopNavbar></TopNavbar>
-          <main className="container mx-auto max-w-6xl pt-8 pb-24 md:pb-8 px-2 md:px-5">
-            {children}
-          </main>
-          <BottomNavbar></BottomNavbar>
+      <body className={clsx("min-h-screen select-none bg-background antialiased", Poppins.className)}>
+        <Providers>
+          <TopNavbar />
+          <Sidebar>
+            <main className="container mx-auto max-w-full px-2 pb-8 pt-8 sm:px-5">{children}</main>
+          </Sidebar>
+          <BottomNavbar />
         </Providers>
       </body>
     </html>

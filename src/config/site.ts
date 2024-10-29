@@ -18,16 +18,30 @@ export const siteConfig = {
       activeIcon: "iconamoon:discover-fill",
     },
     {
-      label: "Trending",
-      href: "/trending",
-      icon: "icon-park-outline:fire",
-      activeIcon: "icon-park-solid:fire",
+      label: "Seach",
+      href: "/search",
+      icon: "bx:search",
+      activeIcon: "bxs:search",
     },
     {
-      label: "Settings",
-      href: "/settings",
-      icon: "mingcute:settings-1-line",
-      activeIcon: "mingcute:settings-1-fill",
+      label: "Library",
+      href: "/library",
+      icon: "fluent:folder-open-20-regular",
+      activeIcon: "fluent:folder-open-20-filled",
+    },
+  ],
+  themes: [
+    {
+      name: "light",
+      icon: "line-md:sunny-filled",
+    },
+    {
+      name: "dark",
+      icon: "line-md:moon-filled",
+    },
+    {
+      name: "system",
+      icon: "line-md:computer-twotone",
     },
   ],
   breakpoints: {

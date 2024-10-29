@@ -2,32 +2,38 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  h1 {
+    @apply text-3xl font-black md:text-4xl;
+  }
+}
+
 @layer components {
-    .embla {
-        @apply overflow-hidden;
-    }
-    .embla__container {
-        @apply flex;
-    }
-    .embla__slide {
-        @apply flex-[0_0_100%] min-w-0;
-    }
+  .embla {
+    @apply overflow-hidden;
+  }
+  .embla__container {
+    @apply flex;
+  }
+  .embla__slide {
+    @apply min-w-0 flex-[0_0_100%];
+  }
 
-    .toast__container {
-        @apply dark:dark light:light text-foreground bg-secondary-background py-3 px-5 m-0 rounded-xl gap-4 border-0 shadow-xl;
-    }
+  .toast__container {
+    @apply m-0 gap-4 rounded-xl border-0 bg-secondary-background px-5 py-3 text-foreground shadow-xl light:light dark:dark;
+  }
 
-    .toast__title {
-        @apply font-bold text-sm md:text-base;
-    }
+  .toast__title {
+    @apply text-sm font-bold md:text-base;
+  }
 
-    .toast__description {
-        @apply text-xs;
-    }
+  .toast__description {
+    @apply text-xs;
+  }
 }
 
 @layer utilities {
-    .absolute-center {
-        @apply float-none absolute -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2 !important;
-    }
+  .absolute-center {
+    @apply absolute left-1/2 top-1/2 float-none -translate-x-1/2 -translate-y-1/2 !important;
+  }
 }
