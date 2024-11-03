@@ -33,7 +33,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <Sidebar>
             <main className="container mx-auto max-w-full px-2 pb-8 pt-8 sm:px-5">{children}</main>
           </Sidebar>
-          <Footer />
+          {/* <Footer /> */}
           <BottomNavbar />
         </Providers>
       </body>
