@@ -1,17 +1,16 @@
 "use client";
 
 import { siteConfig } from "@/config/site";
-import { Icon } from "@iconify/react/dist/iconify.js";
 import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/react";
 import { useTheme } from "next-themes";
 import React, { useEffect, useState } from "react";
 
 const themes = siteConfig.themes;
 
-const ThemeItem: React.FC<{ theme?: string; icon?: string }> = ({ theme, icon = "" }) => {
+const ThemeItem: React.FC<{ theme?: string; icon?: React.ReactNode }> = ({ theme, icon = "" }) => {
   return (
     <div className="flex items-center gap-2 capitalize">
-      <Icon icon={icon} fontSize={18}></Icon>
+      <div className="max-h-[50px]">{icon}</div>
       <p>{theme}</p>
     </div>
   );
@@ -27,19 +26,25 @@ const ThemeSwitchDropdown = () => {
   }, []);
 
   if (!mounted) {
-    return <Button variant="flat" color="warning" isLoading></Button>;
+    return null;
   }
 
+  const color = theme === "dark" ? "primary" : theme === "light" ? "warning" : "default";
+
   return (
-    <Dropdown>
+    <Dropdown
+      classNames={{
+        content: "min-w-fit",
+      }}
+    >
       <DropdownTrigger>
-        <Button variant="flat" color="warning">
-          <ThemeItem icon={themeIcon} theme={theme} />
+        <Button isIconOnly variant="light" color={color} className="p-2">
+          {themeIcon}
         </Button>
       </DropdownTrigger>
       <DropdownMenu disallowEmptySelection selectionMode="single">
         {themes.map((theme) => (
-          <DropdownItem key={theme.name} onPress={() => setTheme(theme.name)}>
+          <DropdownItem key={theme.name} onPress={() => setTheme(theme.name)} textValue={theme.name}>
             <ThemeItem icon={theme.icon} theme={theme.name} />
           </DropdownItem>
         ))}

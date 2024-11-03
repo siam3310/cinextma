@@ -1,25 +1,59 @@
-import { Icon } from "@iconify/react/dist/iconify.js";
-import { Input, Kbd } from "@nextui-org/react";
+import { useRef } from "react";
+import { FaSearch } from "react-icons/fa";
+import { Input, InputProps, Kbd, Spinner } from "@nextui-org/react";
+import { cn } from "@/lib/utils";
+import { useHotkeys } from "@mantine/hooks";
+import { useRouter } from "next-nprogress-bar";
+import { usePathname } from "next/navigation";
 
-export const SearchInput = () => {
+interface SearchInputProps extends InputProps {
+  isLoading?: boolean;
+}
+
+const SearchInput = ({ value, onChange, className, autoFocus, placeholder = "Search...", isLoading, isDisabled }: SearchInputProps) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
+  const pathName = usePathname();
+
+  useHotkeys([
+    [
+      "ctrl+K",
+      () => {
+        if (pathName !== "/search") {
+          router.push("/search");
+        } else {
+          inputRef.current?.focus();
+        }
+      },
+      { preventDefault: true },
+    ],
+  ]);
+
   return (
     <Input
-      aria-label="Search"
+      ref={inputRef}
+      isDisabled={isDisabled}
+      autoComplete="off"
+      autoFocus={autoFocus}
+      className={cn(className, "w-full")}
+      placeholder={placeholder}
+      value={value}
+      onChange={onChange}
       classNames={{
         inputWrapper: "bg-secondary-background",
         input: "text-sm",
       }}
+      aria-label="Search"
       type="search"
       labelPlacement="outside"
-      placeholder="Search..."
-      endContent={
-        <Kbd className="hidden lg:inline-block" keys={["command"]}>
-          K
-        </Kbd>
-      }
+      endContent={<Kbd className="hidden md:inline-block">CTRL+K</Kbd>}
       startContent={
-        <Icon icon="mdi:search" fontSize={24} className="text-base text-default-400 pointer-events-none flex-shrink-0" />
+        <div className="pointer-events-none flex flex-shrink-0 items-center pr-1 text-default-400">
+          {isLoading ? <Spinner color="default" size="sm" /> : <FaSearch />}
+        </div>
       }
     />
-  )
+  );
 };
+
+export default SearchInput;

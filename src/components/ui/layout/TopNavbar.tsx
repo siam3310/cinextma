@@ -4,38 +4,43 @@ import { siteConfig } from "@/config/site";
 import { usePathname } from "next/navigation";
 import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button } from "@nextui-org/react";
 import BackButton from "@/components/ui/button/BackButton";
-import { useWindowScroll } from "@uidotdev/usehooks";
+import { useWindowScroll } from "@mantine/hooks";
 // import NavbarMenuItems from "../other/NavbarMenuItems";
-import { SearchInput } from "../input/SearchInput";
+import SearchInput from "../input/SearchInput";
 import ThemeSwitchDropdown from "../input/ThemeSwitchDropdown";
+import clsx from "clsx";
+import FullscreenToggleButton from "../button/FullscreenToggleButton";
 
 const TopNavbar = () => {
   const pathName = usePathname();
   const [{ y }] = useWindowScroll();
-  //@ts-expect-error this variable is not undefined
   const opacity = Math.min((y / 1000) * 5, 1);
   const hrefs = siteConfig.navItems.map((item) => item.href);
   const show = hrefs.includes(pathName);
 
   return show ? (
-    <Navbar disableScrollHandler isBlurred={false} maxWidth="full" position="sticky" className="inset-0 -translate-y-px bg-background">
+    <Navbar
+      disableScrollHandler
+      isBlurred={false}
+      position="sticky"
+      maxWidth="full"
+      classNames={{ wrapper: "px-2 md:px-4" }}
+      className="inset-0 h-min -translate-y-px bg-background"
+    >
       <NavbarBrand>
         <ThemeSwitchDropdown />
       </NavbarBrand>
       <NavbarContent className="hidden w-full max-w-lg gap-2 md:flex" justify="center">
-        <NavbarItem className="w-full">
-          <SearchInput></SearchInput>
+        <NavbarItem className={clsx("w-full", pathName.startsWith("/search") && "hidden")}>
+          <Link href="/search" className="w-full">
+            <SearchInput className="pointer-events-none" placeholder="Search your favorite movies..." />
+          </Link>
           {/* <NavbarMenuItems/> */}
         </NavbarItem>
       </NavbarContent>
       <NavbarContent justify="end">
-        <NavbarItem className="hidden lg:flex">
-          <Link href="#">Login</Link>
-        </NavbarItem>
         <NavbarItem>
-          <Button as={Link} color="primary" href="#" variant="flat">
-            Sign Up
-          </Button>
+          <FullscreenToggleButton />
         </NavbarItem>
       </NavbarContent>
     </Navbar>
@@ -52,6 +57,9 @@ const TopNavbar = () => {
       <NavbarBrand>
         <BackButton />
       </NavbarBrand>
+      <NavbarContent justify="end">
+        <FullscreenToggleButton />
+      </NavbarContent>
     </Navbar>
   );
 };

@@ -1,27 +1,19 @@
 import { Image } from "@nextui-org/image";
-import { useWindowScroll } from "@uidotdev/usehooks";
+import { useWindowScroll } from "@mantine/hooks";
 import { MovieDetails } from "tmdb-ts/dist/types/movies";
+import { AppendToResponse } from "tmdb-ts/dist/types/options";
 
-interface MovieDetailsAppend extends MovieDetails {
-  images?: {
-    logos: {
-      file_path: string;
-    }[];
-    posters: [];
-    backdrops: [];
-  };
-}
-
-const BackdropSection: React.FC<{ movie: MovieDetailsAppend }> = ({ movie }) => {
+const BackdropSection: React.FC<{
+  movie: AppendToResponse<MovieDetails, "images"[], "movie"> | undefined;
+}> = ({ movie }) => {
   const [{ y }] = useWindowScroll();
-  //@ts-expect-error this variable is not undefined
+  const imgUrl = process.env.NEXT_PUBLIC_TMDB_BASE_IMG_URL ?? "";
+  const imgUrlOr = process.env.NEXT_PUBLIC_TMDB_BASE_IMG_URL_OR ?? "";
   const opacity = Math.min((y / 1000) * 2, 1);
-  const backdropImage = process.env.NEXT_PUBLIC_TMDB_BASE_IMG_URL_OR + movie.backdrop_path;
-  //@ts-expect-error this variable is not undefined
-  const titleImage = movie?.images.logos.find((logo) => logo.iso_639_1 === "en")?.file_path
-    ? //@ts-expect-error this variable is not undefined
-      process.env.NEXT_PUBLIC_TMDB_BASE_IMG_URL + movie?.images.logos.find((logo) => logo.iso_639_1 === "en")?.file_path
-    : "";
+  const images = movie?.images;
+  const backdropImage = imgUrlOr + movie?.backdrop_path;
+  const title = images?.logos.find((logo) => logo.iso_639_1 === "en")?.file_path;
+  const titleImage = imgUrl + title;
 
   return (
     <section id="backdrop" className="fixed inset-0 h-[35vh] md:h-[50vh] lg:h-[70vh]">
@@ -30,17 +22,17 @@ const BackdropSection: React.FC<{ movie: MovieDetailsAppend }> = ({ movie }) => 
       <div className="absolute inset-0 z-[2] translate-y-px bg-gradient-to-t from-background from-[1%] via-transparent via-55%" />
       <Image
         isBlurred
-        alt={movie.title}
+        alt={movie?.original_language === "id" ? movie?.original_title : movie?.title}
         classNames={{ wrapper: "absolute-center z-[1] bg-transparent" }}
         className="w-[25vh] max-w-80 drop-shadow-xl md:w-[60vh]"
         src={titleImage}
       />
       <Image
         radius="none"
-        alt={movie.title}
+        alt={movie?.original_language === "id" ? movie?.original_title : movie?.title}
         className="z-0 h-[35vh] w-screen object-cover object-center md:h-[50vh] lg:h-[70vh]"
         src={backdropImage}
-        fallbackSrc={process.env.NEXT_PUBLIC_FALLBACK_IMG_URL}
+        fallbackSrc={process.env.NEXT_PUBLIC_FALLBACK_BACKDROP_IMG_URL}
       />
     </section>
   );

@@ -1,14 +1,12 @@
-import { tmdb } from "@/api/tmdb";
-import HomeList from "./HomeList";
+import HomeMovieList from "./HomeMovieList";
+import { siteConfig } from "@/config/site";
 
 export default function Home() {
   return (
     <div className="flex flex-col gap-12">
-      <HomeList name="Trending" query={tmdb.trending.trending("movie", "week")} />
-      <HomeList name="Popular" query={tmdb.movies.popular()} />
-      <HomeList name="Now Playing" query={tmdb.movies.nowPlaying()} />
-      <HomeList name="Upcoming" query={tmdb.movies.upcoming()} />
-      <HomeList name="Top Rated" query={tmdb.movies.topRated()} />
+      {siteConfig.queryLists.movies.map((movie) => (
+        <HomeMovieList key={movie.name} name={movie.name} query={movie.query} param={movie.param} />
+      ))}
 
       {/* <div className="h-24 w-72 relative">
         <div className="absolute h-full w-full bg-red-900 inset-0 z-0"></div>

@@ -1,5 +1,4 @@
 import { siteConfig } from "@/config/site";
-import { Icon } from "@iconify/react/dist/iconify.js";
 import { Link, Tab, Tabs, TabsProps } from "@nextui-org/react";
 import { usePathname } from "next/navigation";
 import React from "react";
@@ -9,8 +8,8 @@ interface NavbarMenuItemsProps extends TabsProps {
   menuArray?: {
     href: string;
     label: string;
-    icon?: string;
-    activeIcon?: string;
+    icon?: React.ReactNode;
+    activeIcon?: React.ReactNode;
   }[];
 }
 
@@ -37,12 +36,12 @@ const NavbarMenuItems: React.FC<NavbarMenuItemsProps> = ({
     >
       {menuArray.map((item) => {
         const isActive = pathName === item.href;
-        let title: string | React.ReactNode = item.label;
+        let title: React.ReactNode = item.label;
 
         if (isIconOnly) {
           title = (
-            <div className="flex flex-col items-center gap-2">
-              <Icon icon={(isActive ? item.activeIcon : item.icon) ?? ""} fontSize={24} />
+            <div className="flex max-h-[45px] flex-col items-center gap-1">
+              {isActive ? item.activeIcon : item.icon}
               <p>{item.label}</p>
             </div>
           );

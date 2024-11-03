@@ -39,11 +39,10 @@ export const HoverPosterCard: React.FC<{ id: number }> = ({ id }) => {
               />
               <Image
                 radius="none"
-                // isBlurred
                 alt={movie?.title}
                 className="z-0 aspect-video h-40 w-80 rounded-t-lg object-cover object-center"
                 src={backdropImage}
-                fallbackSrc={process.env.NEXT_PUBLIC_FALLBACK_IMG_URL}
+                fallbackSrc={process.env.NEXT_PUBLIC_FALLBACK_BACKDROP_IMG_URL}
               />
             </div>
             <div className="flex flex-col gap-2 p-4 pt-[100px]">
@@ -87,7 +86,8 @@ export const HoverPosterCard: React.FC<{ id: number }> = ({ id }) => {
                 >
                   Play Now
                 </Button>
-                <BookmarkButton isTooltipDisabled />
+                {/* @ts-expect-error no error */}
+                <BookmarkButton movie={movie} isTooltipDisabled />
               </div>
               <p className="z-10 text-sm">{movie?.overview}</p>
             </div>

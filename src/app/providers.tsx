@@ -1,12 +1,14 @@
 "use client";
 
 import React from "react";
-import { NextUIProvider } from "@nextui-org/react";
+import { NextUIProvider, Spinner } from "@nextui-org/react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { AppProgressBar as ProgressBar, useRouter } from "next-nprogress-bar";
 import { Toaster } from "sonner";
+import { FaCheck, FaExclamation, FaInfo } from "react-icons/fa6";
+import { ImCross } from "react-icons/im";
 
 const queryClient = new QueryClient();
 
@@ -31,6 +33,13 @@ export default function Providers({ children }: ProvidersProps) {
                 icon: "toast__title",
                 description: "toast__description",
               },
+            }}
+            icons={{
+              success: <FaCheck className="text-success" />,
+              info: <FaInfo className="text-sky-500" />,
+              warning: <FaExclamation className="text-warning" />,
+              error: <ImCross className="text-danger" />,
+              loading: <Spinner size="sm" />,
             }}
           />
           {children}
