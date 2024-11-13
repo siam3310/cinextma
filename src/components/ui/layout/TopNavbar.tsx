@@ -2,7 +2,7 @@
 
 import { siteConfig } from "@/config/site";
 import { usePathname } from "next/navigation";
-import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button } from "@nextui-org/react";
+import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Link as NextLink, Button } from "@nextui-org/react";
 import BackButton from "@/components/ui/button/BackButton";
 import { useWindowScroll } from "@mantine/hooks";
 // import NavbarMenuItems from "../other/NavbarMenuItems";
@@ -10,6 +10,8 @@ import SearchInput from "../input/SearchInput";
 import ThemeSwitchDropdown from "../input/ThemeSwitchDropdown";
 import clsx from "clsx";
 import FullscreenToggleButton from "../button/FullscreenToggleButton";
+import { Saira } from "@/lib/fonts";
+import Link from "next/link";
 
 const TopNavbar = () => {
   const pathName = usePathname();
@@ -28,7 +30,11 @@ const TopNavbar = () => {
       className="inset-0 h-min -translate-y-px bg-background"
     >
       <NavbarBrand>
-        <ThemeSwitchDropdown />
+        <div>
+          <Link href="/" className={clsx("tracking-widest", Saira.className)} style={{ fontWeight: 600, fontSize: 30 }}>
+            CINEXTMA
+          </Link>
+        </div>
       </NavbarBrand>
       <NavbarContent className="hidden w-full max-w-lg gap-2 md:flex" justify="center">
         <NavbarItem className={clsx("w-full", pathName.startsWith("/search") && "hidden")}>
@@ -39,7 +45,8 @@ const TopNavbar = () => {
         </NavbarItem>
       </NavbarContent>
       <NavbarContent justify="end">
-        <NavbarItem>
+        <NavbarItem className="flex gap-3">
+          <ThemeSwitchDropdown />
           <FullscreenToggleButton />
         </NavbarItem>
       </NavbarContent>

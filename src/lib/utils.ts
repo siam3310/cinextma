@@ -3,8 +3,6 @@ import { twMerge } from "tailwind-merge";
 import { intervalToDuration } from "date-fns";
 import { DiscoverMoviesFetchQueryType } from "@/types/movie";
 
-const DISCOVER_MOVIES_VALID_QUERY_TYPES = ["discover", "todayTrending", "thisWeekTrending", "popular", "nowPlaying", "upcoming", "topRated"] as const;
-
 /**
  * A utility function to merge Tailwind CSS classes using `clsx` and `tailwind-merge`.
  * This function accepts any number of `ClassValue` inputs and returns a single merged class string.
@@ -32,31 +30,6 @@ export function movieDurationString(minutes: number | undefined): string {
   const hours = duration.hours ? `${duration.hours}h ` : "";
   const mins = duration.minutes ? `${duration.minutes}m` : "";
   return `${hours}${mins}`;
-}
-
-/**
- * Checks if the provided query type is valid for fetching movie data.
- *
- * @param type - The query type to validate. It can be a string representing one of the valid query types or null.
- * @returns True if the query type is valid, otherwise false.
- *
- * @example
- * // Valid query types
- * isValidQueryType("discover") // true
- * isValidQueryType("todayTrending") // true
- * isValidQueryType("thisWeekTrending") // true
- * isValidQueryType("popular") // true
- * isValidQueryType("nowPlaying") // true
- * isValidQueryType("upcoming") // true
- * isValidQueryType("topRated") // true
- *
- * @example
- * // Invalid query types
- * isValidQueryType("invalid") // false
- * isValidQueryType(null) // false
- */
-export function isValidQueryType(type: string | null): type is DiscoverMoviesFetchQueryType {
-  return DISCOVER_MOVIES_VALID_QUERY_TYPES.includes(type as DiscoverMoviesFetchQueryType);
 }
 
 /**

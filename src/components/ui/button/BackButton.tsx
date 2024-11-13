@@ -5,7 +5,7 @@ const BackButton = () => {
   const router = useRouter();
 
   return (
-    <IconButton icon="line-md:chevron-left" iconSize={32} variant="light" tooltip="Back" tooltipPlacement="right" onPress={() => router.back()} />
+    <IconButton icon="line-md:chevron-left" iconSize={32} variant="light" tooltip="Back" tooltipPlacement="right" onPress={() => router.push("/")} />
   );
 };
 

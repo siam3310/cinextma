@@ -5,25 +5,29 @@ import { EmblaOptionsType, EmblaPluginType } from "embla-carousel";
 import { useCallback, useState } from "react";
 
 export const useCustomCarousel = (options?: EmblaOptionsType, plugins?: EmblaPluginType[]) => {
-  const [emblaRef, emblaApi] = useEmblaCarousel(options, plugins);
+  const [emblaRef, embla] = useEmblaCarousel(options, plugins);
 
   const [canScrollNext, setCanScrollNext] = useState(true);
   const [canScrollPrev, setCanScrollPrev] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
+  const scrollTo = useCallback((index: number) => embla && embla.scrollTo(index), [embla]);
 
   const scrollPrev = useCallback(() => {
-    if (emblaApi) emblaApi.scrollPrev();
-  }, [emblaApi]);
+    if (embla) embla.scrollPrev();
+  }, [embla]);
 
   const scrollNext = useCallback(() => {
-    if (emblaApi) emblaApi.scrollNext();
-  }, [emblaApi]);
+    if (embla) embla.scrollNext();
+  }, [embla]);
 
-  if (emblaApi) {
-    emblaApi.on("scroll", () => {
-      setCanScrollPrev(emblaApi.canScrollPrev());
-      setCanScrollNext(emblaApi.canScrollNext());
+  if (embla) {
+    embla.on("select", () => {
+      setCanScrollPrev(embla.canScrollPrev());
+      setCanScrollNext(embla.canScrollNext());
+      setSelectedIndex(embla.selectedScrollSnap());
     });
   }
 
-  return { emblaRef, scrollNext, scrollPrev, canScrollNext, canScrollPrev };
+  return { emblaRef, scrollTo, scrollNext, scrollPrev, selectedIndex, canScrollNext, canScrollPrev };
 };

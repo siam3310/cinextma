@@ -14,11 +14,11 @@ const RelatedMovieList: React.FC<{ movies: Movie[] }> = ({ movies }) => {
       <div className="embla relative flex w-full flex-col justify-center gap-5">
         <div className="absolute inset-0 z-[5] h-full w-5 bg-gradient-to-r from-background"></div>
         <div className="absolute inset-0 z-[5] h-full w-5 place-self-end bg-gradient-to-l from-background"></div>
-        <div className={clsx("-md:-translate-x-3 absolute z-10 hidden", { "md:block": c.canScrollPrev })}>
-          <IconButton onPress={c.scrollPrev} size="sm" radius="full" icon="mingcute:left-fill" tooltip="Previous" />
+        <div className={clsx("absolute z-10 hidden md:block")}>
+          <IconButton isDisabled={!c.canScrollPrev} onPress={c.scrollPrev} size="sm" radius="full" icon="mingcute:left-fill" tooltip="Previous" />
         </div>
-        <div className={clsx("-md:translate-x-3 absolute z-10 hidden place-self-end", { "md:block": c.canScrollNext })}>
-          <IconButton onPress={c.scrollNext} size="sm" radius="full" icon="mingcute:right-fill" tooltip="Next" />
+        <div className={clsx("absolute z-10 hidden place-self-end md:block")}>
+          <IconButton isDisabled={!c.canScrollNext} onPress={c.scrollNext} size="sm" radius="full" icon="mingcute:right-fill" tooltip="Next" />
         </div>
         <div className="embla__viewport" ref={c.emblaRef}>
           <div className="embla__container gap-2">

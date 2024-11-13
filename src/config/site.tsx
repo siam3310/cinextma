@@ -8,7 +8,7 @@ import { TbFolder, TbFolderFilled } from "react-icons/tb";
 
 export const siteConfig = {
   name: "Cinextma",
-  description: "Your only choice for a free movies and tv shows (coming soon) streaming website.",
+  description: "Your only choice for a free movies and tv shows streaming website.",
   favicon: "/favicon.ico",
   navItemsOld: [
     {
@@ -79,12 +79,12 @@ export const siteConfig = {
   queryLists: {
     movies: [
       {
-        name: "Today Trending Movies",
+        name: "Today's Trending Movies",
         query: tmdb.trending.trending("movie", "day"),
         param: "todayTrending",
       },
       {
-        name: "This Week Trending Movies",
+        name: "This Week's Trending Movies",
         query: tmdb.trending.trending("movie", "week"),
         param: "thisWeekTrending",
       },
@@ -111,11 +111,11 @@ export const siteConfig = {
     ],
     tvShows: [
       {
-        name: "Today Trending TV Shows",
+        name: "Today's Trending TV Shows",
         query: tmdb.trending.trending("tv", "day"),
       },
       {
-        name: "This Week Trending TV Shows",
+        name: "This Week's Trending TV Shows",
         query: tmdb.trending.trending("tv", "week"),
       },
       {

@@ -10,9 +10,11 @@ import VaulDrawer from "@/components/ui/overlay/VaulDrawer";
 import { MovieDetails } from "tmdb-ts/dist/types/movies";
 import Rating from "../../../components/movies/Rating";
 import ShareButton from "@/components/ui/button/ShareButton";
+import { AppendToResponse } from "tmdb-ts/dist/types/options";
+import Trailer from "./Trailer";
 
 export const OverviewSection: React.FC<{
-  movie: MovieDetails;
+  movie: AppendToResponse<MovieDetails, "videos"[], "movie">;
 }> = ({ movie }) => {
   const releaseYear = new Date(movie.release_date).getFullYear();
   const posterImage = process.env.NEXT_PUBLIC_TMDB_BASE_IMG_URL + (movie.poster_path ?? "");
@@ -30,7 +32,6 @@ export const OverviewSection: React.FC<{
           }}
           className="object-cover object-center"
           src={posterImage}
-          fallbackSrc={process.env.NEXT_PUBLIC_FALLBACK_POSTER_IMG_URL}
         />
 
         <div className="flex flex-col gap-8">
@@ -64,9 +65,7 @@ export const OverviewSection: React.FC<{
               <Button color="primary" variant="shadow" startContent={<Icon icon="solar:play-circle-bold" fontSize={24} />}>
                 Play Now
               </Button>
-              <Button color="danger" variant="shadow" startContent={<Icon icon="mdi:youtube" fontSize={24} />}>
-                Trailer
-              </Button>
+              <Trailer videos={movie.videos.results} />
             </div>
             <div className="flex flex-wrap gap-2">
               {/* <VaulDrawer trigger="Open">

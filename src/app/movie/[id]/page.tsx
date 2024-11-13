@@ -9,16 +9,20 @@ import CastsSection from "@/app/movie/[id]/CastsSection";
 import BackdropSection from "@/app/movie/[id]/BackdropSection";
 import RelatedSection from "./RelatedSection";
 import { Cast } from "tmdb-ts/dist/types/credits";
-import { AppendToResponse, MovieDetails } from "tmdb-ts";
+import { notFound } from "next/navigation";
 
 export default function MovieDetailPage({ params }: { params: { id: number } }) {
-  const { data: movie, isPending } = useQuery({
+  const {
+    data: movie,
+    isPending,
+    error,
+  } = useQuery({
     queryFn: () =>
       tmdb.movies.details(params.id, ["images", "videos", "credits", "keywords", "recommendations", "similar", "reviews", "watch/providers"]),
     queryKey: ["movie-detail", params.id],
   });
 
-  if (!isPending) console.log(movie);
+  if (error) notFound();
 
   return (
     <div className="mx-auto max-w-6xl">
@@ -27,10 +31,10 @@ export default function MovieDetailPage({ params }: { params: { id: number } }) 
       ) : (
         <div className="flex flex-col gap-10">
           <BackdropSection movie={movie} />
-          <OverviewSection movie={movie as MovieDetails} />
+          <OverviewSection movie={movie} />
           <CastsSection casts={movie?.credits.cast as Cast[]} />
-          <MoviePlayer movie={movie as MovieDetails} />
-          <RelatedSection movie={movie as AppendToResponse<MovieDetails, ("recommendations" | "similar")[], "movie">} />
+          <MoviePlayer movie={movie} />
+          <RelatedSection movie={movie} />
         </div>
       )}
     </div>

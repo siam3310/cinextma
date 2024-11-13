@@ -1,3 +1,5 @@
+"use client";
+
 import { useRef } from "react";
 import { FaSearch } from "react-icons/fa";
 import { Input, InputProps, Kbd, Spinner } from "@nextui-org/react";

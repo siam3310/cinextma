@@ -17,6 +17,7 @@ const config: Config = {
   },
   darkMode: "class",
   plugins: [
+    require("tailwindcss-motion"),
     nextui({
       themes: {
         light: {

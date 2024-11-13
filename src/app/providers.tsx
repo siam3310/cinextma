@@ -9,6 +9,7 @@ import { AppProgressBar as ProgressBar, useRouter } from "next-nprogress-bar";
 import { Toaster } from "sonner";
 import { FaCheck, FaExclamation, FaInfo } from "react-icons/fa6";
 import { ImCross } from "react-icons/im";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 const queryClient = new QueryClient();
 
@@ -42,7 +43,7 @@ export default function Providers({ children }: ProvidersProps) {
               loading: <Spinner size="sm" />,
             }}
           />
-          {children}
+          <NuqsAdapter>{children}</NuqsAdapter>
         </NextThemesProvider>
       </NextUIProvider>
       <div className="hidden md:block">

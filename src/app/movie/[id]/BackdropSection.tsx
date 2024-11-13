@@ -32,7 +32,6 @@ const BackdropSection: React.FC<{
         alt={movie?.original_language === "id" ? movie?.original_title : movie?.title}
         className="z-0 h-[35vh] w-screen object-cover object-center md:h-[50vh] lg:h-[70vh]"
         src={backdropImage}
-        fallbackSrc={process.env.NEXT_PUBLIC_FALLBACK_BACKDROP_IMG_URL}
       />
     </section>
   );

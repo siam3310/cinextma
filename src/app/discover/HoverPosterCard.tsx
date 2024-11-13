@@ -19,8 +19,6 @@ export const HoverPosterCard: React.FC<{ id: number }> = ({ id }) => {
       process.env.NEXT_PUBLIC_TMDB_BASE_IMG_URL + movie?.images.logos.find((logo) => logo.iso_639_1 === "en")?.file_path
     : "";
 
-  if (!isPending) console.log(movie);
-
   return (
     <>
       <div className={`w-80 ${isPending && "h-96"}`}>
@@ -42,7 +40,6 @@ export const HoverPosterCard: React.FC<{ id: number }> = ({ id }) => {
                 alt={movie?.title}
                 className="z-0 aspect-video h-40 w-80 rounded-t-lg object-cover object-center"
                 src={backdropImage}
-                fallbackSrc={process.env.NEXT_PUBLIC_FALLBACK_BACKDROP_IMG_URL}
               />
             </div>
             <div className="flex flex-col gap-2 p-4 pt-[100px]">

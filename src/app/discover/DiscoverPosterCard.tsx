@@ -20,7 +20,7 @@ export const DiscoverPosterCard: React.FC<{ movie: Movie }> = ({ movie }) => {
           initial={{ opacity: 0, scale: 0.8 }}
           exit={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.3, ease: "easeInOut" }}
+          transition={{ duration: 0.3 }}
           className="size-full"
         >
           <Card ref={ref} isHoverable fullWidth shadow="md" className="group h-full bg-secondary-background">
@@ -38,7 +38,6 @@ export const DiscoverPosterCard: React.FC<{ movie: Movie }> = ({ movie }) => {
                     alt={movie.original_language === "id" ? movie.original_title : movie.title}
                     className="aspect-[2/3] rounded-lg object-cover object-center group-hover:scale-110"
                     src={posterImage}
-                    fallbackSrc={process.env.NEXT_PUBLIC_FALLBACK_POSTER_IMG_URL}
                   />
                 </div>
               </div>

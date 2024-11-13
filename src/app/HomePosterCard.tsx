@@ -15,7 +15,7 @@ const HomePosterCard: React.FC<{ movie: Movie }> = ({ movie }) => {
   return (
     <Tooltip showArrow className="hidden p-0 md:block" shadow="lg" delay={1000} placement="right-start" content={<HoverPosterCard id={movie.id} />}>
       <Link href={`/movie/${movie.id}`}>
-        <div ref={ref} className="relative aspect-auto h-[250px] overflow-hidden rounded-lg text-white md:h-[300px]">
+        <div ref={ref} className="motion-preset-expand relative aspect-[2/3] size-fit overflow-hidden rounded-lg text-white">
           {hovered && <Icon icon="line-md:play-filled" width="64" height="64" className="absolute-center z-20 text-white" />}
           {movie.adult && (
             <Chip color="danger" size="sm" variant="flat" className="absolute left-2 top-2 z-20">
@@ -36,7 +36,7 @@ const HomePosterCard: React.FC<{ movie: Movie }> = ({ movie }) => {
             alt={movie.original_language === "id" ? movie.original_title : movie.title}
             src={posterImage}
             radius="none"
-            className={clsx("z-0 max-h-[250px] object-cover object-center md:max-h-[300px]", hovered && "scale-110")}
+            className={clsx("z-0 aspect-[2/3] max-h-[250px] object-cover object-center md:max-h-[300px]", hovered && "scale-110")}
           />
         </div>
       </Link>
