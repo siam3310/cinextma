@@ -17,6 +17,12 @@
 - **📂 Personal Library**: Users can build their own personalized library of favorite movies and TV shows, making it easy to keep track of what they've watched and want to watch.
 - **💻📱 Responsive UI**: The platform's user interface is designed to be responsive and accessible across various devices, ensuring a consistent and enjoyable experience on desktops, tablets, and mobile devices.
 
+## Planned Features
+
+- **📺 TV Shows**
+- **🙍‍♂️ User Account**
+- **📱 Progressive Web App**
+
 ## Technologies Used
 
 CINEXTMA is built using the following technologies:
