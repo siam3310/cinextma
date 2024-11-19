@@ -8,6 +8,7 @@ import TopNavbar from "@/components/ui/layout/TopNavbar";
 import BottomNavbar from "@/components/ui/layout/BottomNavbar";
 import Sidebar from "@/components/ui/layout/Sidebar";
 import { Footer } from "@/components/ui/layout/Footer";
+import Disclaimer from "@/components/ui/overlay/Disclaimer";
 
 export const metadata: Metadata = {
   title: siteConfig.name,
@@ -29,6 +30,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html suppressHydrationWarning lang="en">
       <body className={clsx("min-h-screen select-none bg-background antialiased", Poppins.className)}>
         <Providers>
+          <Disclaimer />
           <TopNavbar />
           <Sidebar>
             <main className="container mx-auto max-w-full px-2 pb-8 pt-8 sm:px-5">{children}</main>
