@@ -11,6 +11,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useQueryState, parseAsInteger, parseAsString } from "nuqs";
 import SearchInput from "@/components/ui/input/SearchInput";
 import clsx from "clsx";
+import History from "./History";
 
 export default function SearchList() {
   const [page, setPage] = useQueryState("page", parseAsInteger.withDefault(1));
@@ -24,7 +25,7 @@ export default function SearchList() {
     getInitialValueInEffect: false,
   });
   const { data, isPending } = useQuery({
-    queryFn: () => tmdb.search.movies({ query: debouncedSearchQuery, page: page, include_adult: true }),
+    queryFn: () => tmdb.search.movies({ query: debouncedSearchQuery, page: page }),
     queryKey: ["search-movie", page, debouncedSearchQuery],
   });
 
@@ -74,31 +75,7 @@ export default function SearchList() {
               onChange={({ target }) => setSearchQuery(target.value)}
             />
           </motion.div>
-          <div className="flex flex-wrap justify-center gap-2">
-            {searchHistories.map((history, index) => {
-              const duration = index * 0.1 + 0.4;
-              return (
-                <motion.div
-                  layout
-                  key={index}
-                  initial={{ opacity: 0, scale: 0.5 }}
-                  exit={{ opacity: 0, scale: 0.5 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: duration }}
-                >
-                  <Chip
-                    as="button"
-                    key={index}
-                    onClick={() => setSearchQuery(history)}
-                    onClose={() => setSearchHistories(searchHistories.filter((currentHistory) => currentHistory !== history))}
-                    variant="flat"
-                  >
-                    {history}
-                  </Chip>
-                </motion.div>
-              );
-            })}
-          </div>
+          <History searchHistories={searchHistories} setSearchQuery={setSearchQuery} setSearchHistories={setSearchHistories} />
         </div>
       </AnimatePresence>
 
@@ -115,7 +92,7 @@ export default function SearchList() {
             </>
           ) : (
             <>
-              <h4 className="text-xl">
+              <h4 className="text-center text-xl">
                 {totalResults !== 0 ? (
                   <span className="motion-preset-confetti">
                     Found <span className="font-bold text-primary">{totalResults.toLocaleString()}</span> movies with query{" "}

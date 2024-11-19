@@ -5,11 +5,12 @@ import { Movie } from "tmdb-ts";
 import Rating from "@/components/movies/Rating";
 import { useHover } from "@mantine/hooks";
 import { motion } from "framer-motion";
+import { getImageUrl } from "@/lib/utils";
 
 export const DiscoverPosterCard: React.FC<{ movie: Movie }> = ({ movie }) => {
   const { hovered, ref } = useHover();
   const releaseYear = new Date(movie.release_date).getFullYear();
-  const posterImage = process.env.NEXT_PUBLIC_TMDB_BASE_IMG_URL + (movie.poster_path ?? "");
+  const posterImage = getImageUrl(movie.poster_path);
 
   return (
     <Tooltip showArrow className="hidden p-0 md:block" shadow="lg" delay={1000} placement="right-start" content={<HoverPosterCard id={movie.id} />}>

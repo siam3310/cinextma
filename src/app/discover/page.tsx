@@ -1,5 +1,11 @@
 import { Suspense } from "react";
 import DiscoverList from "@/app/discover/DiscoverList";
+import { Metadata } from "next/types";
+import { siteConfig } from "@/config/site";
+
+export const metadata: Metadata = {
+  title: `Discover Movies | ${siteConfig.name}`,
+};
 
 export default function DiscoverPage() {
   return (

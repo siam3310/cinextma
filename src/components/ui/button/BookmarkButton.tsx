@@ -3,6 +3,7 @@ import { toast } from "sonner";
 import { useLocalStorage } from "@mantine/hooks";
 import { HiTrash } from "react-icons/hi2";
 import { SavedMovieDetails } from "@/types/movie";
+import { BsBookmarkCheckFill, BsBookmarkFill } from "react-icons/bs";
 
 interface BookmarkButtonProps {
   movie: SavedMovieDetails;
@@ -28,26 +29,27 @@ const BookmarkButton: React.FC<BookmarkButtonProps> = ({ movie, isTooltipDisable
 
   const movieData = extractImportantData(movie);
   const movieString = JSON.stringify(movieData);
-
   const isSaved = bookmarks.some((savedMovie) => JSON.parse(savedMovie).id === movie.id);
+  const variant = isSaved ? "shadow" : "faded";
+  const icon = isSaved ? <BsBookmarkCheckFill size={20} /> : <BsBookmarkFill size={20} />;
 
-  const handleSave = () => {
+  const handleBookmark = () => {
     if (isSaved) {
       setBookmarks(bookmarks.filter((savedMovie) => JSON.parse(savedMovie).id !== movie.id));
-      toast(`${movie.original_language === "id" ? movie.original_title : movie.title} removed from your library!`, {
+      toast(`${movieData.title} removed from your library!`, {
         icon: <HiTrash className="text-danger" />,
       });
     } else {
       setBookmarks([...bookmarks, movieString]);
-      toast.success(`${movie.original_language === "id" ? movie.original_title : movie.title} saved to your library!`);
+      toast.success(`${movieData.title} saved to your library!`);
     }
   };
 
   return (
     <IconButton
-      onPress={handleSave}
-      icon="mingcute:bookmark-fill"
-      variant={isSaved ? "shadow" : "faded"}
+      onPress={handleBookmark}
+      icon={icon}
+      variant={variant}
       color="warning"
       text={isTooltipDisabled ? undefined : isSaved ? "Remove from Watchlist" : "Add to Watchlist"}
     />

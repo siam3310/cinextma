@@ -1,6 +1,6 @@
 "use client";
 
-import { Link, Skeleton } from "@nextui-org/react";
+import { Link, ScrollShadow, Skeleton } from "@nextui-org/react";
 import { IconButton } from "@/components/ui/button/IconButton";
 import clsx from "clsx";
 import { useQuery } from "@tanstack/react-query";
@@ -37,8 +37,8 @@ const HomeMovieList: React.FC<{ query: Promise<any>; name: string; param: string
             </Link>
           </div>
           <div className="embla relative flex w-full flex-col justify-center gap-5">
-            <div className="absolute inset-0 z-[5] h-full w-5 bg-gradient-to-r from-background"></div>
-            <div className="absolute inset-0 z-[5] h-full w-5 place-self-end bg-gradient-to-l from-background"></div>
+            {c.canScrollPrev && <div className="absolute inset-0 z-[5] h-full w-5 bg-gradient-to-r from-background"></div>}
+            {c.canScrollNext && <div className="absolute inset-0 z-[5] h-full w-5 place-self-end bg-gradient-to-l from-background"></div>}
             <div className={clsx("-md:-translate-x-5 absolute z-10 hidden md:block")}>
               <IconButton isDisabled={!c.canScrollPrev} onPress={c.scrollPrev} size="sm" radius="full" icon="mingcute:left-fill" tooltip="Previous" />
             </div>

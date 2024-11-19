@@ -1,7 +1,6 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { intervalToDuration } from "date-fns";
-import { DiscoverMoviesFetchQueryType } from "@/types/movie";
 
 /**
  * A utility function to merge Tailwind CSS classes using `clsx` and `tailwind-merge`.
@@ -33,15 +32,24 @@ export function movieDurationString(minutes: number | undefined): string {
 }
 
 /**
- * Validates the provided page number against the total number of pages.
- * If the page number is out of range (greater than the total number of pages or less than 0), it will return 1.
- * Otherwise, it will return the validated page number.
+ * Constructs a URL for an image from the TMDB API based on the given path and type.
+ * If the path is not provided, a fallback URL is returned based on the image type.
  *
- * @param page - The page number to be validated.
- * @param total - The total number of pages.
- * @returns The validated page number if it's within the valid range, otherwise 1.
+ * @param path - The path to the image resource. Optional.
+ * @param type - The type of the image, which can be "poster", "backdrop", "title", or "avatar". Defaults to "poster".
+ * @param fullSize - A boolean indicating whether to fetch the full-size image. Defaults to false.
+ * @returns A string representing the complete URL to the image.
+ *
+ * @example
+ * getImageUrl('somepath.jpg', 'backdrop', true)
+ * // returns 'http://image.tmdb.org/t/p/original/somepath.jpg'
+ *
+ * @example
+ * getImageUrl(undefined, 'poster')
+ * // returns 'https://dancyflix.com/placeholder.png'
  */
-export function validatePageNumber(page: number, total: number): number {
-  if (page > total || page < 0) return 1;
-  return page;
+export function getImageUrl(path?: string, type: "poster" | "backdrop" | "title" | "avatar" = "poster", fullSize?: boolean): string {
+  const size = fullSize ? "original" : "w500";
+  const fallback = type === "poster" ? "https://dancyflix.com/placeholder.png" : type === "backdrop" ? "https://wallpapercave.com/wp/wp1945939.jpg" : "";
+  return path ? `http://image.tmdb.org/t/p/${size}/${path}` : fallback;
 }

@@ -2,6 +2,8 @@
 
 import { IconButton } from "./IconButton";
 import { useClipboard } from "@mantine/hooks";
+import { FaCheck } from "react-icons/fa6";
+import { IoIosShareAlt } from "react-icons/io";
 import { toast } from "sonner";
 
 const ShareButton: React.FC = () => {
@@ -11,7 +13,10 @@ const ShareButton: React.FC = () => {
     toast.success("Movie's link copied to clipboard!");
   };
 
-  return <IconButton isDisabled={copied} onPress={handleShare} icon={copied ? "mingcute:check-fill" : "mdi:share"} variant="ghost" tooltip="Share" />;
+  const shareIcon = <IoIosShareAlt size={20} />;
+  const checkIcon = <FaCheck size={20} />;
+
+  return <IconButton isDisabled={copied} onPress={handleShare} icon={copied ? checkIcon : shareIcon} variant="ghost" tooltip="Share" />;
 };
 
 export default ShareButton;

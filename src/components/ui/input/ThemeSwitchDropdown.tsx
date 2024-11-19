@@ -7,7 +7,7 @@ import React, { useEffect, useState } from "react";
 
 const themes = siteConfig.themes;
 
-const ThemeItem: React.FC<{ theme?: string; icon?: React.ReactNode }> = ({ theme, icon = "" }) => {
+const ThemeItem: React.FC<{ theme?: string; icon?: React.ReactNode }> = ({ theme, icon }) => {
   return (
     <div className="flex items-center gap-2 capitalize">
       <div className="max-h-[50px]">{icon}</div>

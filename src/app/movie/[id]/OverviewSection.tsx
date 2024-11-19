@@ -1,9 +1,8 @@
 "use client";
 
 import { Image, Chip, Button } from "@nextui-org/react";
-import { Icon } from "@iconify/react";
 import { IconButton } from "@/components/ui/button/IconButton";
-import { movieDurationString } from "@/lib/utils";
+import { getImageUrl, movieDurationString } from "@/lib/utils";
 import LikeButton from "@/components/ui/button/LikeButton";
 import BookmarkButton from "@/components/ui/button/BookmarkButton";
 import VaulDrawer from "@/components/ui/overlay/VaulDrawer";
@@ -12,13 +11,19 @@ import Rating from "../../../components/movies/Rating";
 import ShareButton from "@/components/ui/button/ShareButton";
 import { AppendToResponse } from "tmdb-ts/dist/types/options";
 import Trailer from "./Trailer";
+import { useDocumentTitle } from "@mantine/hooks";
+import { siteConfig } from "@/config/site";
+import { FaCirclePlay } from "react-icons/fa6";
 
 export const OverviewSection: React.FC<{
   movie: AppendToResponse<MovieDetails, "videos"[], "movie">;
 }> = ({ movie }) => {
   const releaseYear = new Date(movie.release_date).getFullYear();
-  const posterImage = process.env.NEXT_PUBLIC_TMDB_BASE_IMG_URL + (movie.poster_path ?? "");
+  const posterImage = getImageUrl(movie.poster_path);
   const genres = movie.genres.map((item) => item.name).join(" • ");
+  const title = `${movie.original_language === "id" ? movie.original_title : movie.title} (${releaseYear})`;
+
+  useDocumentTitle(`${title} | ${siteConfig.name}`);
 
   return (
     <section id="overview" className="relative z-[3] flex flex-col gap-8 pt-[20vh] md:pt-[40vh]">
@@ -46,9 +51,7 @@ export const OverviewSection: React.FC<{
                 </Chip>
               )}
             </div>
-            <h2 className="text-2xl font-black md:text-4xl">
-              {movie.original_language === "id" ? movie.original_title : movie.title} ({releaseYear})
-            </h2>
+            <h2 className="text-2xl font-black md:text-4xl">{title}</h2>
             <div className="md:text-md flex flex-wrap gap-1 text-xs md:gap-2">
               <p>{movieDurationString(movie.runtime)}</p>
               <p>|</p>
@@ -62,7 +65,7 @@ export const OverviewSection: React.FC<{
 
           <div id="action" className="flex w-full flex-col flex-wrap justify-between gap-4 md:flex-row md:gap-0">
             <div className="flex flex-wrap gap-2">
-              <Button color="primary" variant="shadow" startContent={<Icon icon="solar:play-circle-bold" fontSize={24} />}>
+              <Button color="primary" as="a" href="#movie-player" variant="shadow" startContent={<FaCirclePlay size={22} />}>
                 Play Now
               </Button>
               <Trailer videos={movie.videos.results} />
@@ -72,7 +75,7 @@ export const OverviewSection: React.FC<{
                 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eum ipsum accusamus asperiores voluptatibus vitae alias molestiae quibusdam
                 placeat quaerat pariatur, dolores error laborum aspernatur itaque temporibus suscipit? Ullam, sed harum?
               </VaulDrawer> */}
-              <IconButton icon="mdi:download" variant="ghost" tooltip="Download" />
+              {/* <IconButton icon="mdi:download" variant="ghost" tooltip="Download" /> */}
               <ShareButton />
               {/* <LikeButton title={movie.original_language === "id" ? movie.original_title : movie.title} /> */}
               {/* @ts-expect-error no need saved_date because it processed in this component */}

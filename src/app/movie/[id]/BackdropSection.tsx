@@ -2,18 +2,15 @@ import { Image } from "@nextui-org/image";
 import { useWindowScroll } from "@mantine/hooks";
 import { MovieDetails } from "tmdb-ts/dist/types/movies";
 import { AppendToResponse } from "tmdb-ts/dist/types/options";
+import { getImageUrl } from "@/lib/utils";
 
 const BackdropSection: React.FC<{
   movie: AppendToResponse<MovieDetails, "images"[], "movie"> | undefined;
 }> = ({ movie }) => {
   const [{ y }] = useWindowScroll();
-  const imgUrl = process.env.NEXT_PUBLIC_TMDB_BASE_IMG_URL ?? "";
-  const imgUrlOr = process.env.NEXT_PUBLIC_TMDB_BASE_IMG_URL_OR ?? "";
   const opacity = Math.min((y / 1000) * 2, 1);
-  const images = movie?.images;
-  const backdropImage = imgUrlOr + movie?.backdrop_path;
-  const title = images?.logos.find((logo) => logo.iso_639_1 === "en")?.file_path;
-  const titleImage = imgUrl + title;
+  const backdropImage = getImageUrl(movie?.backdrop_path, "backdrop", true);
+  const titleImage = getImageUrl(movie?.images.logos.find((logo) => logo.iso_639_1 === "en")?.file_path, "title");
 
   return (
     <section id="backdrop" className="fixed inset-0 h-[35vh] md:h-[50vh] lg:h-[70vh]">

@@ -2,7 +2,7 @@ import { useFullscreen } from "@mantine/hooks";
 import { IconButton } from "./IconButton";
 import { MdFullscreenExit, MdFullscreen } from "react-icons/md";
 
-const FullscreenToggleButton = () => {
+export default function FullscreenToggleButton() {
   const { toggle, fullscreen } = useFullscreen();
 
   return (
@@ -15,6 +15,4 @@ const FullscreenToggleButton = () => {
       variant="light"
     />
   );
-};
-
-export default FullscreenToggleButton;
+}

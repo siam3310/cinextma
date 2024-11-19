@@ -1,6 +1,6 @@
 import { Image, Chip, Button, Spinner, Link } from "@nextui-org/react";
 import { useQuery } from "@tanstack/react-query";
-import { movieDurationString } from "@/lib/utils";
+import { getImageUrl, movieDurationString } from "@/lib/utils";
 import { Icon } from "@iconify/react";
 import BookmarkButton from "@/components/ui/button/BookmarkButton";
 import { tmdb } from "@/api/tmdb";
@@ -13,11 +13,8 @@ export const HoverPosterCard: React.FC<{ id: number }> = ({ id }) => {
   });
 
   const releaseYear = movie?.release_date ? new Date(movie.release_date).getFullYear() : undefined;
-  const backdropImage = process.env.NEXT_PUBLIC_TMDB_BASE_IMG_URL + (movie?.backdrop_path ?? "");
-  const titleImage = movie?.images.logos.find((logo) => logo.iso_639_1 === "en")?.file_path
-    ? //@ts-expect-error this variable is not undefined
-      process.env.NEXT_PUBLIC_TMDB_BASE_IMG_URL + movie?.images.logos.find((logo) => logo.iso_639_1 === "en")?.file_path
-    : "";
+  const backdropImage = getImageUrl(movie?.backdrop_path, "backdrop");
+  const titleImage = getImageUrl(movie?.images.logos.find((logo) => logo.iso_639_1 === "en")?.file_path, "title");
 
   return (
     <>

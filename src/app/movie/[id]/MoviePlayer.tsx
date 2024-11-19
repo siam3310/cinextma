@@ -1,4 +1,5 @@
 import { IconButton } from "@/components/ui/button/IconButton";
+import { getImageUrl } from "@/lib/utils";
 import { Card, Tabs, Tab, Image } from "@nextui-org/react";
 import { useState } from "react";
 import { FaPlay } from "react-icons/fa6";
@@ -6,7 +7,7 @@ import { MovieDetails } from "tmdb-ts/dist/types/movies";
 
 const MoviePlayer: React.FC<{ movie: MovieDetails }> = ({ movie }) => {
   const [playMovie, setPlayMovie] = useState(false);
-  const backdropImage = process.env.NEXT_PUBLIC_TMDB_BASE_IMG_URL_OR + movie.backdrop_path;
+  const backdropImage = getImageUrl(movie.backdrop_path, "backdrop", true);
   const id = movie.id;
   const players = [
     {
@@ -46,7 +47,7 @@ const MoviePlayer: React.FC<{ movie: MovieDetails }> = ({ movie }) => {
           {players.map((player) => (
             <Tab key={player.title} title={player.title}>
               <Card shadow="md">
-                <iframe className="aspect-video size-full" src={player.source} frameBorder={0} allowFullScreen />
+                <iframe className="aspect-video size-full" src={player.source} allowFullScreen />
               </Card>
             </Tab>
           ))}
