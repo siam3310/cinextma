@@ -43,9 +43,9 @@ const TopNavbar = () => {
           <BackButton />
         )}
       </NavbarBrand>
-      {show && (
+      {show && !pathName.startsWith("/search") && (
         <NavbarContent className="hidden w-full max-w-lg gap-2 md:flex" justify="center">
-          <NavbarItem className={clsx("w-full", pathName.startsWith("/search") && "hidden")}>
+          <NavbarItem className="w-full">
             <Link href="/search" className="w-full">
               <SearchInput className="pointer-events-none" placeholder="Search your favorite movies..." />
             </Link>
