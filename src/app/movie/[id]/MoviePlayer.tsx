@@ -1,6 +1,6 @@
 import { IconButton } from "@/components/ui/button/IconButton";
 import { getImageUrl } from "@/lib/utils";
-import { Card, Tabs, Tab, Image } from "@nextui-org/react";
+import { Card, Tabs, Tab, Image, Skeleton } from "@nextui-org/react";
 import { useState } from "react";
 import { FaPlay } from "react-icons/fa6";
 import { MovieDetails } from "tmdb-ts/dist/types/movies";
@@ -33,21 +33,14 @@ const MoviePlayer: React.FC<{ movie: MovieDetails }> = ({ movie }) => {
   ];
 
   return (
-    <section id="movie-player">
+    <section id="movie-player" className="aspect-video size-auto">
       {playMovie ? (
-        <Tabs
-          size="md"
-          radius="full"
-          aria-label="Movie Player"
-          placement="bottom"
-          color="primary"
-          className="z-[3]"
-          classNames={{ base: "flex justify-center" }}
-        >
+        <Tabs size="md" radius="full" aria-label="Movie Player" placement="bottom" color="primary" className="z-[3]" classNames={{ base: "flex justify-center" }}>
           {players.map((player) => (
             <Tab key={player.title} title={player.title}>
-              <Card shadow="md">
-                <iframe className="aspect-video size-full" src={player.source} allowFullScreen />
+              <Card shadow="md" className="relative">
+                <Skeleton className="absolute aspect-video size-full" />
+                <iframe className="z-10 aspect-video size-full" src={player.source} allowFullScreen />
               </Card>
             </Tab>
           ))}
@@ -57,6 +50,7 @@ const MoviePlayer: React.FC<{ movie: MovieDetails }> = ({ movie }) => {
           <Image
             isBlurred
             alt={movie.original_language === "id" ? movie.original_title : movie.title}
+            className="size-full"
             classNames={{ wrapper: "absolute-center aspect-video size-full group-hover:opacity-70 transition" }}
             src={backdropImage}
           />
