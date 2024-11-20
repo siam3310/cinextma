@@ -4,15 +4,8 @@ import { MdFullscreenExit, MdFullscreen } from "react-icons/md";
 
 export default function FullscreenToggleButton() {
   const { toggle, fullscreen } = useFullscreen();
+  const icon = fullscreen ? <MdFullscreenExit className="size-full" /> : <MdFullscreen className="size-full" />;
+  const tooltip = fullscreen ? "Minimize" : "Fullscreen";
 
-  return (
-    <IconButton
-      tooltip={fullscreen ? "Minimize" : "Fullscreen"}
-      tooltipPlacement="left"
-      buttonClassName="p-2"
-      icon={!fullscreen ? <MdFullscreen className="size-full" /> : <MdFullscreenExit className="size-full" />}
-      onPress={toggle}
-      variant="light"
-    />
-  );
+  return <IconButton tooltip={tooltip} tooltipPlacement="left" buttonClassName="p-2" icon={icon} onPress={toggle} variant="light" />;
 }
