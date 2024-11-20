@@ -1,9 +1,13 @@
 "use client";
 
+import { siteConfig } from "@/config/site";
+import { useDocumentTitle } from "@mantine/hooks";
 import { Button } from "@nextui-org/react";
 import Link from "next/link";
 
 export default function NotFound() {
+  useDocumentTitle(`404 Not Found | ${siteConfig.name}`);
+
   return (
     <div className="absolute-center text-center">
       <h1>404</h1>
