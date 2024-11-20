@@ -57,16 +57,10 @@ export default function SearchList() {
       <AnimatePresence>
         <div
           className={clsx("flex w-full max-w-xl flex-col justify-center gap-5 text-center", {
-            "absolute-center": !isSearchTriggered,
+            "absolute-center px-3 md:px-0": !isSearchTriggered,
           })}
         >
-          <motion.div
-            layout
-            initial={{ opacity: 0, scale: 0.7 }}
-            exit={{ opacity: 0, scale: 0.7 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.3 }}
-          >
+          <motion.div layout initial={{ opacity: 0, scale: 0.7 }} exit={{ opacity: 0, scale: 0.7 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.3 }}>
             <SearchInput
               placeholder="Search your favorite movies..."
               isLoading={isPending && isSearchTriggered}
@@ -83,7 +77,7 @@ export default function SearchList() {
         <>
           {isPending ? (
             <>
-              <Skeleton className="h-8 w-[50vh] rounded-full" />
+              <Skeleton className="h-8 w-full rounded-full" />
               <div className="movie-grid">
                 {Array.from({ length: 20 }, (_, index) => (
                   <SkeletonDiscoverPosterCard key={index} />
@@ -95,8 +89,7 @@ export default function SearchList() {
               <h4 className="text-center text-xl">
                 {totalResults !== 0 ? (
                   <span className="motion-preset-confetti">
-                    Found <span className="font-bold text-primary">{totalResults.toLocaleString()}</span> movies with query{" "}
-                    <span className="font-bold text-warning">"{debouncedSearchQuery}"</span>
+                    Found <span className="font-bold text-primary">{totalResults.toLocaleString()}</span> movies with query <span className="font-bold text-warning">"{debouncedSearchQuery}"</span>
                   </span>
                 ) : (
                   <span>
