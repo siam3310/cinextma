@@ -77,7 +77,7 @@ export default function SearchList() {
         <>
           {isPending ? (
             <>
-              <Skeleton className="h-8 w-full rounded-full" />
+              <Skeleton className="h-8 w-full max-w-xl rounded-full" />
               <div className="movie-grid">
                 {Array.from({ length: 20 }, (_, index) => (
                   <SkeletonDiscoverPosterCard key={index} />
