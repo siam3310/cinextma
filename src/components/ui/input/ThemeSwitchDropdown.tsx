@@ -7,15 +7,6 @@ import React, { useEffect, useState } from "react";
 
 const themes = siteConfig.themes;
 
-const ThemeItem: React.FC<{ theme?: string; icon?: React.ReactNode }> = ({ theme, icon }) => {
-  return (
-    <div className="flex items-center gap-2 capitalize">
-      <div className="max-h-[50px]">{icon}</div>
-      <p>{theme}</p>
-    </div>
-  );
-};
-
 const ThemeSwitchDropdown = () => {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
@@ -33,6 +24,7 @@ const ThemeSwitchDropdown = () => {
 
   return (
     <Dropdown
+      showArrow
       classNames={{
         content: "min-w-fit",
       }}
@@ -42,10 +34,13 @@ const ThemeSwitchDropdown = () => {
           {themeIcon}
         </Button>
       </DropdownTrigger>
-      <DropdownMenu disallowEmptySelection selectionMode="single">
-        {themes.map((theme) => (
-          <DropdownItem key={theme.name} onPress={() => setTheme(theme.name)} textValue={theme.name}>
-            <ThemeItem icon={theme.icon} theme={theme.name} />
+      <DropdownMenu disallowEmptySelection selectionMode="single" selectedKeys={[theme ?? ""]}>
+        {themes.map(({ name, icon }) => (
+          <DropdownItem value={name} key={name} textValue={name} onPress={() => setTheme(name)}>
+            <div className="flex items-center gap-2 pr-2 capitalize">
+              <div className="max-h-[50px]">{icon}</div>
+              <p>{name}</p>
+            </div>
           </DropdownItem>
         ))}
       </DropdownMenu>
