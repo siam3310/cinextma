@@ -7,11 +7,10 @@ import BackButton from "@/components/ui/button/BackButton";
 import { useWindowScroll } from "@mantine/hooks";
 import SearchInput from "../input/SearchInput";
 import ThemeSwitchDropdown from "../input/ThemeSwitchDropdown";
-import clsx from "clsx";
 import FullscreenToggleButton from "../button/FullscreenToggleButton";
-import { Saira } from "@/lib/fonts";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import Brand from "../other/Brand";
 
 const TopNavbar = () => {
   const pathName = usePathname();
@@ -32,17 +31,7 @@ const TopNavbar = () => {
       })}
     >
       {!show && <div className="absolute inset-0 h-full w-full border-b border-background bg-background" style={{ opacity: opacity }} />}
-      <NavbarBrand>
-        {show ? (
-          <div>
-            <Link href="/" className={clsx("tracking-widest", Saira.className)} style={{ fontWeight: 600, fontSize: 30 }}>
-              CINEXTMA
-            </Link>
-          </div>
-        ) : (
-          <BackButton />
-        )}
-      </NavbarBrand>
+      <NavbarBrand>{show ? <Brand /> : <BackButton />}</NavbarBrand>
       {show && !pathName.startsWith("/search") && (
         <NavbarContent className="hidden w-full max-w-lg gap-2 md:flex" justify="center">
           <NavbarItem className="w-full">
