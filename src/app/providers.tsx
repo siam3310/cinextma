@@ -10,7 +10,6 @@ import { Toaster } from "sonner";
 import { FaCheck, FaExclamation, FaInfo } from "react-icons/fa6";
 import { ImCross } from "react-icons/im";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
-import { IconContext } from "react-icons/lib";
 
 const queryClient = new QueryClient();
 
@@ -44,11 +43,7 @@ export default function Providers({ children }: ProvidersProps) {
               loading: <Spinner size="sm" />,
             }}
           />
-          <NuqsAdapter>
-            {/* <IconContext.Provider value={{ className: "size-full" }}> */}
-            {children}
-            {/* </IconContext.Provider>; */}
-          </NuqsAdapter>
+          <NuqsAdapter>{children}</NuqsAdapter>
         </NextThemesProvider>
       </NextUIProvider>
       <div className="hidden md:block">
