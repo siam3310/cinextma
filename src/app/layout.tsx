@@ -9,6 +9,7 @@ import BottomNavbar from "@/components/ui/layout/BottomNavbar";
 import Sidebar from "@/components/ui/layout/Sidebar";
 import { Footer } from "@/components/ui/layout/Footer";
 import Disclaimer from "@/components/ui/overlay/Disclaimer";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata: Metadata = {
   title: siteConfig.name,
@@ -38,6 +39,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           {/* <Footer /> */}
           <BottomNavbar />
         </Providers>
+        <SpeedInsights />
       </body>
     </html>
   );
