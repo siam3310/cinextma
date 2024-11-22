@@ -71,13 +71,7 @@ export const OverviewSection: React.FC<{
               <Trailer videos={movie.videos.results} />
             </div>
             <div className="flex flex-wrap gap-2">
-              {/* <VaulDrawer trigger="Open">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eum ipsum accusamus asperiores voluptatibus vitae alias molestiae quibusdam
-                placeat quaerat pariatur, dolores error laborum aspernatur itaque temporibus suscipit? Ullam, sed harum?
-              </VaulDrawer> */}
-              {/* <IconButton icon="mdi:download" variant="ghost" tooltip="Download" /> */}
-              <ShareButton />
-              {/* <LikeButton title={movie.original_language === "id" ? movie.original_title : movie.title} /> */}
+              <ShareButton id={movie.id} title={title} />
               {/* @ts-expect-error no need saved_date because it processed in this component */}
               <BookmarkButton movie={movie} />
             </div>
