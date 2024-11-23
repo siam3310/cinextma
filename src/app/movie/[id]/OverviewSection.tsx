@@ -2,7 +2,7 @@
 
 import { Image, Chip, Button } from "@nextui-org/react";
 import { IconButton } from "@/components/ui/button/IconButton";
-import { getImageUrl, movieDurationString } from "@/lib/utils";
+import { getImageUrl, movieDurationString, mutateMovieTitle } from "@/lib/utils";
 import LikeButton from "@/components/ui/button/LikeButton";
 import BookmarkButton from "@/components/ui/button/BookmarkButton";
 import VaulDrawer from "@/components/ui/overlay/VaulDrawer";
@@ -21,9 +21,10 @@ export const OverviewSection: React.FC<{
   const releaseYear = new Date(movie.release_date).getFullYear();
   const posterImage = getImageUrl(movie.poster_path);
   const genres = movie.genres.map((item) => item.name).join(" • ");
-  const title = `${movie.original_language === "id" ? movie.original_title : movie.title} (${releaseYear})`;
+  const title = mutateMovieTitle(movie);
+  const fullTitle = `${title} (${releaseYear})`;
 
-  useDocumentTitle(`${title} | ${siteConfig.name}`);
+  useDocumentTitle(`${fullTitle} | ${siteConfig.name}`);
 
   return (
     <section id="overview" className="relative z-[3] flex flex-col gap-8 pt-[20vh] md:pt-[40vh]">
@@ -31,7 +32,7 @@ export const OverviewSection: React.FC<{
         <Image
           isBlurred
           shadow="md"
-          alt={movie.original_language === "id" ? movie.original_title : movie.title}
+          alt={title}
           classNames={{
             wrapper: "w-52 max-h-min aspect-[2/3] hidden md:block",
           }}

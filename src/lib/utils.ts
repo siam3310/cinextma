@@ -1,6 +1,7 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { intervalToDuration } from "date-fns";
+import { Movie, MovieDetails, TvShowDetails } from "tmdb-ts";
 
 /**
  * A utility function to merge Tailwind CSS classes using `clsx` and `tailwind-merge`.
@@ -52,4 +53,17 @@ export function getImageUrl(path?: string, type: "poster" | "backdrop" | "title"
   const size = fullSize ? "original" : "w500";
   const fallback = type === "poster" ? "https://dancyflix.com/placeholder.png" : type === "backdrop" ? "https://wallpapercave.com/wp/wp1945939.jpg" : "";
   return path ? `http://image.tmdb.org/t/p/${size}/${path}` : fallback;
+}
+
+/**
+ * Returns the title of a movie in the given language. If the movie is in the given language, the original title is used.
+ * Otherwise, the title is used. If the movie is not provided, an empty string is returned.
+ *
+ * @param movie The movie to get the title for. Optional.
+ * @param language The language to get the title in. Defaults to "id".
+ * @returns The title of the movie in the given language, or an empty string if the movie is not provided.
+ */
+export function mutateMovieTitle(movie?: MovieDetails | Movie, language: string = "id"): string {
+  if (!movie) return "";
+  return movie.original_language === language ? movie.original_title : movie.title;
 }

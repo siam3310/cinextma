@@ -1,5 +1,5 @@
 import { IconButton } from "@/components/ui/button/IconButton";
-import { getImageUrl } from "@/lib/utils";
+import { getImageUrl, mutateMovieTitle } from "@/lib/utils";
 import { Card, Tabs, Tab, Image, Skeleton } from "@nextui-org/react";
 import { useState } from "react";
 import { FaPlay } from "react-icons/fa6";
@@ -8,6 +8,7 @@ import { MovieDetails } from "tmdb-ts/dist/types/movies";
 const MoviePlayer: React.FC<{ movie: MovieDetails }> = ({ movie }) => {
   const [playMovie, setPlayMovie] = useState(false);
   const backdropImage = getImageUrl(movie.backdrop_path, "backdrop", true);
+  const title = mutateMovieTitle(movie);
   const id = movie.id;
   const players = [
     {
@@ -47,17 +48,11 @@ const MoviePlayer: React.FC<{ movie: MovieDetails }> = ({ movie }) => {
         </Tabs>
       ) : (
         <Card shadow="md" className="group aspect-video size-full">
-          <Image
-            isBlurred
-            alt={movie.original_language === "id" ? movie.original_title : movie.title}
-            className="size-full"
-            classNames={{ wrapper: "absolute-center aspect-video size-full group-hover:opacity-70 transition" }}
-            src={backdropImage}
-          />
+          <Image isBlurred alt={title} className="size-full" classNames={{ wrapper: "absolute-center aspect-video size-full group-hover:opacity-70 transition" }} src={backdropImage} />
           <IconButton
             icon={<FaPlay />}
             radius="full"
-            tooltip={`Play ${movie.original_language === "id" ? movie.original_title : movie.title}`}
+            tooltip={`Play ${title}`}
             buttonClassName="absolute-center"
             color="warning"
             variant="faded"

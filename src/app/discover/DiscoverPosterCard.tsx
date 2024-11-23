@@ -1,17 +1,17 @@
 import { Card, CardHeader, CardBody, Image, Chip, Tooltip, CardFooter, Link } from "@nextui-org/react";
 import { Icon } from "@iconify/react";
 import { HoverPosterCard } from "@/app/discover/HoverPosterCard";
-import { Movie } from "tmdb-ts";
 import Rating from "@/components/movies/Rating";
 import { useHover } from "@mantine/hooks";
 import { motion } from "framer-motion";
-import { getImageUrl } from "@/lib/utils";
+import { getImageUrl, mutateMovieTitle } from "@/lib/utils";
+import { Movie } from "tmdb-ts/dist/types";
 
 export const DiscoverPosterCard: React.FC<{ movie: Movie }> = ({ movie }) => {
   const { hovered, ref } = useHover();
   const releaseYear = new Date(movie.release_date).getFullYear();
   const posterImage = getImageUrl(movie.poster_path);
-  const title = movie.original_language === "id" ? movie.original_title : movie.title;
+  const title = mutateMovieTitle(movie);
 
   return (
     <Tooltip showArrow className="hidden p-0 md:block" shadow="lg" delay={1000} placement="right-start" content={<HoverPosterCard id={movie.id} />}>

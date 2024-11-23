@@ -4,6 +4,7 @@ import { useLocalStorage } from "@mantine/hooks";
 import { HiTrash } from "react-icons/hi2";
 import { SavedMovieDetails } from "@/types/movie";
 import { BsBookmarkCheckFill, BsBookmarkFill } from "react-icons/bs";
+import { mutateMovieTitle } from "@/lib/utils";
 
 interface BookmarkButtonProps {
   movie: SavedMovieDetails;
@@ -16,7 +17,7 @@ const extractImportantData = (movie: SavedMovieDetails) => ({
   id: movie.id,
   poster_path: movie.poster_path,
   release_date: movie.release_date,
-  title: movie.original_language === "id" ? movie.original_title : movie.title,
+  title: mutateMovieTitle(movie),
   vote_average: movie.vote_average,
   saved_date: new Date().toISOString(),
 });
@@ -45,15 +46,7 @@ const BookmarkButton: React.FC<BookmarkButtonProps> = ({ movie, isTooltipDisable
     }
   };
 
-  return (
-    <IconButton
-      onPress={handleBookmark}
-      icon={icon}
-      variant={variant}
-      color="warning"
-      text={isTooltipDisabled ? undefined : isSaved ? "Remove from Watchlist" : "Add to Watchlist"}
-    />
-  );
+  return <IconButton onPress={handleBookmark} icon={icon} variant={variant} color="warning" text={isTooltipDisabled ? undefined : isSaved ? "Remove from Watchlist" : "Add to Watchlist"} />;
 };
 
 export default BookmarkButton;
