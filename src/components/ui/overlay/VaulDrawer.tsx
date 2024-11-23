@@ -6,17 +6,19 @@ import { Drawer } from "vaul";
 
 interface DrawerProps {
   children: React.ReactNode;
-  trigger: React.ReactNode;
+  trigger?: React.ReactNode;
   title?: React.ReactNode;
   direction?: "right" | "top" | "bottom" | "left";
   backdrop?: "opaque" | "blur" | "transparent";
   fullWidth?: boolean;
+  isOpen?: boolean;
+  onOpenChange?: (open: boolean) => void;
 }
 
-export default function VaulDrawer({ children, trigger, title, direction, backdrop = "opaque", fullWidth }: DrawerProps) {
+export default function VaulDrawer({ children, trigger, title, direction, backdrop = "opaque", fullWidth, isOpen, onOpenChange }: DrawerProps) {
   return (
-    <Drawer.Root direction={direction}>
-      <Drawer.Trigger asChild>{typeof trigger === "string" ? <Button>{trigger}</Button> : trigger}</Drawer.Trigger>
+    <Drawer.Root direction={direction} open={isOpen} onOpenChange={onOpenChange}>
+      {trigger && <Drawer.Trigger asChild>{typeof trigger === "string" ? <Button>{trigger}</Button> : trigger}</Drawer.Trigger>}
       <Drawer.Portal>
         <Drawer.Overlay
           className={cn("fixed inset-0 z-[9998] bg-black/70", {
