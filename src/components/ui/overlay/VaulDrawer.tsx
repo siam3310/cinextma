@@ -7,15 +7,16 @@ import { Drawer } from "vaul";
 interface DrawerProps {
   children: React.ReactNode;
   trigger?: React.ReactNode;
-  title?: React.ReactNode;
+  title: React.ReactNode;
   direction?: "right" | "top" | "bottom" | "left";
   backdrop?: "opaque" | "blur" | "transparent";
   fullWidth?: boolean;
   isOpen?: boolean;
+  hiddenTitle?: boolean;
   onOpenChange?: (open: boolean) => void;
 }
 
-export default function VaulDrawer({ children, trigger, title, direction, backdrop = "opaque", fullWidth, isOpen, onOpenChange }: DrawerProps) {
+export default function VaulDrawer({ children, trigger, title, direction, backdrop = "opaque", fullWidth, isOpen, hiddenTitle, onOpenChange }: DrawerProps) {
   return (
     <Drawer.Root direction={direction} open={isOpen} onOpenChange={onOpenChange}>
       {trigger && <Drawer.Trigger asChild>{typeof trigger === "string" ? <Button>{trigger}</Button> : trigger}</Drawer.Trigger>}
@@ -33,7 +34,15 @@ export default function VaulDrawer({ children, trigger, title, direction, backdr
         >
           <div className="flex-1 space-y-5 rounded-t-2xl pb-6 pt-4">
             <div aria-hidden className="mx-auto h-1.5 w-12 flex-shrink-0 rounded-full bg-foreground/50" />
-            <Drawer.Title className="text-center text-xl">{title}</Drawer.Title>
+            <Drawer.Title
+              aria-hidden={hiddenTitle}
+              className={cn("text-center text-xl", {
+                hidden: hiddenTitle,
+              })}
+            >
+              {title}
+            </Drawer.Title>
+            <Drawer.Description aria-hidden className="hidden" />
             <div className="mx-auto max-w-lg">{children}</div>
           </div>
         </Drawer.Content>
