@@ -33,7 +33,7 @@ export const HoverPosterCard: React.FC<{ id: number; fullWidth?: boolean }> = ({
         ) : (
           <div className="relative">
             <div ref={ref} className={cn("absolute aspect-video h-fit w-full")}>
-              <div className="absolute z-[2] h-full w-full bg-gradient-to-t from-background from-[1%] dark:from-[#18181b]"></div>
+              <div className="absolute z-[2] h-full w-full bg-gradient-to-t from-secondary-background from-[1%]"></div>
               <Image isBlurred alt={movie?.title} classNames={{ wrapper: "absolute-center z-[1] bg-transparent" }} className="h-full max-h-32 w-full drop-shadow-xl" src={titleImage} />
               <Image radius="none" alt={movie?.title} className={cn("z-0 aspect-video rounded-t-lg object-cover object-center")} src={backdropImage} />
             </div>
