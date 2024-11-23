@@ -42,6 +42,7 @@ const BookmarkButton: React.FC<BookmarkButtonProps> = ({ movie, isTooltipDisable
       });
     } else {
       setBookmarks([...bookmarks, movieString]);
+      window.navigator.vibrate([100]);
       toast.success(`${movieData.title} saved to your library!`);
     }
   };
