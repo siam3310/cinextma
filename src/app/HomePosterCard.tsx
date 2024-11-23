@@ -17,21 +17,21 @@ const HomePosterCard: React.FC<{ movie: Movie }> = ({ movie }) => {
   const releaseYear = new Date(movie.release_date).getFullYear();
   const posterImage = getImageUrl(movie.poster_path);
   const title = mutateMovieTitle(movie);
-  const { md } = useBreakpoints();
+  const { mobile } = useBreakpoints();
 
   const callback = useCallback(() => {
     handlers.open();
     setTimeout(() => window.navigator.vibrate([100]), 300);
   }, []);
 
-  const longPress = useLongPress(md ? callback : null, {
+  const longPress = useLongPress(mobile ? callback : null, {
     cancelOnMovement: true,
     threshold: 300,
   });
 
   return (
     <>
-      <Tooltip showArrow className="hidden bg-secondary-background p-0 md:block" shadow="lg" delay={1000} placement="right-start" content={<HoverPosterCard id={movie.id} />}>
+      <Tooltip isDisabled={mobile} showArrow className="bg-secondary-background p-0" shadow="lg" delay={1000} placement="right-start" content={<HoverPosterCard id={movie.id} />}>
         <Link href={`/movie/${movie.id}`}>
           <div ref={ref} {...longPress()} className="group motion-preset-expand relative aspect-[2/3] size-fit overflow-hidden rounded-lg text-white">
             {hovered && <Icon icon="line-md:play-filled" width="64" height="64" className="absolute-center z-20 text-white" />}
