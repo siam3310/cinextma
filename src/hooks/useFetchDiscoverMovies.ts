@@ -4,6 +4,15 @@ import { tmdb } from "@/api/tmdb";
 import { DiscoverMoviesFetchQueryType } from "@/types/movie";
 import { useQuery } from "@tanstack/react-query";
 
+/**
+ * Fetches the list of movies from the specified discover type.
+ *
+ * @param {Object} [options] - Options for the fetch.
+ * @param {number} [options.page=1] - Page number to fetch.
+ * @param {DiscoverMoviesFetchQueryType} [options.type="discover"] - Type of discover query to fetch.
+ *
+ * @returns {QueryResult<Movie[], Error>} - The result of the query, which is a list of movies.
+ */
 const useFetchDiscoverMovies = ({ page = 1, type = "discover" }: { page?: number; type?: DiscoverMoviesFetchQueryType }) => {
   const discover = tmdb.discover.movie({ page: page });
   const todayTrending = tmdb.trending.trending("movie", "day", { page: page });
