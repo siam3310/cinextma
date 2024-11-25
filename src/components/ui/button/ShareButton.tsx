@@ -30,7 +30,7 @@ interface ShareButtonProps {
 }
 
 export default function ShareButton({ title, id }: ShareButtonProps) {
-  const url = `https://${location.hostname}/movies/${id}`;
+  const url = `https://${location.hostname}/movie/${id}`;
   const description = `Check out and stream ${title} on Cinextma for FREE!!`;
   const shareIcon = <IoIosShareAlt size={20} />;
   const trigger = <IconButton icon={shareIcon} variant="ghost" tooltip="Share" />;
