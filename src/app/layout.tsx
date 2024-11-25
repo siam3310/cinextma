@@ -14,9 +14,31 @@ import { Analytics } from "@vercel/analytics/next";
 
 export const metadata: Metadata = {
   title: siteConfig.name,
+  applicationName: siteConfig.name,
   description: siteConfig.description,
+  manifest: "/manifest.json",
   icons: {
     icon: siteConfig.favicon,
+  },
+  twitter: {
+    card: "summary",
+    title: {
+      default: siteConfig.name,
+      template: siteConfig.name,
+    },
+    description: siteConfig.description,
+  },
+  openGraph: {
+    type: "website",
+    siteName: siteConfig.name,
+    title: {
+      default: siteConfig.name,
+      template: siteConfig.name,
+    },
+    description: siteConfig.description,
+  },
+  formatDetection: {
+    telephone: false,
   },
 };
 
