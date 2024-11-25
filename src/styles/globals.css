@@ -21,7 +21,7 @@
     @apply text-sm font-normal md:text-base;
   }
   iframe {
-    @apply border-0;
+    @apply border-none;
   }
 }
 
