@@ -12,11 +12,11 @@ import { useMediaQuery } from "@mantine/hooks";
  * mobile, tablet, and desktop properties.
  */
 export default function useBreakpoints() {
-  const sm = useMediaQuery(`(min-width: 640px)`);
-  const md = useMediaQuery(`(min-width: 768px)`);
-  const lg = useMediaQuery(`(min-width: 1024px)`);
-  const xl = useMediaQuery(`(min-width: 1280px)`);
-  const xxl = useMediaQuery(`(min-width: 1536px)`);
+  const sm = useMediaQuery("(min-width: 640px)");
+  const md = useMediaQuery("(min-width: 768px)");
+  const lg = useMediaQuery("(min-width: 1024px)");
+  const xl = useMediaQuery("(min-width: 1280px)");
+  const xxl = useMediaQuery("(min-width: 1536px)");
 
   const mobile = !md;
   const tablet = md && !lg;
