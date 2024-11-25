@@ -10,6 +10,7 @@ import VaulDrawer from "@/components/ui/overlay/VaulDrawer";
 import { useCallback } from "react";
 import { Movie } from "tmdb-ts/dist/types";
 import useBreakpoints from "@/hooks/useBreakpoints";
+import useDeviceVibration from "@/hooks/useDeviceVibration";
 
 const HomePosterCard: React.FC<{ movie: Movie }> = ({ movie }) => {
   const { hovered, ref } = useHover();
@@ -18,10 +19,11 @@ const HomePosterCard: React.FC<{ movie: Movie }> = ({ movie }) => {
   const posterImage = getImageUrl(movie.poster_path);
   const title = mutateMovieTitle(movie);
   const { mobile } = useBreakpoints();
+  const { startVibration } = useDeviceVibration();
 
   const callback = useCallback(() => {
     handlers.open();
-    setTimeout(() => window.navigator.vibrate([100]), 300);
+    setTimeout(() => startVibration([100]), 300);
   }, []);
 
   const longPress = useLongPress(mobile ? callback : null, {

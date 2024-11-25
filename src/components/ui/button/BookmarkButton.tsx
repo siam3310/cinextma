@@ -5,6 +5,7 @@ import { HiTrash } from "react-icons/hi2";
 import { SavedMovieDetails } from "@/types/movie";
 import { BsBookmarkCheckFill, BsBookmarkFill } from "react-icons/bs";
 import { mutateMovieTitle } from "@/lib/utils";
+import useDeviceVibration from "@/hooks/useDeviceVibration";
 
 interface BookmarkButtonProps {
   movie: SavedMovieDetails;
@@ -33,6 +34,7 @@ const BookmarkButton: React.FC<BookmarkButtonProps> = ({ movie, isTooltipDisable
   const isSaved = bookmarks.some((savedMovie) => JSON.parse(savedMovie).id === movie.id);
   const variant = isSaved ? "shadow" : "faded";
   const icon = isSaved ? <BsBookmarkCheckFill size={20} /> : <BsBookmarkFill size={20} />;
+  const { startVibration } = useDeviceVibration();
 
   const handleBookmark = () => {
     if (isSaved) {
@@ -42,7 +44,7 @@ const BookmarkButton: React.FC<BookmarkButtonProps> = ({ movie, isTooltipDisable
       });
     } else {
       setBookmarks([...bookmarks, movieString]);
-      window.navigator.vibrate([100]);
+      startVibration([100]);
       toast.success(`${movieData.title} saved to your library!`);
     }
   };
