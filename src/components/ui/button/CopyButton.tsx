@@ -1,6 +1,6 @@
 "use client";
 
-import { IconButton, IconButtonProps } from "./IconButton";
+import IconButton, { IconButtonProps } from "./IconButton";
 import { useClipboard } from "@mantine/hooks";
 import { FaCheck } from "react-icons/fa6";
 import { MdContentCopy } from "react-icons/md";
@@ -26,7 +26,7 @@ export default function CopyButton({ text, timeout = 2000, label, copiedLabel = 
     onClick: handleCopy,
     isDisabled: copied,
     radius: "full",
-    icon,
+    icon: icon,
     variant: "faded",
     size: "lg",
   };

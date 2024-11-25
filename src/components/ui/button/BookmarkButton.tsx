@@ -1,4 +1,4 @@
-import { IconButton } from "./IconButton";
+import IconButton from "./IconButton";
 import { toast } from "sonner";
 import { useLocalStorage } from "@mantine/hooks";
 import { HiTrash } from "react-icons/hi2";
@@ -49,7 +49,7 @@ const BookmarkButton: React.FC<BookmarkButtonProps> = ({ movie, isTooltipDisable
     }
   };
 
-  return <IconButton onPress={handleBookmark} icon={icon} variant={variant} color="warning" text={isTooltipDisabled ? undefined : isSaved ? "Remove from Watchlist" : "Add to Watchlist"} />;
+  return <IconButton onPress={handleBookmark} icon={icon} variant={variant} color="warning" tooltip={isTooltipDisabled ? undefined : isSaved ? "Remove from Watchlist" : "Add to Watchlist"} />;
 };
 
 export default BookmarkButton;

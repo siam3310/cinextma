@@ -1,7 +1,7 @@
 "use client";
 
 import { Link, ScrollShadow, Skeleton } from "@nextui-org/react";
-import { IconButton } from "@/components/ui/button/IconButton";
+import IconButton from "@/components/ui/button/IconButton";
 import clsx from "clsx";
 import { useQuery } from "@tanstack/react-query";
 import HomePosterCard from "./HomePosterCard";

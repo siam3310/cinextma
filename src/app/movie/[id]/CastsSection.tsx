@@ -1,7 +1,7 @@
 "use client";
 
 import { User } from "@nextui-org/react";
-import { IconButton } from "@/components/ui/button/IconButton";
+import IconButton from "@/components/ui/button/IconButton";
 import clsx from "clsx";
 import { useCustomCarousel } from "@/hooks/useCustomCarousel";
 import { Cast } from "tmdb-ts";

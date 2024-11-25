@@ -1,4 +1,4 @@
-import { IconButton } from "@/components/ui/button/IconButton";
+import IconButton from "@/components/ui/button/IconButton";
 import { useCustomCarousel } from "@/hooks/useCustomCarousel";
 import { cn } from "@/lib/utils";
 import { useDisclosure } from "@mantine/hooks";

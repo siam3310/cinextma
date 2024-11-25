@@ -1,6 +1,6 @@
 "use client";
 
-import { IconButton } from "@/components/ui/button/IconButton";
+import IconButton from "@/components/ui/button/IconButton";
 import clsx from "clsx";
 import { useCustomCarousel } from "@/hooks/useCustomCarousel";
 import HomePosterCard from "@/app/HomePosterCard";

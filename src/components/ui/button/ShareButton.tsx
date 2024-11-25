@@ -1,6 +1,6 @@
 "use client";
 
-import { IconButton } from "./IconButton";
+import IconButton from "./IconButton";
 import { IoIosShareAlt } from "react-icons/io";
 import VaulDrawer from "@/components/ui/overlay/VaulDrawer";
 import {
