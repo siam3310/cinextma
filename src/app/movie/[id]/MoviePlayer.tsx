@@ -1,6 +1,6 @@
 import IconButton from "@/components/ui/button/IconButton";
-import { getMoviePlayers } from "@/lib/players";
-import { getImageUrl, mutateMovieTitle } from "@/lib/utils";
+import { getMoviePlayers } from "@/utils/players";
+import { getImageUrl, mutateMovieTitle } from "@/utils/movies";
 import { Card, Tabs, Tab, Image, Skeleton } from "@nextui-org/react";
 import { useState } from "react";
 import { FaPlay } from "react-icons/fa6";

@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/helpers";
 import { Button } from "@nextui-org/button";
 import { Drawer } from "vaul";
 

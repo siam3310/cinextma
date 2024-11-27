@@ -1,11 +1,12 @@
 import { Image, Chip, Button, Spinner, Link } from "@nextui-org/react";
 import { useQuery } from "@tanstack/react-query";
-import { cn, getImageUrl, movieDurationString, mutateMovieTitle } from "@/lib/utils";
+import { cn } from "@/utils/helpers";
 import { Icon } from "@iconify/react";
 import BookmarkButton from "@/components/ui/button/BookmarkButton";
 import { tmdb } from "@/api/tmdb";
 import Rating from "../../components/movies/Rating";
 import { useElementSize } from "@mantine/hooks";
+import { getImageUrl, movieDurationString, mutateMovieTitle } from "@/utils/movies";
 
 export const HoverPosterCard: React.FC<{ id: number; fullWidth?: boolean }> = ({ id, fullWidth }) => {
   const { ref, width, height } = useElementSize();

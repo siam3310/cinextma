@@ -4,7 +4,7 @@ import { useLocalStorage } from "@mantine/hooks";
 import { HiTrash } from "react-icons/hi2";
 import { SavedMovieDetails } from "@/types/movie";
 import { BsBookmarkCheckFill, BsBookmarkFill } from "react-icons/bs";
-import { mutateMovieTitle } from "@/lib/utils";
+import { mutateMovieTitle } from "@/utils/movies";
 import useDeviceVibration from "@/hooks/useDeviceVibration";
 
 interface BookmarkButtonProps {

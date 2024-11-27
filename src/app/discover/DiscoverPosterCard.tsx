@@ -4,7 +4,7 @@ import { HoverPosterCard } from "@/app/discover/HoverPosterCard";
 import Rating from "@/components/movies/Rating";
 import { useDisclosure, useHover } from "@mantine/hooks";
 import { motion } from "framer-motion";
-import { getImageUrl, mutateMovieTitle } from "@/lib/utils";
+import { getImageUrl, mutateMovieTitle } from "@/utils/movies";
 import { Movie } from "tmdb-ts/dist/types";
 import VaulDrawer from "@/components/ui/overlay/VaulDrawer";
 import useBreakpoints from "@/hooks/useBreakpoints";

@@ -5,7 +5,7 @@ import IconButton from "@/components/ui/button/IconButton";
 import clsx from "clsx";
 import { useCustomCarousel } from "@/hooks/useCustomCarousel";
 import { Cast } from "tmdb-ts";
-import { getImageUrl } from "@/lib/utils";
+import { getImageUrl } from "@/utils/movies";
 
 const CastsSection: React.FC<{ casts: Cast[] }> = ({ casts }) => {
   const c = useCustomCarousel({ dragFree: true });

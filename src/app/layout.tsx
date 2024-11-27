@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { siteConfig } from "@/config/site";
-import clsx from "clsx";
-import { Poppins } from "@/lib/fonts";
+import { Poppins } from "@/utils/fonts";
 import "../styles/globals.css";
 import Providers from "./providers";
 import TopNavbar from "@/components/ui/layout/TopNavbar";
@@ -11,6 +10,7 @@ import { Footer } from "@/components/ui/layout/Footer";
 import Disclaimer from "@/components/ui/overlay/Disclaimer";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
+import { cn } from "@/utils/helpers";
 
 export const metadata: Metadata = {
   title: siteConfig.name,
@@ -52,7 +52,7 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html suppressHydrationWarning lang="en">
-      <body className={clsx("min-h-screen select-none bg-background antialiased", Poppins.className)}>
+      <body className={cn("min-h-screen select-none bg-background antialiased", Poppins.className)}>
         <Providers>
           <Disclaimer />
           <TopNavbar />

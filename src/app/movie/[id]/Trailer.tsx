@@ -1,6 +1,6 @@
 import IconButton from "@/components/ui/button/IconButton";
 import { useCustomCarousel } from "@/hooks/useCustomCarousel";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/helpers";
 import { useDisclosure } from "@mantine/hooks";
 import { Button, Modal, ModalBody, ModalContent, Skeleton, Tooltip } from "@nextui-org/react";
 import clsx from "clsx";

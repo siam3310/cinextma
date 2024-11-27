@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import { FaSearch } from "react-icons/fa";
 import { Input, InputProps, Kbd, Spinner } from "@nextui-org/react";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/helpers";
 import { useHotkeys } from "@mantine/hooks";
 import { useRouter } from "next-nprogress-bar";
 import { usePathname } from "next/navigation";
@@ -49,11 +49,7 @@ const SearchInput = ({ value, onChange, className, autoFocus, placeholder = "Sea
       type="search"
       labelPlacement="outside"
       endContent={<Kbd className="hidden md:inline-block">CTRL+K</Kbd>}
-      startContent={
-        <div className="pointer-events-none flex flex-shrink-0 items-center pr-1 text-default-400">
-          {isLoading ? <Spinner color="default" size="sm" /> : <FaSearch />}
-        </div>
-      }
+      startContent={<div className="pointer-events-none flex flex-shrink-0 items-center pr-1 text-default-400">{isLoading ? <Spinner color="default" size="sm" /> : <FaSearch />}</div>}
     />
   );
 };

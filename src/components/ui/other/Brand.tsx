@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Saira } from "@/lib/fonts";
+import { Saira } from "@/utils/fonts";
 import { TbPlayerTrackNextFilled } from "react-icons/tb";
 
 export default function Brand() {

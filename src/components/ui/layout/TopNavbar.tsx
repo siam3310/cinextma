@@ -9,7 +9,7 @@ import SearchInput from "../input/SearchInput";
 import ThemeSwitchDropdown from "../input/ThemeSwitchDropdown";
 import FullscreenToggleButton from "../button/FullscreenToggleButton";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/helpers";
 import Brand from "../other/Brand";
 
 const TopNavbar = () => {

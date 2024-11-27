@@ -2,7 +2,7 @@ import { Image } from "@nextui-org/image";
 import { useWindowScroll } from "@mantine/hooks";
 import { MovieDetails } from "tmdb-ts/dist/types/movies";
 import { AppendToResponse } from "tmdb-ts/dist/types/options";
-import { getImageUrl } from "@/lib/utils";
+import { getImageUrl } from "@/utils/movies";
 
 const BackdropSection: React.FC<{
   movie: AppendToResponse<MovieDetails, "images"[], "movie"> | undefined;

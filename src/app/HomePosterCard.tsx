@@ -4,7 +4,7 @@ import Rating from "@/components/movies/Rating";
 import { HoverPosterCard } from "./discover/HoverPosterCard";
 import { useDisclosure, useHover } from "@mantine/hooks";
 import Link from "next/link";
-import { getImageUrl, mutateMovieTitle } from "@/lib/utils";
+import { getImageUrl, mutateMovieTitle } from "@/utils/movies";
 import { useLongPress } from "use-long-press";
 import VaulDrawer from "@/components/ui/overlay/VaulDrawer";
 import { useCallback } from "react";
@@ -35,7 +35,7 @@ const HomePosterCard: React.FC<{ movie: Movie }> = ({ movie }) => {
     <>
       <Tooltip isDisabled={mobile} showArrow className="bg-secondary-background p-0" shadow="lg" delay={1000} placement="right-start" content={<HoverPosterCard id={movie.id} />}>
         <Link href={`/movie/${movie.id}`}>
-          <div ref={ref} {...longPress()} className="group motion-preset-expand relative aspect-[2/3] size-fit overflow-hidden rounded-lg text-white">
+          <div ref={ref} {...longPress()} className="group motion-preset-expand relative aspect-[2/3] h-max overflow-hidden rounded-lg text-white">
             {hovered && <Icon icon="line-md:play-filled" width="64" height="64" className="absolute-center z-20 text-white" />}
             {movie.adult && (
               <Chip color="danger" size="sm" variant="flat" className="absolute left-2 top-2 z-20">
@@ -56,7 +56,7 @@ const HomePosterCard: React.FC<{ movie: Movie }> = ({ movie }) => {
               alt={title}
               src={posterImage}
               radius="none"
-              className="z-0 aspect-[2/3] max-h-[250px] object-cover object-center transition group-hover:scale-110 md:max-h-[300px]"
+              className="z-0 aspect-[2/3] h-[250px] object-cover object-center transition group-hover:scale-110 md:h-[300px]"
               classNames={{
                 img: "group-hover:opacity-70",
               }}
