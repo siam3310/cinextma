@@ -1,7 +1,7 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { intervalToDuration } from "date-fns";
-import { Movie, MovieDetails, TvShowDetails } from "tmdb-ts";
+import { Movie, MovieDetails } from "tmdb-ts";
 
 /**
  * A utility function to merge Tailwind CSS classes using `clsx` and `tailwind-merge`.
@@ -12,7 +12,7 @@ import { Movie, MovieDetails, TvShowDetails } from "tmdb-ts";
  *
  * @example cn('font-bold', 'text-center')
  */
-export function cn(...inputs: ClassValue[]) {
+export function cn(...inputs: ClassValue[]): string {
   return twMerge(clsx(inputs));
 }
 
@@ -24,7 +24,7 @@ export function cn(...inputs: ClassValue[]) {
  *
  * @example
  */
-export function movieDurationString(minutes: number | undefined): string {
+export function movieDurationString(minutes?: number): string {
   if (!minutes) return "No data";
   const duration = intervalToDuration({ start: 0, end: minutes * 60 * 1000 });
   const hours = duration.hours ? `${duration.hours}h ` : "";
