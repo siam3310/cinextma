@@ -12,6 +12,7 @@ import { useQueryState, parseAsInteger, parseAsString } from "nuqs";
 import SearchInput from "@/components/ui/input/SearchInput";
 import clsx from "clsx";
 import History from "./History";
+import Loop from "@/components/ui/other/Loop";
 
 export default function SearchList() {
   const [page, setPage] = useQueryState("page", parseAsInteger.withDefault(1));
@@ -79,9 +80,9 @@ export default function SearchList() {
             <>
               <Skeleton className="h-8 w-full max-w-xl rounded-full" />
               <div className="movie-grid">
-                {Array.from({ length: 20 }, (_, index) => (
-                  <SkeletonDiscoverPosterCard key={index} />
-                ))}
+                <Loop count={20} prefix="SkeletonDiscoverPosterCard">
+                  <SkeletonDiscoverPosterCard />
+                </Loop>
               </div>
             </>
           ) : (

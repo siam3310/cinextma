@@ -8,6 +8,7 @@ import useFetchDiscoverMovies from "@/hooks/useFetchDiscoverMovies";
 import { DISCOVER_MOVIES_VALID_QUERY_TYPES, DiscoverMoviesFetchQueryType } from "@/types/movie";
 import { useQueryState, parseAsInteger, parseAsStringLiteral } from "nuqs";
 import { Movie } from "tmdb-ts/dist/types";
+import Loop from "@/components/ui/other/Loop";
 
 const selectItems = [
   {
@@ -81,9 +82,9 @@ export default function DiscoverList() {
         <Pagination showControls total={totalPages} page={page} initialPage={page} onChange={handlePageChange} />
         {isPending ? (
           <div className="movie-grid">
-            {Array.from({ length: 20 }, (_, index) => (
-              <SkeletonDiscoverPosterCard key={index} />
-            ))}
+            <Loop count={20} prefix="SkeletonDiscoverPosterCard">
+              <SkeletonDiscoverPosterCard />
+            </Loop>
           </div>
         ) : (
           <div className="movie-grid">
