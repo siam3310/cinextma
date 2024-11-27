@@ -16,12 +16,12 @@
 - **🔎 Powerful Search**: The search functionality allows users to easily find specific titles, actors, or genres, making it a breeze to locate the content they're interested in.
 - **📂 Personal Library**: Users can build their own personalized library of favorite movies and TV shows, making it easy to keep track of what they've watched and want to watch.
 - **💻📱 Responsive UI**: The platform's user interface is designed to be responsive and accessible across various devices, ensuring a consistent and enjoyable experience on desktops, tablets, and mobile devices.
+- **📲 Progressive Web App**: The platform is designed to be installable on devices and provide native-like features, ensuring a seamless and engaging experience for users.
 
 ## Planned Features
 
 - **📺 TV Shows**
 - **🙍‍♂️ User Account**
-- **📱 Progressive Web App**
 
 ## Technologies Used
 
