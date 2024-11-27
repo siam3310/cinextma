@@ -1,11 +1,8 @@
 "use client";
 
 import { Image, Chip, Button } from "@nextui-org/react";
-import { IconButton } from "@/components/ui/button/IconButton";
 import { getImageUrl, movieDurationString, mutateMovieTitle } from "@/lib/utils";
-import LikeButton from "@/components/ui/button/LikeButton";
 import BookmarkButton from "@/components/ui/button/BookmarkButton";
-import VaulDrawer from "@/components/ui/overlay/VaulDrawer";
 import { MovieDetails } from "tmdb-ts/dist/types/movies";
 import Rating from "../../../components/movies/Rating";
 import ShareButton from "@/components/ui/button/ShareButton";
@@ -64,7 +61,7 @@ export const OverviewSection: React.FC<{
             </div>
           </div>
 
-          <div id="action" className="flex w-full flex-col flex-wrap justify-between gap-4 md:flex-row md:gap-0">
+          <div id="action" className="flex w-full flex-wrap justify-between gap-4 md:gap-0">
             <div className="flex flex-wrap gap-2">
               <Button color="primary" as="a" href="#movie-player" variant="shadow" startContent={<FaCirclePlay size={22} />}>
                 Play Now
