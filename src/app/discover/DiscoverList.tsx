@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import { DiscoverPosterCard } from "@/app/discover/DiscoverPosterCard";
-import { InternalForwardRefRenderFunction, Pagination, Select, SelectItem } from "@nextui-org/react";
+import { Pagination, Select, SelectItem } from "@nextui-org/react";
 import { SkeletonDiscoverPosterCard } from "@/app/discover/SkeletonDiscoverPosterCard";
 import useFetchDiscoverMovies from "@/hooks/useFetchDiscoverMovies";
 import { DISCOVER_MOVIES_VALID_QUERY_TYPES, DiscoverMoviesFetchQueryType } from "@/types/movie";
@@ -41,15 +41,11 @@ const selectItems = [
 ];
 
 export default function DiscoverList() {
-  const [totalPages, setTotalPages] = useState(100);
+  const [totalPages] = useState(100);
   const [page, setPage] = useQueryState("page", parseAsInteger.withDefault(1));
   const [queryType, setQueryType] = useQueryState("type", parseAsStringLiteral(DISCOVER_MOVIES_VALID_QUERY_TYPES).withDefault("discover"));
 
   const { data, isPending } = useFetchDiscoverMovies({ page: page, type: queryType });
-
-  // useEffect(() => {
-  //   setTotalPages(data?.total_pages ?? totalPages);
-  // }, [data?.total_pages, totalPages]);
 
   const handlePageChange = (newPage: number) => {
     setPage(newPage);
@@ -72,10 +68,10 @@ export default function DiscoverList() {
           onChange={({ target }) => handleQueryTypeChange(target.value as DiscoverMoviesFetchQueryType)}
           value={queryType}
         >
-          {selectItems.map((select) => {
+          {selectItems.map(({ key, name }) => {
             return (
-              <SelectItem key={select.key} value={select.key}>
-                {select.name}
+              <SelectItem key={key} value={key}>
+                {name}
               </SelectItem>
             );
           })}
