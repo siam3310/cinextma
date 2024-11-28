@@ -26,14 +26,8 @@ export const useCustomCarousel = (options?: EmblaOptionsType, plugins?: EmblaPlu
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   const scrollTo = useCallback((index: number) => embla && embla.scrollTo(index), [embla]);
-
-  const scrollPrev = useCallback(() => {
-    if (embla) embla.scrollPrev();
-  }, [embla]);
-
-  const scrollNext = useCallback(() => {
-    if (embla) embla.scrollNext();
-  }, [embla]);
+  const scrollPrev = useCallback(() => embla && embla.scrollPrev(), [embla]);
+  const scrollNext = useCallback(() => embla && embla.scrollNext(), [embla]);
 
   if (embla) {
     embla.on("select", () => {
