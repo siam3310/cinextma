@@ -35,7 +35,7 @@ const HomePosterCard: React.FC<{ movie: Movie }> = ({ movie }) => {
     <>
       <Tooltip isDisabled={mobile} showArrow className="bg-secondary-background p-0" shadow="lg" delay={1000} placement="right-start" content={<HoverPosterCard id={movie.id} />}>
         <Link href={`/movie/${movie.id}`}>
-          <div ref={ref} {...longPress()} className="group motion-preset-expand relative aspect-[2/3] h-[250px] overflow-hidden rounded-lg text-white md:h-[300px]">
+          <div ref={ref} {...longPress()} className="group motion-preset-expand relative aspect-[2/3] overflow-hidden rounded-lg text-white">
             {hovered && <Icon icon="line-md:play-filled" width="64" height="64" className="absolute-center z-20 text-white" />}
             {movie.adult && (
               <Chip color="danger" size="sm" variant="flat" className="absolute left-2 top-2 z-20">
@@ -56,7 +56,7 @@ const HomePosterCard: React.FC<{ movie: Movie }> = ({ movie }) => {
               alt={title}
               src={posterImage}
               radius="none"
-              className="z-0 aspect-[2/3] size-full object-cover object-center transition group-hover:scale-110"
+              className="z-0 aspect-[2/3] h-[250px] object-cover object-center transition group-hover:scale-110 md:h-[300px]"
               classNames={{
                 img: "group-hover:opacity-70",
               }}
