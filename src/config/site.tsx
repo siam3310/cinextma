@@ -50,7 +50,7 @@ export const siteConfig = {
       activeIcon: <IoCompass className="size-full" />,
     },
     {
-      label: "Seach",
+      label: "Search",
       href: "/search",
       icon: <BiSearchAlt2 className="size-full" />,
       activeIcon: <BiSolidSearchAlt2 className="size-full" />,
