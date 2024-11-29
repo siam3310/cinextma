@@ -62,8 +62,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           {/* <Footer /> */}
           <BottomNavbar />
         </Providers>
-        <SpeedInsights />
-        <Analytics />
+        <SpeedInsights debug={false} />
+        <Analytics debug={false} />
       </body>
     </html>
   );
