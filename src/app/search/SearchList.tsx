@@ -13,6 +13,7 @@ import SearchInput from "@/components/ui/input/SearchInput";
 import clsx from "clsx";
 import History from "./History";
 import Loop from "@/components/ui/other/Loop";
+import { Movie } from "tmdb-ts/dist/types";
 
 export default function SearchList() {
   const [page, setPage] = useQueryState("page", parseAsInteger.withDefault(1));
@@ -29,6 +30,8 @@ export default function SearchList() {
     queryFn: () => tmdb.search.movies({ query: debouncedSearchQuery, page: page }),
     queryKey: ["search-movie", page, debouncedSearchQuery],
   });
+
+  const movies = data?.results as Movie[];
 
   const totalResults = data?.total_results as number;
 
@@ -98,9 +101,17 @@ export default function SearchList() {
                   </span>
                 )}
               </h4>
-              <Pagination showControls total={totalPages} page={page} initialPage={page} onChange={handlePageChange} />
-              <div className="movie-grid">{data?.results.map((movie: any) => <DiscoverPosterCard key={movie.id} movie={movie} />)}</div>
-              <Pagination showControls total={totalPages} page={page} initialPage={page} onChange={handlePageChange} />
+              {movies.length > 0 && (
+                <>
+                  <Pagination showControls total={totalPages} page={page} initialPage={page} onChange={handlePageChange} />
+                  <div className="movie-grid">
+                    {movies.map((movie: any) => (
+                      <DiscoverPosterCard key={movie.id} movie={movie} />
+                    ))}
+                  </div>
+                  <Pagination showControls total={totalPages} page={page} initialPage={page} onChange={handlePageChange} />
+                </>
+              )}
             </>
           )}
         </>
