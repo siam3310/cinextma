@@ -10,32 +10,6 @@ export const siteConfig = {
   name: "Cinextma",
   description: "Your only choice for a free movies and tv shows streaming website.",
   favicon: "/favicon.ico",
-  navItemsOld: [
-    {
-      label: "Home",
-      href: "/",
-      icon: "fluent:home-24-regular",
-      activeIcon: "fluent:home-24-filled",
-    },
-    {
-      label: "Discover",
-      href: "/discover",
-      icon: "iconamoon:discover-light",
-      activeIcon: "iconamoon:discover-fill",
-    },
-    {
-      label: "Seach",
-      href: "/search",
-      icon: "bx:search",
-      activeIcon: "bxs:search",
-    },
-    {
-      label: "Library",
-      href: "/library",
-      icon: "fluent:folder-open-20-regular",
-      activeIcon: "fluent:folder-open-20-filled",
-    },
-  ],
   navItems: [
     {
       label: "Home",
