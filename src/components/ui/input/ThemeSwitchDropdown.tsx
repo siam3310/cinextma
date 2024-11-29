@@ -36,7 +36,7 @@ const ThemeSwitchDropdown = () => {
       </DropdownTrigger>
       <DropdownMenu disallowEmptySelection selectionMode="single" selectedKeys={[theme ?? ""]}>
         {themes.map(({ name, icon }) => (
-          <DropdownItem value={name} key={name} textValue={name} onPress={() => setTheme(name)}>
+          <DropdownItem color={color} value={name} key={name} textValue={name} onPress={() => setTheme(name)}>
             <div className="flex items-center gap-2 pr-2 capitalize">
               <div className="max-h-[50px]">{icon}</div>
               <p>{name}</p>
