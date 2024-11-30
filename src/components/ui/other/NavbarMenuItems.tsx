@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import React from "react";
 
 interface NavbarMenuItemsProps extends TabsProps {
-  isIconOnly?: boolean;
+  withIcon?: boolean;
   menuArray?: {
     href: string;
     label: string;
@@ -13,13 +13,7 @@ interface NavbarMenuItemsProps extends TabsProps {
   }[];
 }
 
-const NavbarMenuItems: React.FC<NavbarMenuItemsProps> = ({
-  menuArray = siteConfig.navItems,
-  isVertical,
-  isIconOnly,
-  variant = "underlined",
-  size = "lg",
-}) => {
+const NavbarMenuItems: React.FC<NavbarMenuItemsProps> = ({ menuArray = siteConfig.navItems, isVertical, withIcon, variant = "underlined", size = "lg" }) => {
   const pathName = usePathname();
 
   return (
@@ -31,14 +25,13 @@ const NavbarMenuItems: React.FC<NavbarMenuItemsProps> = ({
       classNames={{
         tabList: isVertical && "gap-5",
         tab: "h-full w-full",
-        // tabContent: "w-16"
       }}
     >
       {menuArray.map((item) => {
         const isActive = pathName === item.href;
         let title: React.ReactNode = item.label;
 
-        if (isIconOnly) {
+        if (withIcon) {
           title = (
             <div className="flex max-h-[45px] flex-col items-center gap-1">
               {isActive ? item.activeIcon : item.icon}
