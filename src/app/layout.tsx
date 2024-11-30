@@ -6,7 +6,6 @@ import Providers from "./providers";
 import TopNavbar from "@/components/ui/layout/TopNavbar";
 import BottomNavbar from "@/components/ui/layout/BottomNavbar";
 import Sidebar from "@/components/ui/layout/Sidebar";
-import { Footer } from "@/components/ui/layout/Footer";
 import Disclaimer from "@/components/ui/overlay/Disclaimer";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
@@ -59,7 +58,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <Sidebar>
             <main className="container mx-auto max-w-full px-3 pb-8 pt-8 sm:px-5">{children}</main>
           </Sidebar>
-          {/* <Footer /> */}
           <BottomNavbar />
         </Providers>
         <SpeedInsights debug={false} />
