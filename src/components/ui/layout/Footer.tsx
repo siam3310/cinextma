@@ -1,36 +1,45 @@
 "use client";
 
 import { siteConfig } from "@/config/site";
+import { cn } from "@/utils/helpers";
 import { BreadcrumbItem, Breadcrumbs, Link } from "@nextui-org/react";
 import { usePathname } from "next/navigation";
+import React from "react";
 import { FaGithub } from "react-icons/fa6";
 
-export const Footer = () => {
+interface FooterProps {
+  className?: string;
+}
+
+const Footer: React.FC<FooterProps> = ({ className }) => {
   const pathName = usePathname();
-  const hrefs = ["/search"];
-  const hide = hrefs.includes(pathName);
 
   return (
-    !hide && (
-      <footer className="bottom-0 flex w-full flex-col items-center justify-center gap-3 p-5 text-center">
-        <h4 className="text-xl font-semibold">{siteConfig.description}</h4>
-        <Link isExternal href={siteConfig.socials.github} color="foreground">
-          <FaGithub size={30} />
-        </Link>
-        <Breadcrumbs
-          separator="/"
-          itemClasses={{
-            separator: "px-2",
-          }}
-        >
-          <BreadcrumbItem>Home</BreadcrumbItem>
-          <BreadcrumbItem>Music</BreadcrumbItem>
-          <BreadcrumbItem>Artist</BreadcrumbItem>
-          <BreadcrumbItem>Album</BreadcrumbItem>
-          <BreadcrumbItem>Song</BreadcrumbItem>
-        </Breadcrumbs>
-        <p>© 2024</p>
-      </footer>
-    )
+    <footer
+      className={cn(
+        "bottom-0 flex w-full flex-col items-center justify-center gap-2 p-2 text-center",
+        className,
+      )}
+    >
+      <h6>{siteConfig.description}</h6>
+      <Link isExternal href={siteConfig.socials.github} color="foreground">
+        <FaGithub size={24} />
+      </Link>
+      <Breadcrumbs
+        separator="•"
+        itemClasses={{
+          separator: "px-2",
+        }}
+      >
+        {siteConfig.navItems.map(({ label, href }) => (
+          <BreadcrumbItem isCurrent={pathName === href} href={href}>
+            {label}
+          </BreadcrumbItem>
+        ))}
+      </Breadcrumbs>
+      <p>© 2024 WIsnu Wirayuda</p>
+    </footer>
   );
 };
+
+export default Footer;
