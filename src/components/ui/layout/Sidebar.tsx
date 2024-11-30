@@ -16,7 +16,7 @@ const Sidebar: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         <div className="hidden md:block">
           <div className="left-0 top-0 w-[100px]" />
           <aside className="fixed left-0 top-0 h-screen w-fit">
-            <nav className="flex h-full flex-col justify-center bg-background pl-4 text-foreground">
+            <nav className="flex h-full flex-col justify-center bg-background pl-2 text-foreground">
               <NavbarMenuItems size="sm" isVertical isIconOnly variant="light" />
             </nav>
           </aside>
