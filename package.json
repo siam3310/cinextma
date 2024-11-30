@@ -52,7 +52,7 @@
   },
   "prettier": {
     "proseWrap": "never",
-    "printWidth": 200,
+    "printWidth": 100,
     "plugins": [
       "prettier-plugin-tailwindcss"
     ]
