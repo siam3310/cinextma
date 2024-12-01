@@ -9,7 +9,11 @@ import { kebabCase } from "string-ts";
 import { useInViewport } from "@mantine/hooks";
 import { useCustomCarousel } from "@/hooks/useCustomCarousel";
 
-const HomeMovieList: React.FC<{ query: Promise<any>; name: string; param: string }> = ({ query, name, param }) => {
+const HomeMovieList: React.FC<{ query: Promise<any>; name: string; param: string }> = ({
+  query,
+  name,
+  param,
+}) => {
   const { ref, inViewport } = useInViewport();
   const c = useCustomCarousel({ dragFree: true });
   const { data, isPending } = useQuery({
@@ -19,7 +23,7 @@ const HomeMovieList: React.FC<{ query: Promise<any>; name: string; param: string
   });
 
   return (
-    <div ref={ref}>
+    <div className="min-h-[250px] md:min-h-[300px]" ref={ref}>
       {isPending ? (
         <div className="flex w-full flex-col gap-5">
           <div className="flex flex-grow items-center justify-between">
@@ -32,23 +36,48 @@ const HomeMovieList: React.FC<{ query: Promise<any>; name: string; param: string
         <section id="trending" className="z-[3] flex flex-col gap-2">
           <div className="flex flex-grow items-center justify-between">
             <h4 className="text-lg font-bold md:text-2xl">{name}</h4>
-            <Link size="sm" href={`/discover?type=${param}`} isBlock color="foreground" className="rounded-full">
+            <Link
+              size="sm"
+              href={`/discover?type=${param}`}
+              isBlock
+              color="foreground"
+              className="rounded-full"
+            >
               See All &gt;
             </Link>
           </div>
           <ScrollShadow orientation="horizontal" visibility="both" size={20} hideScrollBar>
             <div className="embla relative flex w-full flex-col justify-center gap-5">
               <div className={clsx("-md:-translate-x-5 absolute z-10 hidden md:block")}>
-                <IconButton isDisabled={!c.canScrollPrev} onPress={c.scrollPrev} size="sm" radius="full" icon="mingcute:left-fill" tooltip="Previous" />
+                <IconButton
+                  isDisabled={!c.canScrollPrev}
+                  onPress={c.scrollPrev}
+                  size="sm"
+                  radius="full"
+                  icon="mingcute:left-fill"
+                  tooltip="Previous"
+                />
               </div>
-              <div className={clsx("-md:translate-x-5 absolute z-10 hidden place-self-end md:block")}>
-                <IconButton isDisabled={!c.canScrollNext} onPress={c.scrollNext} size="sm" radius="full" icon="mingcute:right-fill" tooltip="Next" />
+              <div
+                className={clsx("-md:translate-x-5 absolute z-10 hidden place-self-end md:block")}
+              >
+                <IconButton
+                  isDisabled={!c.canScrollNext}
+                  onPress={c.scrollNext}
+                  size="sm"
+                  radius="full"
+                  icon="mingcute:right-fill"
+                  tooltip="Next"
+                />
               </div>
               <div className="embla__viewport" ref={c.emblaRef}>
                 <div className="embla__container gap-2">
                   {data?.results.map((movie: any) => {
                     return (
-                      <div key={movie.id} className="embla__slide flex min-h-fit max-w-fit items-center px-1 py-2">
+                      <div
+                        key={movie.id}
+                        className="embla__slide flex min-h-fit max-w-fit items-center px-1 py-2"
+                      >
                         <HomePosterCard movie={movie}></HomePosterCard>
                       </div>
                     );
