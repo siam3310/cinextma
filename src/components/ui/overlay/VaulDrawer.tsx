@@ -16,10 +16,24 @@ interface DrawerProps {
   onOpenChange?: (open: boolean) => void;
 }
 
-export default function VaulDrawer({ children, trigger, title, direction, backdrop = "opaque", fullWidth, isOpen, hiddenTitle, onOpenChange }: DrawerProps) {
+export default function VaulDrawer({
+  children,
+  trigger,
+  title,
+  direction,
+  backdrop = "opaque",
+  fullWidth,
+  isOpen,
+  hiddenTitle,
+  onOpenChange,
+}: DrawerProps) {
   return (
     <Drawer.Root direction={direction} open={isOpen} onOpenChange={onOpenChange}>
-      {trigger && <Drawer.Trigger asChild>{typeof trigger === "string" ? <Button>{trigger}</Button> : trigger}</Drawer.Trigger>}
+      {trigger && (
+        <Drawer.Trigger asChild>
+          {typeof trigger === "string" ? <Button>{trigger}</Button> : trigger}
+        </Drawer.Trigger>
+      )}
       <Drawer.Portal>
         <Drawer.Overlay
           className={cn("fixed inset-0 z-[9998] bg-black/70", {
@@ -28,12 +42,18 @@ export default function VaulDrawer({ children, trigger, title, direction, backdr
           })}
         />
         <Drawer.Content
-          className={cn("fixed bottom-0 left-0 right-0 z-[9999] mt-24 flex h-fit max-h-[97%] w-full flex-col place-self-center rounded-t-2xl bg-secondary-background text-foreground outline-none", {
-            "md:w-max": !fullWidth,
-          })}
+          className={cn(
+            "fixed bottom-0 left-0 right-0 z-[9999] mt-24 grid h-fit max-h-[97%] w-full place-self-center rounded-t-2xl bg-secondary-background text-foreground outline-none",
+            {
+              "md:w-max": !fullWidth,
+            },
+          )}
         >
           <div className="flex-1 space-y-5 rounded-t-2xl pb-6 pt-4">
-            <div aria-hidden className="mx-auto h-1.5 w-12 flex-shrink-0 rounded-full bg-foreground/50" />
+            <div
+              aria-hidden
+              className="mx-auto h-1.5 w-12 flex-shrink-0 rounded-full bg-foreground/50"
+            />
             <Drawer.Title
               aria-hidden={hiddenTitle}
               className={cn("text-center text-xl", {
