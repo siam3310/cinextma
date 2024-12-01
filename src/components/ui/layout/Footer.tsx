@@ -32,12 +32,12 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
         }}
       >
         {siteConfig.navItems.map(({ label, href }) => (
-          <BreadcrumbItem isCurrent={pathName === href} href={href}>
+          <BreadcrumbItem key={href} isCurrent={pathName === href} href={href}>
             {label}
           </BreadcrumbItem>
         ))}
       </Breadcrumbs>
-      <p>© 2024 WIsnu Wirayuda</p>
+      <p>© 2024 Wisnu Wirayuda</p>
     </footer>
   );
 };
