@@ -64,7 +64,13 @@ export default function SearchList() {
             "absolute-center px-3 md:px-0": !isSearchTriggered,
           })}
         >
-          <motion.div layout initial={{ opacity: 0, scale: 0.7 }} exit={{ opacity: 0, scale: 0.7 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.3 }}>
+          <motion.div
+            layout
+            initial={{ opacity: 0, scale: 0.7 }}
+            exit={{ opacity: 0, scale: 0.7 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.3 }}
+          >
             <SearchInput
               placeholder="Search your favorite movies..."
               isLoading={isPending && isSearchTriggered}
@@ -73,12 +79,26 @@ export default function SearchList() {
               onChange={({ target }) => setSearchQuery(target.value)}
             />
           </motion.div>
-          <History searchHistories={searchHistories} setSearchQuery={setSearchQuery} setSearchHistories={setSearchHistories} />
+          <History
+            searchHistories={searchHistories}
+            setSearchQuery={setSearchQuery}
+            setSearchHistories={setSearchHistories}
+          />
         </div>
       </AnimatePresence>
 
       {isSearchTriggered && (
         <>
+          {totalResults !== 0 && (
+            <Pagination
+              showControls
+              isDisabled={isPending}
+              total={totalPages}
+              page={page}
+              initialPage={page}
+              onChange={handlePageChange}
+            />
+          )}
           {isPending ? (
             <>
               <Skeleton className="h-8 w-full max-w-xl rounded-full" />
@@ -90,29 +110,41 @@ export default function SearchList() {
             </>
           ) : (
             <>
-              <h4 className="text-center text-xl">
+              <h5 className="text-center text-xl">
                 {totalResults !== 0 ? (
                   <span className="motion-preset-confetti">
-                    Found <span className="font-bold text-primary">{totalResults.toLocaleString()}</span> movies with query <span className="font-bold text-warning">"{debouncedSearchQuery}"</span>
+                    Found{" "}
+                    <span className="font-bold text-primary">{totalResults.toLocaleString()}</span>{" "}
+                    movies with query{" "}
+                    <span className="font-bold text-warning">"{debouncedSearchQuery}"</span>
                   </span>
                 ) : (
                   <span>
-                    No movie found with query <span className="font-bold text-warning">"{debouncedSearchQuery}"</span>
+                    No movie was found with query{" "}
+                    <span className="font-bold text-warning">"{debouncedSearchQuery}"</span>
                   </span>
                 )}
-              </h4>
+              </h5>
               {movies.length > 0 && (
                 <>
-                  <Pagination showControls total={totalPages} page={page} initialPage={page} onChange={handlePageChange} />
                   <div className="movie-grid">
                     {movies.map((movie: any) => (
                       <DiscoverPosterCard key={movie.id} movie={movie} />
                     ))}
                   </div>
-                  <Pagination showControls total={totalPages} page={page} initialPage={page} onChange={handlePageChange} />
                 </>
               )}
             </>
+          )}
+          {totalResults !== 0 && (
+            <Pagination
+              showControls
+              isDisabled={isPending}
+              total={totalPages}
+              page={page}
+              initialPage={page}
+              onChange={handlePageChange}
+            />
           )}
         </>
       )}
