@@ -40,6 +40,7 @@ export default function LibraryList() {
     <div className="flex flex-col items-center justify-center gap-10">
       <Select
         label="Sort"
+        size="sm"
         placeholder="Select sort"
         className="max-w-xs p-4"
         defaultSelectedKeys={["title"]}
