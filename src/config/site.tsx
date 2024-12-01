@@ -1,10 +1,15 @@
 import { tmdb } from "@/api/tmdb";
 import { BiSearchAlt2, BiSolidSearchAlt2 } from "react-icons/bi";
-import { BsInfoCircle, BsInfoCircleFill } from "react-icons/bs";
 import { GoHomeFill, GoHome } from "react-icons/go";
 import { HiComputerDesktop } from "react-icons/hi2";
 import { IoIosSunny } from "react-icons/io";
-import { IoCompass, IoCompassOutline, IoMoon } from "react-icons/io5";
+import {
+  IoCompass,
+  IoCompassOutline,
+  IoInformationCircle,
+  IoInformationCircleOutline,
+  IoMoon,
+} from "react-icons/io5";
 import { TbFolder, TbFolderFilled } from "react-icons/tb";
 
 export const siteConfig = {
@@ -39,14 +44,14 @@ export const siteConfig = {
     {
       label: "About",
       href: "/about",
-      icon: <BsInfoCircle className="size-full" />,
-      activeIcon: <BsInfoCircleFill className="size-full" />,
+      icon: <IoInformationCircleOutline className="size-full" />,
+      activeIcon: <IoInformationCircle className="size-full" />,
     },
   ],
   themes: [
     {
       name: "light",
-      icon: <IoIosSunny className="size-full animate-spin duration-[3000ms]" />,
+      icon: <IoIosSunny className="size-full" />,
     },
     {
       name: "dark",
