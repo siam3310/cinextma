@@ -11,13 +11,13 @@ import Trailer from "./Trailer";
 import { useDocumentTitle } from "@mantine/hooks";
 import { siteConfig } from "@/config/site";
 import { FaCirclePlay } from "react-icons/fa6";
+import Genres from "@/components/movies/Genres";
 
 export const OverviewSection: React.FC<{
   movie: AppendToResponse<MovieDetails, "videos"[], "movie">;
 }> = ({ movie }) => {
   const releaseYear = new Date(movie.release_date).getFullYear();
   const posterImage = getImageUrl(movie.poster_path);
-  const genres = movie.genres.map((item) => item.name).join(" • ");
   const title = mutateMovieTitle(movie);
   const fullTitle = `${title} (${releaseYear})`;
 
@@ -55,10 +55,9 @@ export const OverviewSection: React.FC<{
               <p>|</p>
               <p>{releaseYear}</p>
               <p>|</p>
-              <p>{genres}</p>
-              <p>|</p>
               <Rating rate={movie.vote_average} />
             </div>
+            <Genres genres={movie.genres} />
           </div>
 
           <div id="action" className="flex w-full flex-wrap justify-between gap-4 md:gap-0">

@@ -7,6 +7,8 @@ import { tmdb } from "@/api/tmdb";
 import Rating from "../../components/movies/Rating";
 import { useElementSize } from "@mantine/hooks";
 import { getImageUrl, movieDurationString, mutateMovieTitle } from "@/utils/movies";
+import Genres from "@/components/movies/Genres";
+import { Genre } from "tmdb-ts";
 
 export const HoverPosterCard: React.FC<{ id: number; fullWidth?: boolean }> = ({ id, fullWidth }) => {
   const { ref, width, height } = useElementSize();
@@ -59,13 +61,7 @@ export const HoverPosterCard: React.FC<{ id: number; fullWidth?: boolean }> = ({
                 <p>|</p>
                 <Rating rate={movie?.vote_average} />
               </div>
-              <div className="flex flex-wrap gap-2">
-                {movie?.genres.map((item) => (
-                  <Chip key={item.id} size="sm" variant="flat">
-                    {item.name}
-                  </Chip>
-                ))}
-              </div>
+              <Genres genres={movie?.genres as Genre[]} />
               <div className="flex w-full justify-between gap-2 py-1">
                 <Button as={Link} href={`/movie/${movie?.id}`} fullWidth color="primary" variant="shadow" startContent={<Icon icon="solar:play-circle-bold" fontSize={24} />}>
                   Play Now
