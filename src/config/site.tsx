@@ -1,5 +1,6 @@
 import { tmdb } from "@/api/tmdb";
 import { BiSearchAlt2, BiSolidSearchAlt2 } from "react-icons/bi";
+import { BsInfoCircle, BsInfoCircleFill } from "react-icons/bs";
 import { GoHomeFill, GoHome } from "react-icons/go";
 import { HiComputerDesktop } from "react-icons/hi2";
 import { IoIosSunny } from "react-icons/io";
@@ -34,6 +35,12 @@ export const siteConfig = {
       href: "/library",
       icon: <TbFolder className="size-full" />,
       activeIcon: <TbFolderFilled className="size-full" />,
+    },
+    {
+      label: "About",
+      href: "/about",
+      icon: <BsInfoCircle className="size-full" />,
+      activeIcon: <BsInfoCircleFill className="size-full" />,
     },
   ],
   themes: [
