@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 @layer base {
   h1 {
     @apply text-3xl font-black md:text-4xl;
@@ -35,15 +36,12 @@
   .embla__slide {
     @apply min-w-0 flex-[0_0_100%];
   }
-
   .toast__container {
     @apply m-0 gap-2 rounded-xl border-0 bg-secondary-background px-5 py-3 text-foreground shadow-xl light:light dark:dark;
   }
-
   .toast__title {
     @apply flex items-center gap-2 text-sm font-semibold md:text-base;
   }
-
   .toast__description {
     @apply text-xs;
   }
@@ -53,7 +51,6 @@
   .absolute-center {
     @apply absolute left-1/2 top-1/2 float-none -translate-x-1/2 -translate-y-1/2 !important;
   }
-
   .movie-grid {
     @apply grid size-full max-w-6xl grid-cols-2 justify-center gap-2 sm:grid-cols-3 md:gap-4 lg:grid-cols-[repeat(auto-fit,minmax(200px,50px))];
   }
