@@ -10,6 +10,8 @@ import BackdropSection from "@/app/movie/[id]/BackdropSection";
 import RelatedSection from "./RelatedSection";
 import { Cast } from "tmdb-ts/dist/types/credits";
 import { notFound } from "next/navigation";
+import GallerySection from "./GallerySection";
+import { Image } from "tmdb-ts";
 
 export default function MovieDetailPage({ params }: { params: { id: number } }) {
   const {
@@ -18,7 +20,16 @@ export default function MovieDetailPage({ params }: { params: { id: number } }) 
     error,
   } = useQuery({
     queryFn: () =>
-      tmdb.movies.details(params.id, ["images", "videos", "credits", "keywords", "recommendations", "similar", "reviews", "watch/providers"]),
+      tmdb.movies.details(params.id, [
+        "images",
+        "videos",
+        "credits",
+        "keywords",
+        "recommendations",
+        "similar",
+        "reviews",
+        "watch/providers",
+      ]),
     queryKey: ["movie-detail", params.id],
   });
 
@@ -33,6 +44,7 @@ export default function MovieDetailPage({ params }: { params: { id: number } }) 
           <BackdropSection movie={movie} />
           <OverviewSection movie={movie} />
           <CastsSection casts={movie?.credits.cast as Cast[]} />
+          <GallerySection images={movie?.images.backdrops as Image[]} />
           <MoviePlayer movie={movie} />
           <RelatedSection movie={movie} />
         </div>
