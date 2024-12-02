@@ -11,7 +11,14 @@ const Genres: React.FC<GenresProps> = ({ genres, chipSize = "sm", chipVariant = 
   return (
     <div className="flex flex-wrap gap-2">
       {genres.map(({ id, name }) => (
-        <Chip as={Link} href={`/discover?genres=${id}`} key={id} size={chipSize} variant={chipVariant} radius="full">
+        <Chip
+          as={Link}
+          href={`/discover?genres=${id}`}
+          key={id}
+          size={chipSize}
+          variant={chipVariant}
+          radius="full"
+        >
           {name}
         </Chip>
       ))}
