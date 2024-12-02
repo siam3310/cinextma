@@ -15,7 +15,15 @@ const MoviePlayer: React.FC<{ movie: MovieDetails }> = ({ movie }) => {
   return (
     <section id="movie-player" className="aspect-video size-auto">
       {playMovie ? (
-        <Tabs size="md" radius="full" aria-label="Movie Player" placement="bottom" color="primary" className="z-[3]" classNames={{ base: "flex justify-center" }}>
+        <Tabs
+          size="md"
+          radius="full"
+          aria-label="Movie Player"
+          placement="bottom"
+          color="primary"
+          className="z-[3]"
+          classNames={{ base: "flex justify-center" }}
+        >
           {players.map(({ title, source }) => (
             <Tab key={title} title={title}>
               <Card shadow="md" className="relative">
@@ -27,8 +35,25 @@ const MoviePlayer: React.FC<{ movie: MovieDetails }> = ({ movie }) => {
         </Tabs>
       ) : (
         <Card shadow="md" className="group aspect-video size-full">
-          <Image isBlurred alt={title} className="size-full" classNames={{ wrapper: "absolute-center aspect-video size-full group-hover:opacity-70 transition" }} src={backdropImage} />
-          <IconButton icon={<FaPlay />} radius="full" tooltip={`Play ${title}`} className="absolute-center" color="warning" variant="faded" size="lg" onPress={() => setPlayMovie(true)}></IconButton>
+          <Image
+            isBlurred
+            alt={title}
+            className="size-full"
+            classNames={{
+              wrapper: "absolute-center aspect-video size-full group-hover:opacity-70 transition",
+            }}
+            src={backdropImage}
+          />
+          <IconButton
+            icon={<FaPlay />}
+            radius="full"
+            tooltip={`Play ${title}`}
+            className="absolute-center"
+            color="warning"
+            variant="faded"
+            size="lg"
+            onPress={() => setPlayMovie(true)}
+          ></IconButton>
         </Card>
       )}
     </section>
