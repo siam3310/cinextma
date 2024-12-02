@@ -7,7 +7,11 @@ import { useCustomCarousel } from "@/hooks/useCustomCarousel";
 import { Cast } from "tmdb-ts";
 import { getImageUrl } from "@/utils/movies";
 
-const CastsSection: React.FC<{ casts: Cast[] }> = ({ casts }) => {
+interface CastCardProps {
+  casts: Cast[];
+}
+
+const CastsSection: React.FC<CastCardProps> = ({ casts }) => {
   const c = useCustomCarousel({ dragFree: true });
 
   return (
@@ -16,10 +20,24 @@ const CastsSection: React.FC<{ casts: Cast[] }> = ({ casts }) => {
       <ScrollShadow orientation="horizontal" visibility="both" size={20} hideScrollBar>
         <div className="embla relative flex w-full flex-col justify-center gap-5">
           <div className={clsx("-md:-translate-x-5 absolute z-10 hidden md:block")}>
-            <IconButton isDisabled={!c.canScrollPrev} onPress={c.scrollPrev} size="sm" radius="full" icon="mingcute:left-fill" tooltip="Previous" />
+            <IconButton
+              isDisabled={!c.canScrollPrev}
+              onPress={c.scrollPrev}
+              size="sm"
+              radius="full"
+              icon="mingcute:left-fill"
+              tooltip="Previous"
+            />
           </div>
           <div className={clsx("-md:translate-x-5 absolute z-10 hidden place-self-end md:block")}>
-            <IconButton isDisabled={!c.canScrollNext} onPress={c.scrollNext} size="sm" radius="full" icon="mingcute:right-fill" tooltip="Next" />
+            <IconButton
+              isDisabled={!c.canScrollNext}
+              onPress={c.scrollNext}
+              size="sm"
+              radius="full"
+              icon="mingcute:right-fill"
+              tooltip="Next"
+            />
           </div>
           <div className="embla__viewport" ref={c.emblaRef}>
             <div className="embla__container gap-8">
