@@ -6,7 +6,7 @@ export const SkeletonDiscoverPosterCard = () => {
       <CardHeader className="flex content-center justify-center">
         <Skeleton className="aspect-[2/3] max-h-max w-full rounded-lg" />
       </CardHeader>
-      <CardBody className="gap-3 overflow-visible py-2">
+      <CardBody className="gap-3 overflow-visible pb-0 pt-1">
         <Skeleton className="h-3 w-full rounded-full" />
       </CardBody>
       <CardFooter className="justify-between">
