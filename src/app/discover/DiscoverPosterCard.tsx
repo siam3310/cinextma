@@ -37,7 +37,7 @@ export const DiscoverPosterCard: React.FC<{ movie: Movie }> = ({ movie }) => {
         <Link href={`/movie/${movie.id}`}>
           <motion.div layout key={movie.id} className="size-full">
             <Card ref={ref} {...longPress()} isHoverable fullWidth shadow="md" className="group h-full bg-secondary-background">
-              <CardHeader className="flex items-center justify-center">
+              <CardHeader className="flex items-center justify-center pb-0">
                 <div className="relative size-full">
                   {hovered && <Icon icon="line-md:play-filled" width="64" height="64" className="absolute-center z-20 text-white" />}
                   {movie.adult && (
