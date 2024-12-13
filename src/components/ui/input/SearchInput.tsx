@@ -12,7 +12,15 @@ interface SearchInputProps extends InputProps {
   isLoading?: boolean;
 }
 
-const SearchInput = ({ value, onChange, className, autoFocus, placeholder = "Search...", isLoading, isDisabled }: SearchInputProps) => {
+const SearchInput = ({
+  value,
+  onChange,
+  className,
+  autoFocus,
+  placeholder = "Search...",
+  isLoading,
+  isDisabled,
+}: SearchInputProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
   const pathName = usePathname();
@@ -40,6 +48,7 @@ const SearchInput = ({ value, onChange, className, autoFocus, placeholder = "Sea
       className={cn(className, "w-full")}
       placeholder={placeholder}
       value={value}
+      radius="full"
       onChange={onChange}
       classNames={{
         inputWrapper: "bg-secondary-background",
@@ -49,7 +58,11 @@ const SearchInput = ({ value, onChange, className, autoFocus, placeholder = "Sea
       type="search"
       labelPlacement="outside"
       endContent={<Kbd className="hidden md:inline-block">CTRL+K</Kbd>}
-      startContent={<div className="pointer-events-none flex flex-shrink-0 items-center pr-1 text-default-400">{isLoading ? <Spinner color="default" size="sm" /> : <FaSearch />}</div>}
+      startContent={
+        <div className="pointer-events-none flex flex-shrink-0 items-center pr-1 text-default-400">
+          {isLoading ? <Spinner color="default" size="sm" /> : <FaSearch />}
+        </div>
+      }
     />
   );
 };
