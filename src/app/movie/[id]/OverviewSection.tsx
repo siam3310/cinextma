@@ -29,7 +29,7 @@ export const OverviewSection: React.FC<{
         <Image
           isBlurred
           shadow="md"
-          alt={title}
+          alt={fullTitle}
           classNames={{
             wrapper: "w-52 max-h-min aspect-[2/3] hidden md:block",
           }}
@@ -49,7 +49,7 @@ export const OverviewSection: React.FC<{
                 </Chip>
               )}
             </div>
-            <h2 className="text-2xl font-black md:text-4xl">{title}</h2>
+            <h2 className="text-2xl font-black md:text-4xl">{fullTitle}</h2>
             <div className="md:text-md flex flex-wrap gap-1 text-xs md:gap-2">
               <p>{movieDurationString(movie.runtime)}</p>
               <p>|</p>
@@ -62,7 +62,13 @@ export const OverviewSection: React.FC<{
 
           <div id="action" className="flex w-full flex-wrap justify-between gap-4 md:gap-0">
             <div className="flex flex-wrap gap-2">
-              <Button color="primary" as="a" href="#movie-player" variant="shadow" startContent={<FaCirclePlay size={22} />}>
+              <Button
+                color="primary"
+                as="a"
+                href="#movie-player"
+                variant="shadow"
+                startContent={<FaCirclePlay size={22} />}
+              >
                 Play Now
               </Button>
               <Trailer videos={movie.videos.results} />
