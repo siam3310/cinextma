@@ -99,22 +99,27 @@ export const siteConfig = {
       {
         name: "Today's Trending TV Shows",
         query: tmdb.trending.trending("tv", "day"),
+        param: "todayTrending",
       },
       {
         name: "This Week's Trending TV Shows",
         query: tmdb.trending.trending("tv", "week"),
+        param: "thisWeekTrending",
       },
       {
         name: "Popular TV Shows",
         query: tmdb.tvShows.popular(),
+        param: "popular",
       },
       {
         name: "On The Air TV Shows",
         query: tmdb.tvShows.onTheAir(),
+        param: "onTheAir",
       },
       {
         name: "Top Rated TV Shows",
         query: tmdb.tvShows.topRated(),
+        param: "topRated",
       },
     ],
   },
