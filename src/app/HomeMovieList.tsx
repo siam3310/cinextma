@@ -8,12 +8,18 @@ import HomePosterCard from "./HomePosterCard";
 import { kebabCase } from "string-ts";
 import { useInViewport } from "@mantine/hooks";
 import { useCustomCarousel } from "@/hooks/useCustomCarousel";
+import { Movie } from "tmdb-ts/dist/types";
 
-const HomeMovieList: React.FC<{ query: Promise<any>; name: string; param: string }> = ({
-  query,
-  name,
-  param,
-}) => {
+const HomeMovieList: React.FC<{
+  query: Promise<{
+    page: number;
+    results: Movie[];
+    total_results: number;
+    total_pages: number;
+  }>;
+  name: string;
+  param: string;
+}> = ({ query, name, param }) => {
   const { ref, inViewport } = useInViewport();
   const c = useCustomCarousel({ dragFree: true });
   const { data, isPending } = useQuery({
@@ -72,7 +78,7 @@ const HomeMovieList: React.FC<{ query: Promise<any>; name: string; param: string
               </div>
               <div className="embla__viewport" ref={c.emblaRef}>
                 <div className="embla__container gap-2">
-                  {data?.results.map((movie: any) => {
+                  {data?.results.map((movie) => {
                     return (
                       <div
                         key={movie.id}
