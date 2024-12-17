@@ -1,14 +1,12 @@
 "use client";
 
-import { Link, ScrollShadow, Skeleton } from "@nextui-org/react";
-import IconButton from "@/components/ui/button/IconButton";
-import clsx from "clsx";
+import { Link, Skeleton } from "@nextui-org/react";
 import { useQuery } from "@tanstack/react-query";
 import HomePosterCard from "./HomePosterCard";
 import { kebabCase } from "string-ts";
 import { useInViewport } from "@mantine/hooks";
-import { useCustomCarousel } from "@/hooks/useCustomCarousel";
 import { Movie } from "tmdb-ts/dist/types";
+import Carousel from "@/components/ui/wrapper/Carousel";
 
 const HomeMovieList: React.FC<{
   query: Promise<{
@@ -21,7 +19,6 @@ const HomeMovieList: React.FC<{
   param: string;
 }> = ({ query, name, param }) => {
   const { ref, inViewport } = useInViewport();
-  const c = useCustomCarousel({ dragFree: true });
   const { data, isPending } = useQuery({
     queryFn: () => query,
     queryKey: [kebabCase(name) + "-list"],
@@ -52,46 +49,18 @@ const HomeMovieList: React.FC<{
               See All &gt;
             </Link>
           </div>
-          <ScrollShadow orientation="horizontal" visibility="both" size={20} hideScrollBar>
-            <div className="embla relative flex w-full flex-col justify-center gap-5">
-              <div className={clsx("-md:-translate-x-5 absolute z-10 hidden md:block")}>
-                <IconButton
-                  isDisabled={!c.canScrollPrev}
-                  onPress={c.scrollPrev}
-                  size="sm"
-                  radius="full"
-                  icon="mingcute:left-fill"
-                  tooltip="Previous"
-                />
-              </div>
-              <div
-                className={clsx("-md:translate-x-5 absolute z-10 hidden place-self-end md:block")}
-              >
-                <IconButton
-                  isDisabled={!c.canScrollNext}
-                  onPress={c.scrollNext}
-                  size="sm"
-                  radius="full"
-                  icon="mingcute:right-fill"
-                  tooltip="Next"
-                />
-              </div>
-              <div className="embla__viewport" ref={c.emblaRef}>
-                <div className="embla__container gap-2">
-                  {data?.results.map((movie) => {
-                    return (
-                      <div
-                        key={movie.id}
-                        className="embla__slide flex min-h-fit max-w-fit items-center px-1 py-2"
-                      >
-                        <HomePosterCard movie={movie}></HomePosterCard>
-                      </div>
-                    );
-                  })}
+          <Carousel classNames={{ container: "gap-2" }}>
+            {data?.results.map((movie) => {
+              return (
+                <div
+                  key={movie.id}
+                  className="embla__slide flex min-h-fit max-w-fit items-center px-1 py-2"
+                >
+                  <HomePosterCard movie={movie}></HomePosterCard>
                 </div>
-              </div>
-            </div>
-          </ScrollShadow>
+              );
+            })}
+          </Carousel>
         </section>
       )}
     </div>
