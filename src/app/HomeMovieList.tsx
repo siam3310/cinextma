@@ -18,15 +18,16 @@ const HomeMovieList: React.FC<{
   name: string;
   param: string;
 }> = ({ query, name, param }) => {
+  const key = kebabCase(name) + "-list";
   const { ref, inViewport } = useInViewport();
   const { data, isPending } = useQuery({
     queryFn: () => query,
-    queryKey: [kebabCase(name) + "-list"],
+    queryKey: [key],
     enabled: inViewport,
   });
 
   return (
-    <div className="min-h-[250px] md:min-h-[300px]" ref={ref}>
+    <section id={key} className="min-h-[250px] md:min-h-[300px]" ref={ref}>
       {isPending ? (
         <div className="flex w-full flex-col gap-5">
           <div className="flex flex-grow items-center justify-between">
@@ -36,7 +37,7 @@ const HomeMovieList: React.FC<{
           <Skeleton className="h-[250px] rounded-lg md:h-[300px]" />
         </div>
       ) : (
-        <section id="trending" className="z-[3] flex flex-col gap-2">
+        <div className="z-[3] flex flex-col gap-2">
           <div className="flex flex-grow items-center justify-between">
             <h4 className="text-lg font-bold md:text-2xl">{name}</h4>
             <Link
@@ -61,9 +62,9 @@ const HomeMovieList: React.FC<{
               );
             })}
           </Carousel>
-        </section>
+        </div>
       )}
-    </div>
+    </section>
   );
 };
 
