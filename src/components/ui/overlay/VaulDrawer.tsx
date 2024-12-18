@@ -2,33 +2,28 @@
 
 import { cn } from "@/utils/helpers";
 import { Button } from "@nextui-org/button";
-import { Drawer } from "vaul";
+import { Drawer, DialogProps } from "vaul";
 
-interface DrawerProps {
+type DrawerProps = DialogProps & {
   children: React.ReactNode;
   trigger?: React.ReactNode;
   title: React.ReactNode;
-  direction?: "right" | "top" | "bottom" | "left";
   backdrop?: "opaque" | "blur" | "transparent";
   fullWidth?: boolean;
-  isOpen?: boolean;
   hiddenTitle?: boolean;
-  onOpenChange?: (open: boolean) => void;
-}
+};
 
 export default function VaulDrawer({
   children,
   trigger,
   title,
-  direction,
   backdrop = "opaque",
   fullWidth,
-  isOpen,
   hiddenTitle,
-  onOpenChange,
+  ...props
 }: DrawerProps) {
   return (
-    <Drawer.Root direction={direction} open={isOpen} onOpenChange={onOpenChange}>
+    <Drawer.Root {...props}>
       {trigger && (
         <Drawer.Trigger asChild>
           {typeof trigger === "string" ? <Button>{trigger}</Button> : trigger}

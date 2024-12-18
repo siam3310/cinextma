@@ -1,4 +1,13 @@
-import { Card, CardHeader, CardBody, Image, Chip, Tooltip, CardFooter, Link } from "@nextui-org/react";
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  Image,
+  Chip,
+  Tooltip,
+  CardFooter,
+  Link,
+} from "@nextui-org/react";
 import { Icon } from "@iconify/react";
 import { HoverPosterCard } from "@/app/discover/HoverPosterCard";
 import Rating from "@/components/movies/Rating";
@@ -33,20 +42,52 @@ export const DiscoverPosterCard: React.FC<{ movie: Movie }> = ({ movie }) => {
 
   return (
     <>
-      <Tooltip isDisabled={mobile} showArrow className="bg-secondary-background p-0" shadow="lg" delay={1000} placement="right-start" content={<HoverPosterCard id={movie.id} />}>
+      <Tooltip
+        isDisabled={mobile}
+        showArrow
+        className="bg-secondary-background p-0"
+        shadow="lg"
+        delay={1000}
+        placement="right-start"
+        content={<HoverPosterCard id={movie.id} />}
+      >
         <Link href={`/movie/${movie.id}`}>
           <motion.div layout key={movie.id} className="size-full">
-            <Card ref={ref} {...longPress()} isHoverable fullWidth shadow="md" className="group h-full bg-secondary-background">
+            <Card
+              ref={ref}
+              {...longPress()}
+              isHoverable
+              fullWidth
+              shadow="md"
+              className="group h-full bg-secondary-background"
+            >
               <CardHeader className="flex items-center justify-center pb-0">
                 <div className="relative size-full">
-                  {hovered && <Icon icon="line-md:play-filled" width="64" height="64" className="absolute-center z-20 text-white" />}
+                  {hovered && (
+                    <Icon
+                      icon="line-md:play-filled"
+                      width="64"
+                      height="64"
+                      className="absolute-center z-20 text-white"
+                    />
+                  )}
                   {movie.adult && (
-                    <Chip color="danger" size="sm" variant="shadow" className="absolute left-2 top-2 z-20">
+                    <Chip
+                      color="danger"
+                      size="sm"
+                      variant="shadow"
+                      className="absolute left-2 top-2 z-20"
+                    >
                       18+
                     </Chip>
                   )}
                   <div className="relative overflow-hidden rounded-large">
-                    <Image isBlurred alt={title} className="aspect-[2/3] rounded-lg object-cover object-center group-hover:scale-110" src={posterImage} />
+                    <Image
+                      isBlurred
+                      alt={title}
+                      className="aspect-[2/3] rounded-lg object-cover object-center group-hover:scale-110"
+                      src={posterImage}
+                    />
                   </div>
                 </div>
               </CardHeader>
@@ -64,7 +105,13 @@ export const DiscoverPosterCard: React.FC<{ movie: Movie }> = ({ movie }) => {
         </Link>
       </Tooltip>
 
-      <VaulDrawer backdrop="blur" isOpen={opened} onOpenChange={handlers.toggle} title={title} hiddenTitle>
+      <VaulDrawer
+        backdrop="blur"
+        open={opened}
+        onOpenChange={handlers.toggle}
+        title={title}
+        hiddenTitle
+      >
         <HoverPosterCard id={movie.id} fullWidth />
       </VaulDrawer>
     </>

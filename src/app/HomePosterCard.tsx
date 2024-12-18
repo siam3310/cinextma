@@ -33,10 +33,29 @@ const HomePosterCard: React.FC<{ movie: Movie }> = ({ movie }) => {
 
   return (
     <>
-      <Tooltip isDisabled={mobile} showArrow className="bg-secondary-background p-0" shadow="lg" delay={1000} placement="right-start" content={<HoverPosterCard id={movie.id} />}>
+      <Tooltip
+        isDisabled={mobile}
+        showArrow
+        className="bg-secondary-background p-0"
+        shadow="lg"
+        delay={1000}
+        placement="right-start"
+        content={<HoverPosterCard id={movie.id} />}
+      >
         <Link href={`/movie/${movie.id}`}>
-          <div ref={ref} {...longPress()} className="group motion-preset-expand relative aspect-[2/3] overflow-hidden rounded-lg text-white">
-            {hovered && <Icon icon="line-md:play-filled" width="64" height="64" className="absolute-center z-20 text-white" />}
+          <div
+            ref={ref}
+            {...longPress()}
+            className="group motion-preset-expand relative aspect-[2/3] overflow-hidden rounded-lg text-white"
+          >
+            {hovered && (
+              <Icon
+                icon="line-md:play-filled"
+                width="64"
+                height="64"
+                className="absolute-center z-20 text-white"
+              />
+            )}
             {movie.adult && (
               <Chip color="danger" size="sm" variant="flat" className="absolute left-2 top-2 z-20">
                 18+
@@ -65,7 +84,13 @@ const HomePosterCard: React.FC<{ movie: Movie }> = ({ movie }) => {
         </Link>
       </Tooltip>
 
-      <VaulDrawer backdrop="blur" isOpen={opened} onOpenChange={handlers.toggle} title={title} hiddenTitle>
+      <VaulDrawer
+        backdrop="blur"
+        open={opened}
+        onOpenChange={handlers.toggle}
+        title={title}
+        hiddenTitle
+      >
         <HoverPosterCard id={movie.id} fullWidth />
       </VaulDrawer>
     </>
