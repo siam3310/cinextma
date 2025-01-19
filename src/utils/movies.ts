@@ -34,9 +34,18 @@ export function movieDurationString(minutes?: number): string {
  * getImageUrl(undefined, 'poster')
  * // returns 'https://dancyflix.com/placeholder.png'
  */
-export function getImageUrl(path?: string, type: "poster" | "backdrop" | "title" | "avatar" = "poster", fullSize?: boolean): string {
+export function getImageUrl(
+  path?: string,
+  type: "poster" | "backdrop" | "title" | "avatar" = "poster",
+  fullSize?: boolean,
+): string {
   const size = fullSize ? "original" : "w500";
-  const fallback = type === "poster" ? "https://dancyflix.com/placeholder.png" : type === "backdrop" ? "https://wallpapercave.com/wp/wp1945939.jpg" : "";
+  const fallback =
+    type === "poster"
+      ? "https://dancyflix.com/placeholder.png"
+      : type === "backdrop"
+        ? "https://wallpapercave.com/wp/wp1945939.jpg"
+        : "";
   return path ? `http://image.tmdb.org/t/p/${size}/${path}` : fallback;
 }
 

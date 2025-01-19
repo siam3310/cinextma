@@ -1,60 +1,115 @@
 import IconButton from "@/components/ui/button/IconButton";
 import { getMoviePlayers } from "@/utils/players";
 import { getImageUrl, mutateMovieTitle } from "@/utils/movies";
-import { Card, Tabs, Tab, Image, Skeleton } from "@nextui-org/react";
+import { Card, Image, Skeleton, Select, SelectItem, Tooltip } from "@nextui-org/react";
 import { useState } from "react";
-import { FaPlay } from "react-icons/fa6";
+import { FaPlay, FaStar } from "react-icons/fa6";
+import { IoIosRocket, IoMdHelpCircle } from "react-icons/io";
 import { MovieDetails } from "tmdb-ts/dist/types/movies";
+import { FaAd } from "react-icons/fa";
 
 const MoviePlayer: React.FC<{ movie: MovieDetails }> = ({ movie }) => {
-  const [playMovie, setPlayMovie] = useState(false);
-  const backdropImage = getImageUrl(movie.backdrop_path, "backdrop", true);
-  const title = mutateMovieTitle(movie);
   const players = getMoviePlayers(movie.id);
+  const title = mutateMovieTitle(movie);
+  const [playMovie, setPlayMovie] = useState<boolean>(false);
+  const [selectedSource, setSelectedSource] = useState<string>(players[0].title);
+  const backdropImage = getImageUrl(movie.backdrop_path, "backdrop", true);
+
+  const Placeholder = () => (
+    <Card shadow="md" className="group aspect-video size-full">
+      <Image
+        isBlurred
+        alt={title}
+        className="size-full"
+        classNames={{
+          wrapper: "absolute-center aspect-video size-full group-hover:opacity-70 transition",
+        }}
+        src={backdropImage}
+      />
+      <IconButton
+        icon={<FaPlay />}
+        radius="full"
+        tooltip={`Play ${title}`}
+        className="absolute-center"
+        color="warning"
+        variant="faded"
+        size="lg"
+        onPress={() => setPlayMovie(true)}
+      />
+    </Card>
+  );
+
+  const PlayerTabs = () =>
+    players.map(
+      ({ title, source }) =>
+        selectedSource === title && (
+          <Card key={title} shadow="md" className="relative">
+            <Skeleton className="absolute aspect-video size-full" />
+            <iframe className="z-10 aspect-video size-full" src={source} allowFullScreen />
+          </Card>
+        ),
+    );
+
+  const SourceSelection = () => (
+    <div className="flex items-center justify-center gap-2">
+      <Select
+        disallowEmptySelection
+        selectionMode="single"
+        size="sm"
+        label="Selected Source"
+        placeholder="Select source"
+        className="max-w-xs"
+        defaultSelectedKeys={[selectedSource]}
+        selectedKeys={[selectedSource]}
+        onChange={({ target }) => setSelectedSource(target.value)}
+      >
+        {players.map(({ title, recommended, fast, ads }) => (
+          <SelectItem key={title} value={title} textValue={title}>
+            <div className="flex items-center space-x-2">
+              <span>{title}</span>
+              {recommended && <FaStar className="text-warning-500" />}
+              {fast && <IoIosRocket className="text-danger-500" />}
+              {ads && <FaAd className="text-primary-500" />}
+            </div>
+          </SelectItem>
+        ))}
+      </Select>
+      <Tooltip
+        content={
+          <div className="space-y-2 px-1 py-2">
+            <div className="flex items-center gap-2">
+              <FaStar className="text-warning-500" />
+              <span>Recommended</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <IoIosRocket className="text-danger-500" />
+              <span>Fast hosting</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <FaAd className="text-primary-500" />
+              <span>May contain popup ads</span>
+            </div>
+          </div>
+        }
+        placement="right"
+        showArrow
+      >
+        <div>
+          <IoMdHelpCircle size={24} className="cursor-help" />
+        </div>
+      </Tooltip>
+    </div>
+  );
 
   return (
-    <section id="movie-player" className="aspect-video size-auto">
+    <section id="movie-player" className="z-[3] aspect-video size-auto">
       {playMovie ? (
-        <Tabs
-          size="md"
-          radius="full"
-          aria-label="Movie Player"
-          placement="bottom"
-          color="primary"
-          className="z-[3]"
-          classNames={{ base: "flex justify-center" }}
-        >
-          {players.map(({ title, source }) => (
-            <Tab key={title} title={title}>
-              <Card shadow="md" className="relative">
-                <Skeleton className="absolute aspect-video size-full" />
-                <iframe className="z-10 aspect-video size-full" src={source} allowFullScreen />
-              </Card>
-            </Tab>
-          ))}
-        </Tabs>
+        <div className="space-y-5">
+          <PlayerTabs />
+          <SourceSelection />
+        </div>
       ) : (
-        <Card shadow="md" className="group aspect-video size-full">
-          <Image
-            isBlurred
-            alt={title}
-            className="size-full"
-            classNames={{
-              wrapper: "absolute-center aspect-video size-full group-hover:opacity-70 transition",
-            }}
-            src={backdropImage}
-          />
-          <IconButton
-            icon={<FaPlay />}
-            radius="full"
-            tooltip={`Play ${title}`}
-            className="absolute-center"
-            color="warning"
-            variant="faded"
-            size="lg"
-            onPress={() => setPlayMovie(true)}
-          ></IconButton>
-        </Card>
+        <Placeholder />
       )}
     </section>
   );

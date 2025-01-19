@@ -3,4 +3,5 @@ export interface PlayersProps {
   source: string;
   recommended?: boolean;
   fast?: boolean;
+  ads?: boolean;
 }
