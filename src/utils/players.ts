@@ -1,3 +1,6 @@
+import { PlayersProps } from "@/types";
+import { commonColors, semanticColors } from "@nextui-org/theme";
+
 /**
  * Generates a list of movie players with their respective titles and source URLs.
  * Each player is constructed using the provided movie ID.
@@ -7,10 +10,22 @@
  * the title of the player and the corresponding source URL.
  */
 export function getMoviePlayers(id: string | number) {
-  const players = [
+  const players: Array<PlayersProps> = [
+    {
+      title: "VidLink",
+      source: `https://vidlink.pro/movie/${id}?primaryColor=006fee&autoplay=false`,
+      recommended: true,
+      fast: true,
+    },
     {
       title: "SuperEmbed",
       source: `https://multiembed.mov/directstream.php?video_id=${id}&tmdb=1`,
+      recommended: true,
+    },
+    {
+      title: "<Embed>",
+      source: `https://embed.su/embed/movie/${id}`,
+      recommended: true,
     },
     {
       title: "FilmKu",
@@ -23,6 +38,10 @@ export function getMoviePlayers(id: string | number) {
     {
       title: "AutoEmbed",
       source: `https://autoembed.co/movie/tmdb/${id}`,
+    },
+    {
+      title: "2Embed",
+      source: `https://www.2embed.cc/embed/${id}`,
     },
     {
       title: "VidSrc 1",
@@ -52,10 +71,21 @@ export function getMoviePlayers(id: string | number) {
  * the title of the player and the corresponding source URL.
  */
 export function getTvShowPlayers(id: string | number, season?: number, episode?: number) {
-  const players = [
+  const players: Array<PlayersProps> = [
+    {
+      title: "VidLink",
+      source: `https://vidlink.pro/tv/${id}/${season}/${episode}`,
+      recommended: true,
+    },
     {
       title: "SuperEmbed",
       source: `https://multiembed.mov/directstream.php?video_id=${id}&tmdb=1&s=${season}&e=${episode}`,
+      recommended: true,
+    },
+    {
+      title: "<Embed>",
+      source: `https://embed.su/embed/tv/${id}/${season}/${episode}`,
+      recommended: true,
     },
     {
       title: "FilmKu",
@@ -68,6 +98,10 @@ export function getTvShowPlayers(id: string | number, season?: number, episode?:
     {
       title: "AutoEmbed",
       source: `https://autoembed.co/tv/tmdb/${id}-${season}-${episode}`,
+    },
+    {
+      title: "2Embed",
+      source: `https://www.2embed.cc/embedtv/${id}&s=${season}&e=${episode}`,
     },
     {
       title: "VidSrc 1",
