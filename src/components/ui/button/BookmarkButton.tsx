@@ -24,6 +24,7 @@ const extractImportantData = (movie: SavedMovieDetails) => ({
 });
 
 const BookmarkButton: React.FC<BookmarkButtonProps> = ({ movie, isTooltipDisabled }) => {
+  const { startVibration } = useDeviceVibration();
   const [bookmarks, setBookmarks] = useLocalStorage<string[]>({
     key: "bookmarks",
     defaultValue: [],
@@ -34,7 +35,11 @@ const BookmarkButton: React.FC<BookmarkButtonProps> = ({ movie, isTooltipDisable
   const isSaved = bookmarks.some((savedMovie) => JSON.parse(savedMovie).id === movie.id);
   const variant = isSaved ? "shadow" : "faded";
   const icon = isSaved ? <BsBookmarkCheckFill size={20} /> : <BsBookmarkFill size={20} />;
-  const { startVibration } = useDeviceVibration();
+  const tooltip = isTooltipDisabled
+    ? undefined
+    : isSaved
+      ? "Remove from Watchlist"
+      : "Add to Watchlist";
 
   const handleBookmark = () => {
     if (isSaved) {
@@ -49,7 +54,15 @@ const BookmarkButton: React.FC<BookmarkButtonProps> = ({ movie, isTooltipDisable
     }
   };
 
-  return <IconButton onPress={handleBookmark} icon={icon} variant={variant} color="warning" tooltip={isTooltipDisabled ? undefined : isSaved ? "Remove from Watchlist" : "Add to Watchlist"} />;
+  return (
+    <IconButton
+      onPress={handleBookmark}
+      icon={icon}
+      variant={variant}
+      color="warning"
+      tooltip={tooltip}
+    />
+  );
 };
 
 export default BookmarkButton;

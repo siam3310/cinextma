@@ -13,7 +13,12 @@ interface CopyButtonProps {
   copiedLabel?: string;
 }
 
-export default function CopyButton({ text, timeout = 2000, label, copiedLabel = "Copied to clipboard!" }: CopyButtonProps) {
+const CopyButton: React.FC<CopyButtonProps> = ({
+  text,
+  timeout = 2000,
+  label,
+  copiedLabel = "Copied to clipboard!",
+}) => {
   const { copy, copied } = useClipboard({ timeout });
   const icon = copied ? <FaCheck size={20} /> : <MdContentCopy size={20} />;
 
@@ -41,4 +46,6 @@ export default function CopyButton({ text, timeout = 2000, label, copiedLabel = 
       <p className="text-medium">{label}</p>
     </button>
   );
-}
+};
+
+export default CopyButton;

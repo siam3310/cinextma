@@ -1,7 +1,7 @@
 import IconButton from "./IconButton";
 import { useRouter } from "next-nprogress-bar";
 
-const BackButton = () => {
+const BackButton: React.FC = () => {
   const router = useRouter();
 
   return (
@@ -10,7 +10,7 @@ const BackButton = () => {
       iconSize={32}
       variant="light"
       tooltip="Back"
-      tooltipPlacement="right"
+      tooltipProps={{ placement: "right" }}
       onPress={() => router.push("/discover")}
     />
   );
