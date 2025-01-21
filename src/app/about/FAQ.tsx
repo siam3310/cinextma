@@ -1,7 +1,7 @@
 "use client";
 
 import useBreakpoints from "@/hooks/useBreakpoints";
-import { Accordion, AccordionItem } from "@nextui-org/react";
+import { Accordion, AccordionItem, Link } from "@nextui-org/react";
 
 export default function FAQ() {
   const { mobile } = useBreakpoints();
@@ -23,7 +23,15 @@ export default function FAQ() {
           We are very sorry that we can't help you with that. We have no control in the ads being
           served. Don't download anything in the popups. If you don't want to be annoyed. We highly
           recommend subscribing to a legal streaming service that you can afford (or use an
-          adblocker like <strong>uBlock Origin</strong> or <strong>Adblock Plus</strong>).
+          adblocker like{" "}
+          <Link href="https://ublockorigin.com/" target="_blank" className="font-bold">
+            uBlock Origin
+          </Link>{" "}
+          or{" "}
+          <Link href="https://adblockplus.org/" target="_blank" className="font-bold">
+            Adblock Plus
+          </Link>
+          ).
         </p>
       ),
     },

@@ -7,13 +7,23 @@ import { FaPlay, FaStar } from "react-icons/fa6";
 import { IoIosRocket, IoMdHelpCircle } from "react-icons/io";
 import { MovieDetails } from "tmdb-ts/dist/types/movies";
 import { FaAd } from "react-icons/fa";
+import AdsWarning from "@/components/ui/overlay/AdsWarning";
 
 const MoviePlayer: React.FC<{ movie: MovieDetails }> = ({ movie }) => {
   const players = getMoviePlayers(movie.id);
   const title = mutateMovieTitle(movie);
-  const [playMovie, setPlayMovie] = useState<boolean>(false);
+  const [warning, setWarning] = useState(false);
+  const [playMovie, setPlayMovie] = useState(false);
   const [selectedSource, setSelectedSource] = useState<string>(players[0].title);
   const backdropImage = getImageUrl(movie.backdrop_path, "backdrop", true);
+
+  const handlePlay = () => {
+    if (localStorage.getItem("ads-warning-seen")) {
+      setPlayMovie(true);
+    } else {
+      setWarning(true);
+    }
+  };
 
   const Placeholder = () => (
     <Card shadow="md" className="group aspect-video size-full">
@@ -34,7 +44,7 @@ const MoviePlayer: React.FC<{ movie: MovieDetails }> = ({ movie }) => {
         color="warning"
         variant="faded"
         size="lg"
-        onPress={() => setPlayMovie(true)}
+        onPress={handlePlay}
       />
     </Card>
   );
@@ -102,16 +112,19 @@ const MoviePlayer: React.FC<{ movie: MovieDetails }> = ({ movie }) => {
   );
 
   return (
-    <section id="movie-player" className="z-[3] aspect-video size-auto">
-      {playMovie ? (
-        <div className="space-y-5">
-          <PlayerTabs />
-          <SourceSelection />
-        </div>
-      ) : (
-        <Placeholder />
-      )}
-    </section>
+    <>
+      <section id="movie-player" className="z-[3] aspect-video size-auto">
+        {playMovie ? (
+          <div className="space-y-5">
+            <PlayerTabs />
+            <SourceSelection />
+          </div>
+        ) : (
+          <Placeholder />
+        )}
+      </section>
+      {warning && <AdsWarning />}
+    </>
   );
 };
 
