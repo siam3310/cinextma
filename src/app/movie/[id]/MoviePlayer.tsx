@@ -130,4 +130,6 @@ const MoviePlayer = forwardRef<HTMLDivElement, MoviePlayerProps>(({ movie }, ref
   );
 });
 
+MoviePlayer.displayName = "MoviePlayer";
+
 export default MoviePlayer;
