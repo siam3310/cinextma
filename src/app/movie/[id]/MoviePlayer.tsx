@@ -2,14 +2,18 @@ import IconButton from "@/components/ui/button/IconButton";
 import { getMoviePlayers } from "@/utils/players";
 import { getImageUrl, mutateMovieTitle } from "@/utils/movies";
 import { Card, Image, Skeleton, Select, SelectItem, Tooltip } from "@nextui-org/react";
-import { useState } from "react";
+import { forwardRef, useState } from "react";
 import { FaPlay, FaStar } from "react-icons/fa6";
 import { IoIosRocket, IoMdHelpCircle } from "react-icons/io";
 import { MovieDetails } from "tmdb-ts/dist/types/movies";
 import { FaAd } from "react-icons/fa";
 import AdsWarning from "@/components/ui/overlay/AdsWarning";
 
-const MoviePlayer: React.FC<{ movie: MovieDetails }> = ({ movie }) => {
+export interface MoviePlayerProps {
+  movie: MovieDetails;
+}
+
+const MoviePlayer = forwardRef<HTMLDivElement, MoviePlayerProps>(({ movie }, ref) => {
   const players = getMoviePlayers(movie.id);
   const title = mutateMovieTitle(movie);
   const [warning, setWarning] = useState(false);
@@ -112,20 +116,18 @@ const MoviePlayer: React.FC<{ movie: MovieDetails }> = ({ movie }) => {
   );
 
   return (
-    <>
-      <section id="movie-player" className="z-[3] aspect-video size-auto">
-        {playMovie ? (
-          <div className="space-y-5">
-            <PlayerTabs />
-            <SourceSelection />
-          </div>
-        ) : (
-          <Placeholder />
-        )}
-      </section>
+    <section id="movie-player" ref={ref} className="z-[3] aspect-video size-auto">
+      {playMovie ? (
+        <div className="space-y-5">
+          <PlayerTabs />
+          <SourceSelection />
+        </div>
+      ) : (
+        <Placeholder />
+      )}
       {warning && <AdsWarning />}
-    </>
+    </section>
   );
-};
+});
 
 export default MoviePlayer;

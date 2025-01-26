@@ -12,6 +12,7 @@ import { Cast } from "tmdb-ts/dist/types/credits";
 import { notFound } from "next/navigation";
 import GallerySection from "./GallerySection";
 import { Image } from "tmdb-ts";
+import { useScrollIntoView } from "@mantine/hooks";
 
 export default function MovieDetailPage({ params }: { params: { id: number } }) {
   const {
@@ -33,19 +34,26 @@ export default function MovieDetailPage({ params }: { params: { id: number } }) 
     queryKey: ["movie-detail", params.id],
   });
 
+  const { scrollIntoView, targetRef } = useScrollIntoView<HTMLDivElement>({
+    duration: 500,
+  });
+
   if (error) notFound();
 
   return (
-    <div className="mx-auto max-w-6xl">
+    <div className="mx-auto max-w-5xl">
       {isPending ? (
         <Spinner size="lg" className="absolute-center" />
       ) : (
         <div className="flex flex-col gap-10">
           <BackdropSection movie={movie} />
-          <OverviewSection movie={movie} />
+          <OverviewSection
+            onPlayNowClick={() => scrollIntoView({ alignment: "center" })}
+            movie={movie}
+          />
           <CastsSection casts={movie?.credits.cast as Cast[]} />
           <GallerySection images={movie?.images.backdrops as Image[]} />
-          <MoviePlayer movie={movie} />
+          <MoviePlayer ref={targetRef} movie={movie} />
           <RelatedSection movie={movie} />
         </div>
       )}

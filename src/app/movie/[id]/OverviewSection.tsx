@@ -13,9 +13,12 @@ import { siteConfig } from "@/config/site";
 import { FaCirclePlay } from "react-icons/fa6";
 import Genres from "@/components/movies/Genres";
 
-export const OverviewSection: React.FC<{
+export interface OverviewSectionProps {
   movie: AppendToResponse<MovieDetails, "videos"[], "movie">;
-}> = ({ movie }) => {
+  onPlayNowClick: () => void;
+}
+
+export const OverviewSection: React.FC<OverviewSectionProps> = ({ movie, onPlayNowClick }) => {
   const releaseYear = new Date(movie.release_date).getFullYear();
   const posterImage = getImageUrl(movie.poster_path);
   const title = mutateMovieTitle(movie);
@@ -64,9 +67,8 @@ export const OverviewSection: React.FC<{
             <div className="flex flex-wrap gap-2">
               <Button
                 color="primary"
-                as="a"
-                href="#movie-player"
                 variant="shadow"
+                onPress={onPlayNowClick}
                 startContent={<FaCirclePlay size={22} />}
               >
                 Play Now
