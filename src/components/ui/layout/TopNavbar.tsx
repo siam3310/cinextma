@@ -2,7 +2,7 @@
 
 import { siteConfig } from "@/config/site";
 import { usePathname } from "next/navigation";
-import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Link as NextLink, Button } from "@nextui-org/react";
+import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@nextui-org/react";
 import BackButton from "@/components/ui/button/BackButton";
 import { useWindowScroll } from "@mantine/hooks";
 import SearchInput from "../input/SearchInput";
@@ -30,13 +30,21 @@ const TopNavbar = () => {
         "bg-background": show,
       })}
     >
-      {!show && <div className="absolute inset-0 h-full w-full border-b border-background bg-background" style={{ opacity: opacity }} />}
+      {!show && (
+        <div
+          className="absolute inset-0 h-full w-full border-b border-background bg-background"
+          style={{ opacity: opacity }}
+        />
+      )}
       <NavbarBrand>{show ? <Brand /> : <BackButton />}</NavbarBrand>
       {show && !pathName.startsWith("/search") && (
         <NavbarContent className="hidden w-full max-w-lg gap-2 md:flex" justify="center">
           <NavbarItem className="w-full">
             <Link href="/search" className="w-full">
-              <SearchInput className="pointer-events-none" placeholder="Search your favorite movies..." />
+              <SearchInput
+                className="pointer-events-none"
+                placeholder="Search your favorite movies..."
+              />
             </Link>
           </NavbarItem>
         </NavbarContent>

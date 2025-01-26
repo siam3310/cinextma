@@ -1,5 +1,4 @@
 import { PlayersProps } from "@/types";
-import { commonColors, semanticColors } from "@nextui-org/theme";
 
 /**
  * Generates a list of movie players with their respective titles and source URLs.

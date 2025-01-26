@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { DiscoverPosterCard } from "@/app/discover/DiscoverPosterCard";
 import { useQuery } from "@tanstack/react-query";
-import { Chip, Pagination, Skeleton } from "@nextui-org/react";
+import { Pagination, Skeleton } from "@nextui-org/react";
 import { SkeletonDiscoverPosterCard } from "@/app/discover/SkeletonDiscoverPosterCard";
 import { tmdb } from "@/api/tmdb";
 import { useDebouncedValue, useLocalStorage } from "@mantine/hooks";
@@ -128,7 +128,7 @@ export default function SearchList() {
               {movies.length > 0 && (
                 <>
                   <div className="movie-grid">
-                    {movies.map((movie: any) => (
+                    {movies.map((movie) => (
                       <DiscoverPosterCard key={movie.id} movie={movie} />
                     ))}
                   </div>

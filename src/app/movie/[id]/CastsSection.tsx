@@ -1,6 +1,6 @@
 "use client";
 
-import { ScrollShadow, User } from "@nextui-org/react";
+import { User } from "@nextui-org/react";
 import { Cast } from "tmdb-ts";
 import { getImageUrl } from "@/utils/movies";
 import Carousel from "@/components/ui/wrapper/Carousel";
