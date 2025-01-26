@@ -14,7 +14,7 @@ const useDeviceVibration = () => {
    * Start device vibration with a given pattern.
    * @param {number | number[]} pattern - Single number or array of numbers defining the vibration pattern.
    */
-  const startVibration = (pattern: number | number[]) => {
+  const startVibration = (pattern: VibratePattern) => {
     if (isVibrationSupported()) {
       navigator.vibrate(pattern);
       setIsVibrating(true);
