@@ -1,7 +1,7 @@
 "use client";
 
 import { AppendToResponse, Movie, MovieDetails } from "tmdb-ts/dist/types";
-import { Tab, Tabs } from "@nextui-org/tabs";
+import { Tab, Tabs } from "@heroui/tabs";
 import RelatedMovieList from "./RelatedMovieList";
 
 const RelatedSection: React.FC<{ movie: AppendToResponse<MovieDetails, ("recommendations" | "similar")[], "movie"> }> = ({ movie }) => {

@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/utils/helpers";
-import { Button } from "@nextui-org/button";
+import { Button } from "@heroui/button";
 import { Drawer, DialogProps } from "vaul";
 
 type DrawerProps = DialogProps & {

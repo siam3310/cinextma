@@ -2,7 +2,7 @@
 
 import { siteConfig } from "@/config/site";
 import { cn } from "@/utils/helpers";
-import { BreadcrumbItem, Breadcrumbs, Link } from "@nextui-org/react";
+import { BreadcrumbItem, Breadcrumbs, Link } from "@heroui/react";
 import { usePathname } from "next/navigation";
 import React from "react";
 import { FaGithub } from "react-icons/fa6";

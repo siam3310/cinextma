@@ -2,7 +2,7 @@
 
 import { siteConfig } from "@/config/site";
 import { useDocumentTitle } from "@mantine/hooks";
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
 import Link from "next/link";
 
 export default function NotFound() {

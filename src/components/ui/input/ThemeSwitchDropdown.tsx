@@ -1,7 +1,7 @@
 "use client";
 
 import { siteConfig } from "@/config/site";
-import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/react";
+import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@heroui/react";
 import { useTheme } from "next-themes";
 import React, { useEffect, useState } from "react";
 

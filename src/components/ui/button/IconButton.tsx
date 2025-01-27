@@ -1,4 +1,4 @@
-import { Tooltip, Button, ButtonProps, TooltipProps } from "@nextui-org/react";
+import { Tooltip, Button, ButtonProps, TooltipProps } from "@heroui/react";
 import { Icon } from "@iconify/react";
 
 export interface IconButtonProps extends Omit<ButtonProps, "isIconOnly"> {

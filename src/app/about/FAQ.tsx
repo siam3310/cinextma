@@ -1,7 +1,7 @@
 "use client";
 
 import useBreakpoints from "@/hooks/useBreakpoints";
-import { Accordion, AccordionItem, Link } from "@nextui-org/react";
+import { Accordion, AccordionItem, Link } from "@heroui/react";
 
 export default function FAQ() {
   const { mobile } = useBreakpoints();

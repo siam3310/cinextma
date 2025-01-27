@@ -1,5 +1,5 @@
 import { Image as ImageProps } from "tmdb-ts";
-import { Image } from "@nextui-org/react";
+import { Image } from "@heroui/react";
 import { getImageUrl } from "@/utils/movies";
 import Gallery from "@/components/ui/overlay/Gallery";
 import { Slide } from "yet-another-react-lightbox";

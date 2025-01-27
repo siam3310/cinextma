@@ -2,9 +2,9 @@
 
 import { siteConfig } from "@/config/site";
 import clsx from "clsx";
-import { Link } from "@nextui-org/link";
+import { Link } from "@heroui/link";
 import { usePathname } from "next/navigation";
-import { Chip } from "@nextui-org/chip";
+import { Chip } from "@heroui/chip";
 
 const BottomNavbar = () => {
   const pathName = usePathname();

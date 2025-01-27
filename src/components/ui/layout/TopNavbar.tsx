@@ -2,7 +2,7 @@
 
 import { siteConfig } from "@/config/site";
 import { usePathname } from "next/navigation";
-import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@nextui-org/react";
+import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@heroui/react";
 import BackButton from "@/components/ui/button/BackButton";
 import { useWindowScroll } from "@mantine/hooks";
 import SearchInput from "../input/SearchInput";

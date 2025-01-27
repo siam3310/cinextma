@@ -21,7 +21,7 @@ import {
   TelegramIcon,
   TelegramShareButton,
 } from "react-share";
-import { Divider } from "@nextui-org/react";
+import { Divider } from "@heroui/react";
 import CopyButton from "./CopyButton";
 
 interface ShareButtonProps {

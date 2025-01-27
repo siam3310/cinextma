@@ -1,4 +1,4 @@
-import { Image, Chip, Button, Spinner, Link } from "@nextui-org/react";
+import { Image, Chip, Button, Spinner, Link } from "@heroui/react";
 import { useQuery } from "@tanstack/react-query";
 import { cn } from "@/utils/helpers";
 import { Icon } from "@iconify/react";
