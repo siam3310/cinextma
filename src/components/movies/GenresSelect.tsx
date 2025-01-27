@@ -1,5 +1,5 @@
 import { cn } from "@/utils/helpers";
-import { Select, SelectItem, SelectProps } from "@nextui-org/react";
+import { Select, SelectItem, SelectProps } from "@heroui/react";
 import { useQuery } from "@tanstack/react-query";
 import { Genre } from "tmdb-ts";
 import { Genres } from "tmdb-ts/dist/endpoints";

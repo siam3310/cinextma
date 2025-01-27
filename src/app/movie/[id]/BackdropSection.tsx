@@ -1,4 +1,4 @@
-import { Image } from "@nextui-org/image";
+import { Image } from "@heroui/image";
 import { useWindowScroll } from "@mantine/hooks";
 import { MovieDetails } from "tmdb-ts/dist/types/movies";
 import { AppendToResponse } from "tmdb-ts/dist/types/options";

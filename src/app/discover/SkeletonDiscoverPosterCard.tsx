@@ -1,4 +1,4 @@
-import { Card, CardHeader, CardBody, CardFooter, Skeleton } from "@nextui-org/react";
+import { Card, CardHeader, CardBody, CardFooter, Skeleton } from "@heroui/react";
 
 export const SkeletonDiscoverPosterCard = () => {
   return (

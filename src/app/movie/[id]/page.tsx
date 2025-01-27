@@ -2,7 +2,7 @@
 
 import MoviePlayer from "@/app/movie/[id]/MoviePlayer";
 import { OverviewSection } from "@/app/movie/[id]/OverviewSection";
-import { Spinner } from "@nextui-org/spinner";
+import { Spinner } from "@heroui/spinner";
 import { useQuery } from "@tanstack/react-query";
 import { tmdb } from "@/api/tmdb";
 import CastsSection from "@/app/movie/[id]/CastsSection";

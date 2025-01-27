@@ -2,7 +2,7 @@
 
 import { useLocalStorage } from "@mantine/hooks";
 import { DiscoverPosterCard } from "../discover/DiscoverPosterCard";
-import { Select, SelectItem } from "@nextui-org/react";
+import { Select, SelectItem } from "@heroui/react";
 import { useState, useMemo } from "react"; // Import framer-motion
 import { AnimatePresence } from "framer-motion";
 import { Movie } from "tmdb-ts/dist/types";

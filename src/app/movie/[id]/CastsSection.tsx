@@ -1,6 +1,6 @@
 "use client";
 
-import { User } from "@nextui-org/react";
+import { User } from "@heroui/react";
 import { Cast } from "tmdb-ts";
 import { getImageUrl } from "@/utils/movies";
 import Carousel from "@/components/ui/wrapper/Carousel";

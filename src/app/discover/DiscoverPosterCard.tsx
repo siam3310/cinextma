@@ -7,7 +7,7 @@ import {
   Tooltip,
   CardFooter,
   Link,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { Icon } from "@iconify/react";
 import { HoverPosterCard } from "@/app/discover/HoverPosterCard";
 import Rating from "@/components/movies/Rating";

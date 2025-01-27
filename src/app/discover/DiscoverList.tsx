@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { DiscoverPosterCard } from "@/app/discover/DiscoverPosterCard";
-import { Button, Pagination, Select, SelectItem } from "@nextui-org/react";
+import { Button, Pagination, Select, SelectItem } from "@heroui/react";
 import { SkeletonDiscoverPosterCard } from "@/app/discover/SkeletonDiscoverPosterCard";
 import useFetchDiscoverMovies from "@/hooks/useFetchDiscoverMovies";
 import { DISCOVER_MOVIES_VALID_QUERY_TYPES, DiscoverMoviesFetchQueryType } from "@/types/movie";

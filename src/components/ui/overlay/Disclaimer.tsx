@@ -9,7 +9,7 @@ import {
   ModalFooter,
   Button,
   ScrollShadow,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { useEffect, useState } from "react";
 import clsx from "clsx";
 

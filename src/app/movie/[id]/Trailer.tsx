@@ -2,7 +2,7 @@ import IconButton from "@/components/ui/button/IconButton";
 import { useCustomCarousel } from "@/hooks/useCustomCarousel";
 import { cn } from "@/utils/helpers";
 import { useDisclosure } from "@mantine/hooks";
-import { Button, Modal, ModalBody, ModalContent, Skeleton, Tooltip } from "@nextui-org/react";
+import { Button, Modal, ModalBody, ModalContent, Skeleton, Tooltip } from "@heroui/react";
 import clsx from "clsx";
 import { FaYoutube } from "react-icons/fa6";
 import { Video } from "tmdb-ts/dist/types/credits";

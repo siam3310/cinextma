@@ -1,5 +1,5 @@
 import { Icon } from "@iconify/react";
-import { Button } from "@nextui-org/button";
+import { Button } from "@heroui/button";
 import { useState } from "react";
 import { toast } from "sonner";
 import { AiFillDislike, AiFillLike } from "react-icons/ai";

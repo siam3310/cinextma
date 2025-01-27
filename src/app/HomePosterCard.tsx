@@ -1,4 +1,4 @@
-import { Image, Chip, Tooltip } from "@nextui-org/react";
+import { Image, Chip, Tooltip } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import Rating from "@/components/movies/Rating";
 import { HoverPosterCard } from "./discover/HoverPosterCard";

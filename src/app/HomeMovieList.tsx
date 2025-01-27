@@ -1,6 +1,6 @@
 "use client";
 
-import { Link, Skeleton } from "@nextui-org/react";
+import { Link, Skeleton } from "@heroui/react";
 import { useQuery } from "@tanstack/react-query";
 import HomePosterCard from "./HomePosterCard";
 import { kebabCase } from "string-ts";

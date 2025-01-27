@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { FaSearch } from "react-icons/fa";
-import { Input, InputProps, Kbd, Spinner } from "@nextui-org/react";
+import { Input, InputProps, Kbd, Spinner } from "@heroui/react";
 import { cn } from "@/utils/helpers";
 import { useHotkeys } from "@mantine/hooks";
 import { useRouter } from "next-nprogress-bar";

@@ -1,5 +1,5 @@
 import { siteConfig } from "@/config/site";
-import { Link, Tab, Tabs, TabsProps } from "@nextui-org/react";
+import { Link, Tab, Tabs, TabsProps } from "@heroui/react";
 import { usePathname } from "next/navigation";
 import React from "react";
 

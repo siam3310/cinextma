@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { NextUIProvider, Spinner } from "@nextui-org/react";
+import { HeroUIProvider, Spinner } from "@heroui/react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
@@ -22,7 +22,7 @@ export default function Providers({ children }: ProvidersProps) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <NextUIProvider navigate={router.push}>
+      <HeroUIProvider navigate={router.push}>
         <NextThemesProvider attribute="class" defaultTheme="dark" enableSystem>
           <ProgressBar color="#0072F5" options={{ showSpinner: false }} />
           <Toaster
@@ -45,7 +45,7 @@ export default function Providers({ children }: ProvidersProps) {
           />
           <NuqsAdapter>{children}</NuqsAdapter>
         </NextThemesProvider>
-      </NextUIProvider>
+      </HeroUIProvider>
       <div className="hidden md:block">
         <ReactQueryDevtools initialIsOpen={false} />
       </div>

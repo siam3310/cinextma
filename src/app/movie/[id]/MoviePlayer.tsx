@@ -1,7 +1,7 @@
 import IconButton from "@/components/ui/button/IconButton";
 import { getMoviePlayers } from "@/utils/players";
 import { getImageUrl, mutateMovieTitle } from "@/utils/movies";
-import { Card, Image, Skeleton, Select, SelectItem, Tooltip } from "@nextui-org/react";
+import { Card, Image, Skeleton, Select, SelectItem, Tooltip } from "@heroui/react";
 import { forwardRef, useState } from "react";
 import { FaPlay, FaStar } from "react-icons/fa6";
 import { IoIosRocket, IoMdHelpCircle } from "react-icons/io";

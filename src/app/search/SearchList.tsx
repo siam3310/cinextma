@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { DiscoverPosterCard } from "@/app/discover/DiscoverPosterCard";
 import { useQuery } from "@tanstack/react-query";
-import { Pagination, Skeleton } from "@nextui-org/react";
+import { Pagination, Skeleton } from "@heroui/react";
 import { SkeletonDiscoverPosterCard } from "@/app/discover/SkeletonDiscoverPosterCard";
 import { tmdb } from "@/api/tmdb";
 import { useDebouncedValue, useLocalStorage } from "@mantine/hooks";

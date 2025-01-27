@@ -10,7 +10,7 @@ import {
   Button,
   ScrollShadow,
   Link,
-} from "@nextui-org/react";
+} from "@heroui/react";
 
 const AdsWarning: React.FC = () => {
   const [seen, setSeen] = useLocalStorage<boolean>({

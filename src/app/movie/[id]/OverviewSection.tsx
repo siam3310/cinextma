@@ -1,6 +1,6 @@
 "use client";
 
-import { Image, Chip, Button } from "@nextui-org/react";
+import { Image, Chip, Button } from "@heroui/react";
 import { getImageUrl, movieDurationString, mutateMovieTitle } from "@/utils/movies";
 import BookmarkButton from "@/components/ui/button/BookmarkButton";
 import { MovieDetails } from "tmdb-ts/dist/types/movies";
