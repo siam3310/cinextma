@@ -11,7 +11,7 @@ const BackButton: React.FC = () => {
       variant="light"
       tooltip="Back"
       tooltipProps={{ placement: "right" }}
-      onPress={() => router.push("/discover")}
+      onPress={() => router.back()}
     />
   );
 };
