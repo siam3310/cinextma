@@ -1,5 +1,5 @@
 import IconButton from "./IconButton";
-import { useRouter } from "next-nprogress-bar";
+import { useRouter } from "@bprogress/next";
 
 const BackButton: React.FC = () => {
   const router = useRouter();

@@ -5,7 +5,7 @@ import { FaSearch } from "react-icons/fa";
 import { Input, InputProps, Kbd, Spinner } from "@heroui/react";
 import { cn } from "@/utils/helpers";
 import { useHotkeys } from "@mantine/hooks";
-import { useRouter } from "next-nprogress-bar";
+import { useRouter } from "@bprogress/next";
 import { usePathname } from "next/navigation";
 
 interface SearchInputProps extends InputProps {
