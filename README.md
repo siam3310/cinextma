@@ -27,7 +27,7 @@
 
 CINEXTMA is built using the following technologies:
 
-- **Next.js 14 App Router**: The application leverages the latest version of Next.js, which includes the new App Router, providing a more intuitive and powerful development experience.
+- **Next.js 15 App Router**: The application leverages the latest version of Next.js, which includes the new App Router, providing a more intuitive and powerful development experience.
 - **Tailwind CSS**: The user interface is styled using the Tailwind CSS utility-first CSS framework, ensuring a visually appealing and responsive design.
 - **Next UI**: The project utilizes the Next UI library, which provides a set of high-quality, customizable React components that integrate seamlessly with Tailwind CSS.
 - **TypeScript**: The codebase is written in TypeScript, ensuring better type safety, developer productivity, and maintainability.
