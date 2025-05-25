@@ -1,5 +1,7 @@
-import HomeMovieList from "./HomeMovieList";
 import { siteConfig } from "@/config/site";
+import dynamic from "next/dynamic";
+import { Suspense } from "react";
+const HomeMovieList = dynamic(() => import("./HomeMovieList"));
 
 export default function Home() {
   const movies = siteConfig.queryLists.movies;
@@ -8,7 +10,9 @@ export default function Home() {
   return (
     <div className="flex flex-col gap-12">
       {movies.map(({ name, query, param }) => (
-        <HomeMovieList key={name} name={name} query={query} param={param} />
+        <Suspense key={name}>
+          <HomeMovieList name={name} query={query} param={param} />
+        </Suspense>
       ))}
     </div>
   );

@@ -1,23 +1,20 @@
 "use client";
 
-import React from "react";
+import React, { PropsWithChildren } from "react";
 import { HeroUIProvider, Spinner } from "@heroui/react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { AppProgressProvider as ProgressProvider, useRouter } from "@bprogress/next";
+import { AppProgressProvider as ProgressProvider } from "@bprogress/next";
 import { Toaster } from "sonner";
 import { FaCheck, FaExclamation, FaInfo } from "react-icons/fa6";
 import { ImCross } from "react-icons/im";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
+import { useRouter } from "next/navigation";
 
 const queryClient = new QueryClient();
 
-export interface ProvidersProps {
-  children: React.ReactNode;
-}
-
-export default function Providers({ children }: ProvidersProps) {
+export default function Providers({ children }: PropsWithChildren) {
   const router = useRouter();
 
   return (
