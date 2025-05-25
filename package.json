@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbo",
+    "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -20,11 +20,11 @@
     "date-fns": "^4.1.0",
     "embla-carousel-react": "^8.5.2",
     "framer-motion": "^11.18.2",
-    "next": "14.2.16",
+    "next": "15.3.2",
     "next-themes": "^0.3.0",
     "nuqs": "^2.4.1",
-    "react": "^18",
-    "react-dom": "^18",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
     "react-icons": "^5.5.0",
     "react-intersection-observer": "^9.16.0",
     "react-share": "^5.2.2",
@@ -40,10 +40,10 @@
     "@iconify/react": "^5.2.0",
     "@tanstack/react-query-devtools": "^5.70.0",
     "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
+    "@types/react": "19.1.5",
+    "@types/react-dom": "19.1.5",
     "eslint": "^8",
-    "eslint-config-next": "14.2.16",
+    "eslint-config-next": "15.3.2",
     "postcss": "^8",
     "prettier": "^3.5.3",
     "prettier-plugin-tailwindcss": "^0.6.11",
@@ -57,5 +57,9 @@
     "plugins": [
       "prettier-plugin-tailwindcss"
     ]
+  },
+  "overrides": {
+    "@types/react": "19.1.5",
+    "@types/react-dom": "19.1.5"
   }
 }

@@ -1,5 +1,6 @@
 "use client";
 
+import { use } from "react";
 import MoviePlayer from "@/app/movie/[id]/MoviePlayer";
 import { OverviewSection } from "@/app/movie/[id]/OverviewSection";
 import { Spinner } from "@heroui/spinner";
@@ -14,7 +15,8 @@ import GallerySection from "./GallerySection";
 import { Image } from "tmdb-ts";
 import { useScrollIntoView } from "@mantine/hooks";
 
-export default function MovieDetailPage({ params }: { params: { id: number } }) {
+export default function MovieDetailPage(props: { params: Promise<{ id: number }> }) {
+  const params = use(props.params);
   const {
     data: movie,
     isPending,
