@@ -28,11 +28,7 @@ const GenresSelect: React.FC<GenresSelectProps> = ({ query, type, ...props }) =>
       className={cn("max-w-xs", props.className)}
     >
       {genres?.map(({ id, name }) => {
-        return (
-          <SelectItem key={id} value={id}>
-            {name}
-          </SelectItem>
-        );
+        return <SelectItem key={id}>{name}</SelectItem>;
       })}
     </Select>
   );

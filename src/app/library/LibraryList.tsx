@@ -47,9 +47,7 @@ export default function LibraryList() {
         onChange={(e) => setSortOption(e.target.value)}
       >
         {sortOptions.map(({ key, label }) => (
-          <SelectItem key={key} value={key}>
-            {label}
-          </SelectItem>
+          <SelectItem key={key}>{label}</SelectItem>
         ))}
       </Select>
 
