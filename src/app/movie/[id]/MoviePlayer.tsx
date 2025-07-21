@@ -78,7 +78,7 @@ const MoviePlayer = forwardRef<HTMLDivElement, MoviePlayerProps>(({ movie }, ref
         onChange={({ target }) => setSelectedSource(target.value)}
       >
         {players.map(({ title, recommended, fast, ads }) => (
-          <SelectItem key={title} value={title} textValue={title}>
+          <SelectItem key={title} textValue={title}>
             <div className="flex items-center space-x-2">
               <span>{title}</span>
               {recommended && <FaStar className="text-warning-500" />}

@@ -112,11 +112,7 @@ export default function DiscoverList() {
             value={queryType}
           >
             {selectItems.map(({ key, name }) => {
-              return (
-                <SelectItem key={key} value={key}>
-                  {name}
-                </SelectItem>
-              );
+              return <SelectItem key={key}>{name}</SelectItem>;
             })}
           </Select>
           <GenresSelect
