@@ -7,7 +7,9 @@ import { FaPlay, FaStar } from "react-icons/fa6";
 import { IoIosRocket, IoMdHelpCircle } from "react-icons/io";
 import { MovieDetails } from "tmdb-ts/dist/types/movies";
 import { FaAd } from "react-icons/fa";
-import AdsWarning from "@/components/ui/overlay/AdsWarning";
+import dynamic from "next/dynamic";
+import { IS_PRODUCTION } from "@/utils/constants";
+const AdsWarning = dynamic(() => import("@/components/ui/overlay/AdsWarning"));
 
 export interface MoviePlayerProps {
   movie: MovieDetails;
@@ -125,7 +127,7 @@ const MoviePlayer = forwardRef<HTMLDivElement, MoviePlayerProps>(({ movie }, ref
       ) : (
         <Placeholder />
       )}
-      {warning && <AdsWarning />}
+      {warning && IS_PRODUCTION && <AdsWarning />}
     </section>
   );
 });
