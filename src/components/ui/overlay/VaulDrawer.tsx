@@ -4,7 +4,7 @@ import { cn } from "@/utils/helpers";
 import { Button } from "@heroui/button";
 import { Drawer, DialogProps } from "vaul";
 
-type DrawerProps = DialogProps & {
+export type DrawerProps = DialogProps & {
   children: React.ReactNode;
   trigger?: React.ReactNode;
   title: React.ReactNode;
