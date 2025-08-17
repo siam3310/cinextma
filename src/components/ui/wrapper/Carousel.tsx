@@ -8,7 +8,7 @@ import { EmblaOptionsType, EmblaPluginType } from "embla-carousel";
 import { cn } from "@/utils/helpers";
 import styles from "@/styles/embla-carousel.module.css";
 
-interface CarouselProps {
+export interface CarouselProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
   withScrollShadow?: boolean;
   isButtonDisabled?: boolean;
@@ -27,9 +27,10 @@ const Carousel = ({
   withScrollShadow = false,
   isButtonDisabled = false,
   autoHideButton = true,
-  options = { dragFree: true },
+  options = { dragFree: true, slidesToScroll: "auto" },
   plugins,
   classNames,
+  ...props
 }: CarouselProps) => {
   const c = useCustomCarousel(options, plugins);
 
@@ -42,6 +43,7 @@ const Carousel = ({
       hideScrollBar
     >
       <div
+        {...props}
         className={cn(styles.wrapper, classNames?.wrapper, {
           "relative flex w-full flex-col justify-center": !isButtonDisabled,
         })}
