@@ -7,6 +7,7 @@ import { kebabCase } from "string-ts";
 import { useInViewport } from "@mantine/hooks";
 import { Movie } from "tmdb-ts/dist/types";
 import Carousel from "@/components/ui/wrapper/Carousel";
+import SectionTitle from "@/components/ui/other/SectionTitle";
 
 const HomeMovieList: React.FC<{
   query: Promise<{
@@ -39,7 +40,7 @@ const HomeMovieList: React.FC<{
       ) : (
         <div className="z-[3] flex flex-col gap-2">
           <div className="flex flex-grow items-center justify-between">
-            <h4 className="text-lg font-bold md:text-2xl">{name}</h4>
+            <SectionTitle>{name}</SectionTitle>
             <Link
               size="sm"
               href={`/discover?type=${param}`}
@@ -50,7 +51,7 @@ const HomeMovieList: React.FC<{
               See All &gt;
             </Link>
           </div>
-          <Carousel classNames={{ container: "gap-2" }}>
+          <Carousel className="-mx-5" classNames={{ container: "gap-2" }}>
             {data?.results.map((movie) => {
               return (
                 <div

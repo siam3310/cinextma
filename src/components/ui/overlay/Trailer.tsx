@@ -1,30 +1,40 @@
 import IconButton from "@/components/ui/button/IconButton";
 import { useCustomCarousel } from "@/hooks/useCustomCarousel";
-import { cn } from "@/utils/helpers";
+import { cn, isEmpty } from "@/utils/helpers";
 import { useDisclosure } from "@mantine/hooks";
 import { Button, Modal, ModalBody, ModalContent, Skeleton, Tooltip } from "@heroui/react";
 import clsx from "clsx";
-import { FaYoutube } from "react-icons/fa6";
 import { Video } from "tmdb-ts/dist/types/credits";
+import { Youtube } from "@/utils/icons";
+import { colors, ColorType } from "@/types/component";
 
 interface TrailerProps {
   videos: Video[];
+  color?: ColorType;
 }
 
-export default function Trailer({ videos }: TrailerProps) {
+const Trailer: React.FC<TrailerProps> = ({ videos, color = "primary" }) => {
   const [opened, handlers] = useDisclosure(false);
   const c = useCustomCarousel();
-  const trailers = videos.filter((trailer) => trailer.site === "YouTube" && trailer.type === "Trailer");
+  const trailers = videos.filter(
+    (trailer) => trailer.site === "YouTube" && trailer.type === "Trailer",
+  );
   const multiple = trailers.length > 1;
-  function handleClose() {
+
+  const handleClose = () => {
     handlers.close();
     c.scrollTo(0);
-  }
+  };
 
-  if (trailers.length > 0)
+  if (!isEmpty(trailers)) {
     return (
       <>
-        <Button color="danger" variant="shadow" startContent={<FaYoutube size={22} />} onPress={() => handlers.open()}>
+        <Button
+          color="danger"
+          variant="shadow"
+          startContent={<Youtube size={22} />}
+          onPress={() => handlers.open()}
+        >
           Trailer
         </Button>
 
@@ -35,10 +45,24 @@ export default function Trailer({ videos }: TrailerProps) {
                 {multiple && (
                   <>
                     <div className={clsx("absolute z-10 md:-translate-x-5")}>
-                      <IconButton isDisabled={!c.canScrollPrev} onPress={c.scrollPrev} size="sm" radius="full" icon="mingcute:left-fill" tooltip="Previous" />
+                      <IconButton
+                        isDisabled={!c.canScrollPrev}
+                        onPress={c.scrollPrev}
+                        size="sm"
+                        radius="full"
+                        icon="mingcute:left-fill"
+                        tooltip="Previous"
+                      />
                     </div>
                     <div className={clsx("absolute z-10 place-self-end md:translate-x-5")}>
-                      <IconButton isDisabled={!c.canScrollNext} onPress={c.scrollNext} size="sm" radius="full" icon="mingcute:right-fill" tooltip="Next" />
+                      <IconButton
+                        isDisabled={!c.canScrollNext}
+                        onPress={c.scrollNext}
+                        size="sm"
+                        radius="full"
+                        icon="mingcute:right-fill"
+                        tooltip="Next"
+                      />
                     </div>
                   </>
                 )}
@@ -47,7 +71,10 @@ export default function Trailer({ videos }: TrailerProps) {
                     {trailers.map((trailer, index) => {
                       const inView = index === c.selectedIndex;
                       return (
-                        <div key={trailer.key} className="embla__slide flex aspect-video size-full items-center rounded-large px-1 py-2">
+                        <div
+                          key={trailer.key}
+                          className="embla__slide flex aspect-video size-full items-center rounded-large px-1 py-2"
+                        >
                           <Skeleton className="size-full rounded-large" />
                           {inView && (
                             <iframe
@@ -57,7 +84,7 @@ export default function Trailer({ videos }: TrailerProps) {
                               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                               referrerPolicy="strict-origin-when-cross-origin"
                               allowFullScreen
-                            ></iframe>
+                            />
                           )}
                         </div>
                       );
@@ -70,13 +97,18 @@ export default function Trailer({ videos }: TrailerProps) {
                   {trailers.map((trailer, index) => {
                     const inView = index === c.selectedIndex;
                     return (
-                      <Tooltip key={trailer.key} content={trailer.name} isDisabled={inView} showArrow>
+                      <Tooltip
+                        key={trailer.key}
+                        content={trailer.name}
+                        isDisabled={inView}
+                        showArrow
+                      >
                         <button
                           onClick={() => c.scrollTo(index)}
                           className={cn("size-2 rounded-full bg-foreground transition-all", {
-                            "w-6 bg-primary": inView,
+                            [`w-6 ${colors({ color })}`]: inView,
                           })}
-                        ></button>
+                        />
                       </Tooltip>
                     );
                   })}
@@ -87,4 +119,7 @@ export default function Trailer({ videos }: TrailerProps) {
         </Modal>
       </>
     );
-}
+  }
+};
+
+export default Trailer;

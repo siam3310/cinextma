@@ -9,9 +9,9 @@ import { DISCOVER_MOVIES_VALID_QUERY_TYPES, DiscoverMoviesFetchQueryType } from 
 import { useQueryState, parseAsInteger, parseAsStringLiteral } from "nuqs";
 import { Movie } from "tmdb-ts/dist/types";
 import Loop from "@/components/ui/other/Loop";
-import GenresSelect from "@/components/movies/GenresSelect";
 import { tmdb } from "@/api/tmdb";
 import { parseAsSet } from "@/utils/parsers";
+import GenresSelect from "@/components/ui/input/GenresSelect";
 
 export default function DiscoverList() {
   const [totalPages] = useState(100);

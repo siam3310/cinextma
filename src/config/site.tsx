@@ -1,4 +1,5 @@
 import { tmdb } from "@/api/tmdb";
+import { SiteConfigType } from "@/types";
 import { BiSearchAlt2, BiSolidSearchAlt2 } from "react-icons/bi";
 import { GoHomeFill, GoHome } from "react-icons/go";
 import { HiComputerDesktop } from "react-icons/hi2";
@@ -12,7 +13,7 @@ import {
 } from "react-icons/io5";
 import { TbFolder, TbFolderFilled } from "react-icons/tb";
 
-export const siteConfig = {
+export const siteConfig: SiteConfigType = {
   name: "Cinextma",
   description: "Your only choice for a free movies and tv shows streaming website.",
   favicon: "/favicon.ico",
@@ -108,16 +109,19 @@ export const siteConfig = {
       },
       {
         name: "Popular TV Shows",
+        // @ts-expect-error: Property 'adult' is missing in type 'PopularTvShowResult' but required in type 'TV'.
         query: tmdb.tvShows.popular(),
         param: "popular",
       },
       {
         name: "On The Air TV Shows",
+        // @ts-expect-error: Property 'adult' is missing in type 'OnTheAirResult' but required in type 'TV'.
         query: tmdb.tvShows.onTheAir(),
         param: "onTheAir",
       },
       {
         name: "Top Rated TV Shows",
+        // @ts-expect-error: Property 'adult' is missing in type 'TopRatedTvShowResult' but required in type 'TV'.
         query: tmdb.tvShows.topRated(),
         param: "topRated",
       },

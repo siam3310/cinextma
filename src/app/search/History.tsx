@@ -1,6 +1,5 @@
 import { Chip } from "@heroui/react";
 import { motion } from "framer-motion";
-import React from "react";
 
 interface HistoryProps {
   searchHistories: string[];
@@ -8,7 +7,11 @@ interface HistoryProps {
   setSearchHistories: (histories: string[]) => void;
 }
 
-export default function History({ searchHistories, setSearchQuery, setSearchHistories }: HistoryProps) {
+export default function History({
+  searchHistories,
+  setSearchQuery,
+  setSearchHistories,
+}: HistoryProps) {
   return (
     <div className="flex flex-wrap justify-center gap-2">
       {searchHistories.map((history, index) => {
@@ -26,7 +29,11 @@ export default function History({ searchHistories, setSearchQuery, setSearchHist
               as="button"
               key={history}
               onClick={() => setSearchQuery(history)}
-              onClose={() => setSearchHistories(searchHistories.filter((currentHistory) => currentHistory !== history))}
+              onClose={() =>
+                setSearchHistories(
+                  searchHistories.filter((currentHistory) => currentHistory !== history),
+                )
+              }
               variant="flat"
             >
               {history}

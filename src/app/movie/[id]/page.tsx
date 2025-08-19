@@ -1,29 +1,34 @@
 "use client";
 
-import { use } from "react";
-import MoviePlayer from "@/app/movie/[id]/MoviePlayer";
-import { OverviewSection } from "@/app/movie/[id]/OverviewSection";
+import { Suspense, use } from "react";
 import { Spinner } from "@heroui/spinner";
 import { useQuery } from "@tanstack/react-query";
 import { tmdb } from "@/api/tmdb";
-import CastsSection from "@/app/movie/[id]/CastsSection";
-import BackdropSection from "@/app/movie/[id]/BackdropSection";
-import RelatedSection from "./RelatedSection";
 import { Cast } from "tmdb-ts/dist/types/credits";
 import { notFound } from "next/navigation";
-import GallerySection from "./GallerySection";
 import { Image } from "tmdb-ts";
 import { useScrollIntoView } from "@mantine/hooks";
+import dynamic from "next/dynamic";
+const PhotosSection = dynamic(() => import("@/components/ui/other/PhotosSection"));
+const BackdropSection = dynamic(() => import("@/app/movie/[id]/BackdropSection"));
+const OverviewSection = dynamic(() => import("@/app/movie/[id]/OverviewSection"));
+const CastsSection = dynamic(() => import("@/app/movie/[id]/CastsSection"));
+const MoviePlayer = dynamic(() => import("@/app/movie/[id]/MoviePlayer"));
+const RelatedSection = dynamic(() => import("@/app/movie/[id]/RelatedSection"));
 
 export default function MovieDetailPage(props: { params: Promise<{ id: number }> }) {
-  const params = use(props.params);
+  const { id } = use(props.params);
+  const { scrollIntoView, targetRef } = useScrollIntoView<HTMLDivElement>({
+    duration: 500,
+  });
+
   const {
     data: movie,
     isPending,
     error,
   } = useQuery({
     queryFn: () =>
-      tmdb.movies.details(params.id, [
+      tmdb.movies.details(id, [
         "images",
         "videos",
         "credits",
@@ -33,32 +38,34 @@ export default function MovieDetailPage(props: { params: Promise<{ id: number }>
         "reviews",
         "watch/providers",
       ]),
-    queryKey: ["movie-detail", params.id],
+    queryKey: ["movie-detail", id],
   });
 
-  const { scrollIntoView, targetRef } = useScrollIntoView<HTMLDivElement>({
-    duration: 500,
-  });
+  if (isPending) {
+    return (
+      <div className="mx-auto max-w-5xl">
+        <Spinner size="lg" className="absolute-center" variant="simple" />
+      </div>
+    );
+  }
 
   if (error) notFound();
 
   return (
     <div className="mx-auto max-w-5xl">
-      {isPending ? (
-        <Spinner size="lg" className="absolute-center" />
-      ) : (
+      <Suspense fallback={<Spinner size="lg" className="absolute-center" variant="simple" />}>
         <div className="flex flex-col gap-10">
           <BackdropSection movie={movie} />
           <OverviewSection
             onPlayNowClick={() => scrollIntoView({ alignment: "center" })}
             movie={movie}
           />
-          <CastsSection casts={movie?.credits.cast as Cast[]} />
-          <GallerySection images={movie?.images.backdrops as Image[]} />
+          <CastsSection casts={movie.credits.cast as Cast[]} />
+          <PhotosSection images={movie.images.backdrops as Image[]} />
           <MoviePlayer ref={targetRef} movie={movie} />
           <RelatedSection movie={movie} />
         </div>
-      )}
+      </Suspense>
     </div>
   );
 }

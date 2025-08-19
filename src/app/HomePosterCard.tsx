@@ -1,6 +1,6 @@
 import { Image, Chip, Tooltip } from "@heroui/react";
 import { Icon } from "@iconify/react";
-import Rating from "@/components/movies/Rating";
+import Rating from "@/components/ui/other/Rating";
 import { HoverPosterCard } from "./discover/HoverPosterCard";
 import { useDisclosure, useHover } from "@mantine/hooks";
 import Link from "next/link";
@@ -46,7 +46,7 @@ const HomePosterCard: React.FC<{ movie: Movie }> = ({ movie }) => {
           <div
             ref={ref}
             {...longPress()}
-            className="group motion-preset-expand relative aspect-[2/3] overflow-hidden rounded-lg text-white"
+            className="group motion-preset-focus relative aspect-[2/3] overflow-hidden rounded-lg text-white"
           >
             {hovered && (
               <Icon

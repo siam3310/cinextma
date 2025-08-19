@@ -5,11 +5,11 @@ import { PlayersProps } from "@/types";
  * Each player is constructed using the provided movie ID.
  *
  * @param {string | number} id - The ID of the movie to be embedded in the player URLs.
- * @returns {Array<{ title: string, source: string }>} - An array of objects, each containing
+ * @returns {PlayersProps[]} - An array of objects, each containing
  * the title of the player and the corresponding source URL.
  */
-export function getMoviePlayers(id: string | number) {
-  const players: Array<PlayersProps> = [
+export const getMoviePlayers = (id: string | number): PlayersProps[] => {
+  return [
     {
       title: "VidLink",
       source: `https://vidlink.pro/movie/${id}?primaryColor=006fee&autoplay=false`,
@@ -67,9 +67,7 @@ export function getMoviePlayers(id: string | number) {
       ads: true,
     },
   ];
-
-  return players;
-}
+};
 
 /**
  * Generates a list of TV show players with their respective titles and source URLs.
@@ -78,14 +76,18 @@ export function getMoviePlayers(id: string | number) {
  * @param {string | number} id - The ID of the TV show to be embedded in the player URLs.
  * @param {string | number} [season] - The season number of the TV show episode to be embedded.
  * @param {string | number} [episode] - The episode number of the TV show episode to be embedded.
- * @returns {Array<{ title: string, source: string }>} - An array of objects, each containing
+ * @returns {PlayersProps[]} - An array of objects, each containing
  * the title of the player and the corresponding source URL.
  */
-export function getTvShowPlayers(id: string | number, season?: number, episode?: number) {
-  const players: Array<PlayersProps> = [
+export const getTvShowPlayers = (
+  id: string | number,
+  season: number,
+  episode: number,
+): PlayersProps[] => {
+  return [
     {
       title: "VidLink",
-      source: `https://vidlink.pro/tv/${id}/${season}/${episode}`,
+      source: `https://vidlink.pro/tv/${id}/${season}/${episode}?primaryColor=f5a524&autoplay=false`,
       recommended: true,
       fast: true,
       ads: true,
@@ -136,10 +138,8 @@ export function getTvShowPlayers(id: string | number, season?: number, episode?:
     },
     {
       title: "MoviesAPI",
-      source: `https://moviesapi.club/tv/${id}/${season}/${episode}`,
+      source: `https://moviesapi.club/tv/${id}-${season}-${episode}`,
       ads: true,
     },
   ];
-
-  return players;
-}
+};

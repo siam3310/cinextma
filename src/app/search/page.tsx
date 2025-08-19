@@ -2,7 +2,6 @@ import { siteConfig } from "@/config/site";
 import dynamic from "next/dynamic";
 import { Metadata } from "next/types";
 import { Suspense } from "react";
-
 const SearchList = dynamic(() => import("./SearchList"));
 
 export const metadata: Metadata = {

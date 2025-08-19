@@ -1,7 +1,8 @@
-import React from "react";
-import LibraryList from "./LibraryList";
 import { siteConfig } from "@/config/site";
 import { Metadata } from "next/types";
+import { Suspense } from "react";
+import dynamic from "next/dynamic";
+const LibraryList = dynamic(() => import("./LibraryList"));
 
 export const metadata: Metadata = {
   title: `Library | ${siteConfig.name}`,
@@ -9,8 +10,8 @@ export const metadata: Metadata = {
 
 export default function Library() {
   return (
-    <>
+    <Suspense>
       <LibraryList />
-    </>
+    </Suspense>
   );
 }

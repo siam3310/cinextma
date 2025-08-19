@@ -4,21 +4,22 @@ import { Image, Chip, Button } from "@heroui/react";
 import { getImageUrl, movieDurationString, mutateMovieTitle } from "@/utils/movies";
 import BookmarkButton from "@/components/ui/button/BookmarkButton";
 import { MovieDetails } from "tmdb-ts/dist/types/movies";
-import Rating from "../../../components/movies/Rating";
+import Rating from "../../../components/ui/other/Rating";
 import ShareButton from "@/components/ui/button/ShareButton";
 import { AppendToResponse } from "tmdb-ts/dist/types/options";
-import Trailer from "./Trailer";
 import { useDocumentTitle } from "@mantine/hooks";
 import { siteConfig } from "@/config/site";
 import { FaCirclePlay } from "react-icons/fa6";
-import Genres from "@/components/movies/Genres";
+import Genres from "@/components/ui/other/Genres";
+import SectionTitle from "@/components/ui/other/SectionTitle";
+import Trailer from "@/components/ui/overlay/Trailer";
 
-export interface OverviewSectionProps {
+interface OverviewSectionProps {
   movie: AppendToResponse<MovieDetails, "videos"[], "movie">;
   onPlayNowClick: () => void;
 }
 
-export const OverviewSection: React.FC<OverviewSectionProps> = ({ movie, onPlayNowClick }) => {
+const OverviewSection: React.FC<OverviewSectionProps> = ({ movie, onPlayNowClick }) => {
   const releaseYear = new Date(movie.release_date).getFullYear();
   const posterImage = getImageUrl(movie.poster_path);
   const title = mutateMovieTitle(movie);
@@ -83,7 +84,7 @@ export const OverviewSection: React.FC<OverviewSectionProps> = ({ movie, onPlayN
           </div>
 
           <div id="story" className="flex flex-col gap-2">
-            <h4 className="text-xl font-bold">Story Line</h4>
+            <SectionTitle>Story Line</SectionTitle>
             <p className="text-sm">{movie.overview}</p>
           </div>
         </div>
@@ -91,3 +92,5 @@ export const OverviewSection: React.FC<OverviewSectionProps> = ({ movie, onPlayN
     </section>
   );
 };
+
+export default OverviewSection;

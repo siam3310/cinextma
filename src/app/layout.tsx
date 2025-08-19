@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { siteConfig } from "@/config/site";
 import { Poppins } from "@/utils/fonts";
 import "../styles/globals.css";
+import "../styles/lightbox.css";
 import Providers from "./providers";
 import TopNavbar from "@/components/ui/layout/TopNavbar";
 import BottomNavbar from "@/components/ui/layout/BottomNavbar";
@@ -58,7 +59,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           {IS_PRODUCTION && <Disclaimer />}
           <TopNavbar />
           <Sidebar>
-            <main className="container mx-auto max-w-full px-3 pb-8 pt-8 sm:px-5">{children}</main>
+            <main className="container mx-auto max-w-full px-3 py-8 sm:px-5">{children}</main>
           </Sidebar>
           <BottomNavbar />
         </Providers>

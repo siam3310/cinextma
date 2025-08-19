@@ -4,6 +4,7 @@ import { User } from "@heroui/react";
 import { Cast } from "tmdb-ts";
 import { getImageUrl } from "@/utils/movies";
 import Carousel from "@/components/ui/wrapper/Carousel";
+import SectionTitle from "@/components/ui/other/SectionTitle";
 
 interface CastCardProps {
   casts: Cast[];
@@ -12,7 +13,7 @@ interface CastCardProps {
 const CastsSection: React.FC<CastCardProps> = ({ casts }) => {
   return (
     <section id="casts" className="z-[3] flex flex-col gap-2">
-      <h4 className="text-xl font-bold">Top Cast</h4>
+      <SectionTitle>Top Casts</SectionTitle>
       <Carousel classNames={{ container: "gap-5" }}>
         {casts.map((cast, index) => {
           const avatar = getImageUrl(cast.profile_path, "avatar");

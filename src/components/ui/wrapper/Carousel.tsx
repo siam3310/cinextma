@@ -2,7 +2,6 @@
 
 import { useCustomCarousel } from "@/hooks/useCustomCarousel";
 import { ScrollShadow } from "@heroui/react";
-import React from "react";
 import IconButton from "../button/IconButton";
 import { EmblaOptionsType, EmblaPluginType } from "embla-carousel";
 import { cn } from "@/utils/helpers";

@@ -4,10 +4,10 @@ import { cn } from "@/utils/helpers";
 import { Icon } from "@iconify/react";
 import BookmarkButton from "@/components/ui/button/BookmarkButton";
 import { tmdb } from "@/api/tmdb";
-import Rating from "../../components/movies/Rating";
+import Rating from "../../components/ui/other/Rating";
 import { useElementSize } from "@mantine/hooks";
 import { getImageUrl, movieDurationString, mutateMovieTitle } from "@/utils/movies";
-import Genres from "@/components/movies/Genres";
+import Genres from "@/components/ui/other/Genres";
 import { Genre } from "tmdb-ts";
 
 export const HoverPosterCard: React.FC<{ id: number; fullWidth?: boolean }> = ({
@@ -79,7 +79,7 @@ export const HoverPosterCard: React.FC<{ id: number; fullWidth?: boolean }> = ({
                 <p>|</p>
                 <p>{releaseYear}</p>
                 <p>|</p>
-                <Rating rate={movie?.vote_average} />
+                <Rating rate={movie?.vote_average || 0} />
               </div>
               <Genres genres={movie?.genres as Genre[]} />
               <div className="flex w-full justify-between gap-2 py-1">

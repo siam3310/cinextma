@@ -1,16 +1,7 @@
-import {
-  Card,
-  CardHeader,
-  CardBody,
-  Image,
-  Chip,
-  Tooltip,
-  CardFooter,
-  Link,
-} from "@heroui/react";
+import { Card, CardHeader, CardBody, Image, Chip, Tooltip, CardFooter, Link } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import { HoverPosterCard } from "@/app/discover/HoverPosterCard";
-import Rating from "@/components/movies/Rating";
+import Rating from "@/components/ui/other/Rating";
 import { useDisclosure, useHover } from "@mantine/hooks";
 import { motion } from "framer-motion";
 import { getImageUrl, mutateMovieTitle } from "@/utils/movies";

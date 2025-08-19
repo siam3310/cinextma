@@ -1,18 +1,13 @@
+import Link from "next/link";
 import IconButton from "./IconButton";
-import { useRouter } from "@bprogress/next";
 
-const BackButton: React.FC = () => {
-  const router = useRouter();
+export interface BackButtonProps {
+  href?: string;
+}
 
+const BackButton: React.FC<BackButtonProps> = ({ href = "/" }) => {
   return (
-    <IconButton
-      icon="line-md:chevron-left"
-      iconSize={32}
-      variant="light"
-      tooltip="Back"
-      tooltipProps={{ placement: "right" }}
-      onPress={() => router.back()}
-    />
+    <IconButton icon="line-md:chevron-left" iconSize={32} variant="light" href={href} as={Link} />
   );
 };
 

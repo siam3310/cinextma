@@ -1,5 +1,5 @@
 import { intervalToDuration } from "date-fns";
-import { Movie, MovieDetails } from "tmdb-ts";
+import { Movie, MovieDetails, TV, TvShowDetails } from "tmdb-ts";
 
 /**
  * Converts a movie duration from minutes to a human-readable format.
@@ -9,13 +9,13 @@ import { Movie, MovieDetails } from "tmdb-ts";
  *
  * @example
  */
-export function movieDurationString(minutes?: number): string {
+export const movieDurationString = (minutes?: number): string => {
   if (!minutes) return "No data";
   const duration = intervalToDuration({ start: 0, end: minutes * 60 * 1000 });
   const hours = duration.hours ? `${duration.hours}h ` : "";
   const mins = duration.minutes ? `${duration.minutes}m` : "";
   return `${hours}${mins}`;
-}
+};
 
 /**
  * Constructs a URL for an image from the TMDB API based on the given path and type.
@@ -34,11 +34,11 @@ export function movieDurationString(minutes?: number): string {
  * getImageUrl(undefined, 'poster')
  * // returns 'https://dancyflix.com/placeholder.png'
  */
-export function getImageUrl(
+export const getImageUrl = (
   path?: string,
   type: "poster" | "backdrop" | "title" | "avatar" = "poster",
   fullSize?: boolean,
-): string {
+): string => {
   const size = fullSize ? "original" : "w500";
   const fallback =
     type === "poster"
@@ -47,7 +47,7 @@ export function getImageUrl(
         ? "https://wallpapercave.com/wp/wp1945939.jpg"
         : "";
   return path ? `http://image.tmdb.org/t/p/${size}/${path}` : fallback;
-}
+};
 
 /**
  * Returns the title of a movie in the given language. If the movie is in the given language, the original title is used.
@@ -57,7 +57,20 @@ export function getImageUrl(
  * @param language The language to get the title in. Defaults to "id".
  * @returns The title of the movie in the given language, or an empty string if the movie is not provided.
  */
-export function mutateMovieTitle(movie?: MovieDetails | Movie, language: string = "id"): string {
+export const mutateMovieTitle = (movie?: MovieDetails | Movie, language: string = "id"): string => {
   if (!movie) return "";
   return movie.original_language === language ? movie.original_title : movie.title;
-}
+};
+
+/**
+ * Returns the title of a TV show in the given language. If the TV show is in the given language, the original name is used.
+ * Otherwise, the name is used. If the TV show is not provided, an empty string is returned.
+ *
+ * @param tv The TV show to get the title for. Optional.
+ * @param language The language to get the title in. Defaults to "id".
+ * @returns The title of the TV show in the given language, or an empty string if the TV show is not provided.
+ */
+export const mutateTvShowTitle = (tv?: TvShowDetails | TV, language: string = "id"): string => {
+  if (!tv) return "";
+  return tv.original_language === language ? tv.original_name : tv.name;
+};
