@@ -98,7 +98,6 @@ export default function VaulDrawer({
             )}
             {!hiddenHandler && (
               <div
-                aria-hidden
                 className={cn(
                   "mx-auto h-1.5 w-12 flex-shrink-0 rounded-full bg-foreground/50",
                   classNames?.handler,
@@ -106,7 +105,7 @@ export default function VaulDrawer({
               />
             )}
             <Drawer.Title
-              aria-hidden={hiddenTitle}
+              aria-hidden={hiddenTitle ? true : undefined}
               className={cn("text-center text-xl", classNames?.title, {
                 hidden: hiddenTitle,
               })}

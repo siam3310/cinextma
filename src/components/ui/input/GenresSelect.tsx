@@ -1,33 +1,49 @@
+import { tmdb } from "@/api/tmdb";
+import { ContentType } from "@/types";
 import { cn } from "@/utils/helpers";
 import { Select, SelectItem, SelectProps } from "@heroui/react";
 import { useQuery } from "@tanstack/react-query";
-import { Genre } from "tmdb-ts";
-import { Genres } from "tmdb-ts/dist/endpoints";
 
-interface GenresSelectProps extends Omit<SelectProps, "children" | "isLoading" | "selectionMode"> {
-  query: Promise<Genres> | Genres;
-  type: "movie" | "tv";
+interface GenresSelectProps extends Omit<SelectProps, "children" | "selectionMode"> {
+  type?: ContentType;
+  onGenreChange?: (genres: Set<string> | null) => void;
 }
 
-const GenresSelect: React.FC<GenresSelectProps> = ({ query, type, ...props }) => {
+const getQuery = (type: ContentType) => {
+  return type === "movie" ? tmdb.genres.movies() : tmdb.genres.tvShows();
+};
+
+const GenresSelect: React.FC<GenresSelectProps> = ({
+  type = "movie",
+  onGenreChange,
+  isLoading,
+  ...props
+}) => {
   const { data, isPending } = useQuery({
-    queryFn: () => query,
-    queryKey: ["get-movie-genres", type],
+    queryFn: () => getQuery(type),
+    queryKey: ["get-genre-select", type],
   });
 
-  const genres = data?.genres as Genre[];
+  const GENRES = data?.genres || [];
 
   return (
     <Select
       {...props}
       size="sm"
-      isLoading={isPending}
+      isLoading={isPending || isLoading}
       selectionMode="multiple"
       label={props.label ?? "Genres"}
       placeholder={props.placeholder ?? "Select genres"}
       className={cn("max-w-xs", props.className)}
+      onChange={({ target }) =>
+        onGenreChange?.(
+          target.value === ""
+            ? null
+            : new Set(target.value.split(",").filter((genre) => genre !== "")),
+        )
+      }
     >
-      {genres?.map(({ id, name }) => {
+      {GENRES.map(({ id, name }) => {
         return <SelectItem key={id}>{name}</SelectItem>;
       })}
     </Select>

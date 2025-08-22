@@ -12,7 +12,7 @@ import { ImCross } from "react-icons/im";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { usePathname, useRouter } from "next/navigation";
 
-const queryClient = new QueryClient();
+export const queryClient = new QueryClient();
 
 export default function Providers({ children }: PropsWithChildren) {
   const router = useRouter();
@@ -52,7 +52,7 @@ export default function Providers({ children }: PropsWithChildren) {
         </NextThemesProvider>
       </HeroUIProvider>
       <div className="hidden md:block">
-        <ReactQueryDevtools initialIsOpen={false} />
+        <ReactQueryDevtools initialIsOpen={false} position="top" />
       </div>
     </QueryClientProvider>
   );

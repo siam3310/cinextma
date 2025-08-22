@@ -10,7 +10,7 @@ import { Movie, MovieDetails, TV, TvShowDetails } from "tmdb-ts";
  * @example
  */
 export const movieDurationString = (minutes?: number): string => {
-  if (!minutes) return "No data";
+  if (!minutes) return "N/A";
   const duration = intervalToDuration({ start: 0, end: minutes * 60 * 1000 });
   const hours = duration.hours ? `${duration.hours}h ` : "";
   const mins = duration.minutes ? `${duration.minutes}m` : "";
@@ -58,7 +58,7 @@ export const getImageUrl = (
  * @returns The title of the movie in the given language, or an empty string if the movie is not provided.
  */
 export const mutateMovieTitle = (movie?: MovieDetails | Movie, language: string = "id"): string => {
-  if (!movie) return "";
+  if (!movie) return "N/A";
   return movie.original_language === language ? movie.original_title : movie.title;
 };
 
@@ -71,6 +71,58 @@ export const mutateMovieTitle = (movie?: MovieDetails | Movie, language: string 
  * @returns The title of the TV show in the given language, or an empty string if the TV show is not provided.
  */
 export const mutateTvShowTitle = (tv?: TvShowDetails | TV, language: string = "id"): string => {
-  if (!tv) return "";
+  if (!tv) return "N/A";
   return tv.original_language === language ? tv.original_name : tv.name;
+};
+
+/**
+ * Returns a random label for a fun loading animation.
+ *
+ * @returns A random label for a fun loading animation.
+ */
+export const getLoadingLabel = (): string => {
+  const labels = [
+    "Chill dude, even Netflix loads slow sometimes...",
+    "Hold up, server grabbing a coffee real quick...",
+    "Movie’s on a smoke break, brb...",
+    "Still buffering... blame your WiFi not me...",
+    "Lowkey this loading screen more fire than the movie...",
+    "Relax, director’s adding a secret cutscene...",
+    "Bruh... even your ex moved on faster than this load...",
+    "Server laggin’ like my brain during exams...",
+    "Hang tight, stealing internet from the neighbors...",
+    "Loading harder than my life rn...",
+    "Movie’s AFK, back in a sec...",
+    "No cap, this loading bar just vibin’...",
+    "Server caught feelings, give it a sec...",
+    "Scene still downloading from 2010...",
+    "Director said ‘one more take’, classic...",
+    "WiFi feeling insecure, that’s why it’s slow...",
+    "This load speed = my crush replying...",
+    "Actors still memorizing their lines...",
+    "Trust the process… or don’t, idk...",
+    "Server buffering vibes, not data...",
+    "Yo, film stuck in traffic right now...",
+    "Hold tight, server updating its relationship status...",
+    "Buffering harder than me tryna wake up early...",
+    "Server said ‘brb, bathroom break’...",
+    "Loading like my paycheck… always late...",
+    "Plot twist: the movie is buffering forever...",
+    "Server binge-watching before sending it to you...",
+    "WiFi acting sus rn, just wait...",
+    "Chillax, the movie downloading from dial-up...",
+    "Server just rage quit, loading anyway...",
+    "Lowkey I think the server fell asleep...",
+    "Buffering like grandma typing on phone...",
+    "Movie’s still in rehearsal, trust...",
+    "Loading bar flexing for no reason...",
+    "Server ghosted us, but it’ll be back...",
+    "Bruh this buffering built different...",
+    "Lag harder than a potato PC...",
+    "Movie’s still getting dressed...",
+    "Server scrolling TikTok instead of working...",
+  ];
+
+  const randomIndex = Math.floor(Math.random() * labels.length);
+  return labels[randomIndex];
 };

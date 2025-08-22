@@ -22,3 +22,14 @@ export const DISCOVER_MOVIES_VALID_QUERY_TYPES = [
 ] as const;
 
 export type DiscoverMoviesFetchQueryType = (typeof DISCOVER_MOVIES_VALID_QUERY_TYPES)[number];
+
+export const DISCOVER_TVS_VALID_QUERY_TYPES = [
+  "discover",
+  "todayTrending",
+  "thisWeekTrending",
+  "popular",
+  "onTheAir",
+  "topRated",
+] as const;
+
+export type DiscoverTvShowsFetchQueryType = (typeof DISCOVER_TVS_VALID_QUERY_TYPES)[number];

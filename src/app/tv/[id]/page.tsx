@@ -8,20 +8,15 @@ import { useQuery } from "@tanstack/react-query";
 import { notFound } from "next/navigation";
 import { Suspense, use } from "react";
 import dynamic from "next/dynamic";
+import { NextPage } from "next";
 const PhotosSection = dynamic(() => import("@/components/ui/other/PhotosSection"));
-const TvShowRelatedSection = dynamic(() => import("@/components/sections/TvShow/Details/Related"));
-const TvShowCastsSection = dynamic(() => import("@/components/sections/TvShow/Details/Casts"));
-const TvShowBackdropSection = dynamic(
-  () => import("@/components/sections/TvShow/Details/Backdrop"),
-);
-const TvShowOverviewSection = dynamic(
-  () => import("@/components/sections/TvShow/Details/Overview"),
-);
-const TvShowsSeasonsSelection = dynamic(
-  () => import("@/components/sections/TvShow/Details/Seasons"),
-);
+const TvShowRelatedSection = dynamic(() => import("@/components/sections/TV/Details/Related"));
+const TvShowCastsSection = dynamic(() => import("@/components/sections/TV/Details/Casts"));
+const TvShowBackdropSection = dynamic(() => import("@/components/sections/TV/Details/Backdrop"));
+const TvShowOverviewSection = dynamic(() => import("@/components/sections/TV/Details/Overview"));
+const TvShowsSeasonsSelection = dynamic(() => import("@/components/sections/TV/Details/Seasons"));
 
-const TVShowDetailPage: React.FC<Params<{ id: number }>> = ({ params }) => {
+const TVShowDetailPage: NextPage<Params<{ id: number }>> = ({ params }) => {
   const { id } = use(params);
   const { scrollIntoView, targetRef } = useScrollIntoView<HTMLDivElement>({
     duration: 500,
@@ -66,7 +61,7 @@ const TVShowDetailPage: React.FC<Params<{ id: number }>> = ({ params }) => {
         <div className="flex flex-col gap-10">
           <TvShowBackdropSection tv={tv} />
           <TvShowOverviewSection
-            onPlayNowClick={() => scrollIntoView({ alignment: "center" })}
+            onViewEpisodesClick={() => scrollIntoView({ alignment: "center" })}
             tv={tv}
           />
           <TvShowCastsSection casts={tv.credits.cast} />

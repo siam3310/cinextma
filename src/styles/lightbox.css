@@ -33,7 +33,15 @@ button.yarl__thumbnails_thumbnail {
 }
 
 .yarl__toolbar {
-  @apply m-4 rounded-full bg-black/50 py-[1px] backdrop-blur-sm !important;
+  @apply m-4 flex-col-reverse rounded-full bg-black/50 py-[1px] backdrop-blur-sm sm:flex-row !important;
+
+  & > .yarl__button {
+    @apply size-12 !important;
+
+    & > .yarl__icon {
+      @apply text-xs !important;
+    }
+  }
 }
 
 .yarl__navigation_next,

@@ -23,7 +23,7 @@ export type TvShowParam =
 
 export interface QueryList<T extends Movie | TV> {
   name: string;
-  query: Promise<{
+  query: () => Promise<{
     page: number;
     results: T[];
     total_results: number;

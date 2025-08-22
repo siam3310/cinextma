@@ -20,13 +20,11 @@ export const getMoviePlayers = (id: string | number): PlayersProps[] => {
     {
       title: "<Embed>",
       source: `https://embed.su/embed/movie/${id}`,
-      recommended: true,
       ads: true,
     },
     {
       title: "SuperEmbed",
       source: `https://multiembed.mov/directstream.php?video_id=${id}&tmdb=1`,
-      recommended: true,
       fast: true,
       ads: true,
     },
@@ -41,9 +39,14 @@ export const getMoviePlayers = (id: string | number): PlayersProps[] => {
       ads: true,
     },
     {
-      title: "AutoEmbed",
+      title: "AutoEmbed 1",
       source: `https://autoembed.co/movie/tmdb/${id}`,
       fast: true,
+      ads: true,
+    },
+    {
+      title: "AutoEmbed 2",
+      source: `https://player.autoembed.cc/embed/movie/${id}`,
       ads: true,
     },
     {
@@ -59,6 +62,23 @@ export const getMoviePlayers = (id: string | number): PlayersProps[] => {
     {
       title: "VidSrc 2",
       source: `https://vidsrc.to/embed/movie/${id}`,
+      ads: true,
+    },
+    {
+      title: "VidSrc 3",
+      source: `https://vidsrc.icu/embed/movie/${id}`,
+      ads: true,
+    },
+    {
+      title: "VidSrc 4",
+      source: `https://vidsrc.cc/v2/embed/movie/${id}?autoPlay=false`,
+      ads: true,
+    },
+    {
+      title: "VidSrc 5",
+      source: `https://vidsrc.cc/v3/embed/movie/${id}?autoPlay=false`,
+      recommended: true,
+      fast: true,
       ads: true,
     },
     {
@@ -95,13 +115,11 @@ export const getTvShowPlayers = (
     {
       title: "<Embed>",
       source: `https://embed.su/embed/tv/${id}/${season}/${episode}`,
-      recommended: true,
       ads: true,
     },
     {
       title: "SuperEmbed",
       source: `https://multiembed.mov/directstream.php?video_id=${id}&tmdb=1&s=${season}&e=${episode}`,
-      recommended: true,
       fast: true,
       ads: true,
     },
@@ -116,9 +134,14 @@ export const getTvShowPlayers = (
       ads: true,
     },
     {
-      title: "AutoEmbed",
+      title: "AutoEmbed 1",
       source: `https://autoembed.co/tv/tmdb/${id}-${season}-${episode}`,
       fast: true,
+      ads: true,
+    },
+    {
+      title: "AutoEmbed 2",
+      source: `https://player.autoembed.cc/embed/tv/${id}/${season}/${episode}`,
       ads: true,
     },
     {
@@ -134,6 +157,23 @@ export const getTvShowPlayers = (
     {
       title: "VidSrc 2",
       source: `https://vidsrc.to/embed/tv/${id}/${season}/${episode}`,
+      ads: true,
+    },
+    {
+      title: "VidSrc 3",
+      source: `https://vidsrc.icu/embed/tv/${id}/${season}/${episode}`,
+      ads: true,
+    },
+    {
+      title: "VidSrc 4",
+      source: `https://vidsrc.cc/v2/embed/tv/${id}/${season}/${episode}?autoPlay=false`,
+      ads: true,
+    },
+    {
+      title: "VidSrc 5",
+      source: `https://vidsrc.cc/v3/embed/tv/${id}/${season}/${episode}?autoPlay=false`,
+      recommended: true,
+      fast: true,
       ads: true,
     },
     {

@@ -11,18 +11,21 @@ import {
   ScrollShadow,
   Link,
 } from "@heroui/react";
+import { IS_BROWSER } from "@/utils/constants";
 
 const AdsWarning: React.FC = () => {
   const [seen, setSeen] = useLocalStorage<boolean>({
     key: "ads-warning-seen",
     getInitialValueInEffect: false,
   });
-  const [opened, handlers] = useDisclosure(!seen);
+  const [opened, handlers] = useDisclosure(!seen && IS_BROWSER);
 
   const handleSeen = () => {
     handlers.close();
     setSeen(true);
   };
+
+  if (seen) return null;
 
   return (
     <Modal
@@ -44,12 +47,26 @@ const AdsWarning: React.FC = () => {
               As our content is hosted by various third party providers, you may encounter pop up
               advertisements while streaming. To improve your viewing experience, we suggest using
               an ad-blocker like{" "}
-              <Link href="https://ublockorigin.com/" target="_blank" className="font-bold">
+              <Link
+                showAnchorIcon
+                isExternal
+                color="danger"
+                href="https://ublockorigin.com/"
+                underline="hover"
+                className="font-semibold"
+              >
                 uBlock Origin
               </Link>{" "}
               or{" "}
-              <Link href="https://adblockplus.org/" target="_blank" className="font-bold">
-                Adblock Plus
+              <Link
+                showAnchorIcon
+                isExternal
+                color="success"
+                href="https://adguard.com/"
+                underline="hover"
+                className="font-semibold"
+              >
+                AdGuard
               </Link>
               . Please be aware that we don't have control over the ads displayed and cannot be held
               responsible for their content or any issues they may cause.

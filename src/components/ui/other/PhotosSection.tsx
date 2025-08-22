@@ -12,7 +12,7 @@ interface PhotosSectionProps {
   type?: "movie" | "tv";
 }
 
-const PhotosSection: React.FC<PhotosSectionProps> = ({ images, type }) => {
+const PhotosSection: React.FC<PhotosSectionProps> = ({ images, type = "movie" }) => {
   const [index, setIndex] = useState<number>(-1);
   const slides: Slide[] = images.map(({ file_path, width, height }) => ({
     src: getImageUrl(file_path, "backdrop", true),

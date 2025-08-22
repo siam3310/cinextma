@@ -1,18 +1,19 @@
-import { Metadata } from "next/types";
+import { Metadata, NextPage } from "next/types";
 import { siteConfig } from "@/config/site";
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
-const DiscoverList = dynamic(() => import("./DiscoverList"));
+const DiscoverListGroup = dynamic(() => import("@/components/sections/Discover/ListGroup"));
 
 export const metadata: Metadata = {
   title: `Discover Movies | ${siteConfig.name}`,
 };
 
-export default function DiscoverPage() {
+const DiscoverPage: NextPage = () => {
   return (
     <Suspense>
-      <h1 className="mb-14 text-center">Discover Movies</h1>
-      <DiscoverList />
+      <DiscoverListGroup />
     </Suspense>
   );
-}
+};
+
+export default DiscoverPage;
