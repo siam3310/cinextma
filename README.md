@@ -18,14 +18,13 @@
 - **💻📱 Responsive UI**: The platform's user interface is designed to be responsive and accessible across various devices, ensuring a consistent and enjoyable experience on desktops, tablets, and mobile devices.
 - **📲 Progressive Web App**: The platform is designed to be installable on devices and provide native-like features, ensuring a seamless and engaging experience for users.
 
-## Planned Features
+## Other Features
 
-- **🙍‍♂️ User Account**
-- **🏆 Achievements System**
-- **⚙️ Personal Settings**
-
-## Work in Progress (WIP) Features
-- **📺 TV Shows**
+- **📺 TV Shows** (Finished)
+- **🙍‍♂️ User Account** (Work in Progress)
+- **🏆 Achievements System** (Planned)
+- **⚙️ Personal Settings** (Planned)
+- **🌐 Social Features** (Planned)
 
 ## Technologies Used
 
@@ -65,14 +64,7 @@ npm run dev
 
 ## Contributing
 
-CINEXTMA is an open-source project, and we welcome contributions from the community. If you'd like to contribute, please follow these guidelines:
-
-1. Fork the repository.
-2. Create a new branch for your feature or bug fix.
-3. Make your changes and ensure the code is properly tested.
-4. Submit a pull request, describing the changes you've made and why they're valuable.
-
-I appreciate all kinds of contributions, including bug reports, feature requests, documentation improvements, and code enhancements.
+Contributions to CINEXTMA are welcome! If you'd like to contribute, please refer to the [CONTRIBUTING](CONTRIBUTING.md) file for guidelines and instructions.
 
 ## License
 
