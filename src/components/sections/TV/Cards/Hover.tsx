@@ -6,6 +6,8 @@ import { getImageUrl, mutateTvShowTitle } from "@/utils/movies";
 import { Button, Chip, Image, Link, Spinner } from "@heroui/react";
 import { useQuery } from "@tanstack/react-query";
 import Rating from "../../../ui/other/Rating";
+import { SavedMovieDetails } from "@/types/movie";
+import BookmarkButton from "@/components/ui/button/BookmarkButton";
 
 const TvShowHoverCard: React.FC<{ id: number; fullWidth?: boolean }> = ({ id, fullWidth }) => {
   const { data: tv, isPending } = useQuery({
@@ -26,12 +28,24 @@ const TvShowHoverCard: React.FC<{ id: number; fullWidth?: boolean }> = ({ id, fu
   const title = mutateTvShowTitle(tv);
   const firstReleaseYear = new Date(tv.first_air_date).getFullYear();
   const lastReleaseYear = new Date(tv.last_air_date).getFullYear();
+  const releaseYears = `${firstReleaseYear} ${firstReleaseYear !== lastReleaseYear ? ` - ${lastReleaseYear}` : ""}`;
   const fullTitle = title;
   const backdropImage = getImageUrl(tv.backdrop_path, "backdrop");
   const titleImage = getImageUrl(
     tv.images.logos.find((logo) => logo.iso_639_1 === "en")?.file_path,
     "title",
   );
+  const bookmarkData: SavedMovieDetails = {
+    type: "tv",
+    adult: "adult" in tv ? (tv.adult as boolean) : false,
+    backdrop_path: tv.backdrop_path,
+    id: tv.id,
+    poster_path: tv.poster_path,
+    release_date: tv.first_air_date,
+    title: fullTitle,
+    vote_average: tv.vote_average,
+    saved_date: new Date().toISOString(),
+  };
 
   return (
     <div
@@ -87,10 +101,7 @@ const TvShowHoverCard: React.FC<{ id: number; fullWidth?: boolean }> = ({ id, fu
             <p>&#8226;</p>
             <div className="flex items-center gap-1">
               <Calendar />
-              <span>
-                {firstReleaseYear}
-                {firstReleaseYear !== lastReleaseYear ? ` - ${lastReleaseYear}` : ""}
-              </span>
+              <span>{releaseYears}</span>
             </div>
             <p>&#8226;</p>
             <Rating rate={tv.vote_average} count={tv.vote_count} />
@@ -107,7 +118,7 @@ const TvShowHoverCard: React.FC<{ id: number; fullWidth?: boolean }> = ({ id, fu
             >
               View Episodes
             </Button>
-            {/* <BookmarkButton movie={tv} isTooltipDisabled /> */}
+            <BookmarkButton data={bookmarkData} isTooltipDisabled />
           </div>
           <p className="text-sm">{tv.overview}</p>
         </div>

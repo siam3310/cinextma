@@ -7,8 +7,16 @@ import {
   FaServer,
   FaSortAlphaDown,
 } from "react-icons/fa";
-import { FaCirclePlay, FaClock, FaStar, FaYoutube } from "react-icons/fa6";
-import { HiArrowLongLeft } from "react-icons/hi2";
+import {
+  FaCirclePlay,
+  FaClock,
+  FaStar,
+  FaYoutube,
+  FaCheck,
+  FaInfo,
+  FaExclamation,
+} from "react-icons/fa6";
+import { HiArrowLongLeft, HiTrash } from "react-icons/hi2";
 import { IoIosClose, IoIosRocket, IoIosShareAlt, IoMdHelpCircle } from "react-icons/io";
 import { IoEye, IoGrid, IoMenuOutline } from "react-icons/io5";
 import { LuPlay } from "react-icons/lu";
@@ -16,6 +24,7 @@ import { MdMovie } from "react-icons/md";
 import { PiTelevisionFill } from "react-icons/pi";
 import { TbPlayerTrackNextFilled, TbPlayerTrackPrevFilled } from "react-icons/tb";
 import { TiThList } from "react-icons/ti";
+import { ImCross } from "react-icons/im";
 
 export {
   FaAd as Ads,
@@ -41,6 +50,11 @@ export {
   IoIosShareAlt as Share,
   FaSortAlphaDown as SortAlpha,
   FaStar as Star,
+  HiTrash as Trash,
   PiTelevisionFill as TV,
   FaYoutube as Youtube,
+  FaCheck as Check,
+  FaInfo as Info,
+  FaExclamation as Warning,
+  ImCross as Cross,
 };

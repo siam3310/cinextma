@@ -1,7 +1,8 @@
-import { MovieDetails } from "tmdb-ts";
+import { ContentType } from ".";
 
-export interface SavedMovieDetails extends MovieDetails {
+export interface SavedMovieDetails {
   adult: boolean;
+  type: ContentType;
   backdrop_path: string;
   id: number;
   poster_path?: string;

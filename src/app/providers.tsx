@@ -7,21 +7,20 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { AppProgressProvider as ProgressProvider } from "@bprogress/next";
 import { Toaster } from "sonner";
-import { FaCheck, FaExclamation, FaInfo } from "react-icons/fa6";
-import { ImCross } from "react-icons/im";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { usePathname, useRouter } from "next/navigation";
+import { Check, Info, Cross, Warning } from "@/utils/icons";
 
 export const queryClient = new QueryClient();
 
 export default function Providers({ children }: PropsWithChildren) {
-  const router = useRouter();
+  const { push } = useRouter();
   const pathName = usePathname();
   const tv = pathName.includes("/tv/");
 
   return (
     <QueryClientProvider client={queryClient}>
-      <HeroUIProvider navigate={router.push}>
+      <HeroUIProvider navigate={push}>
         <NextThemesProvider attribute="class" defaultTheme="dark" enableSystem>
           <Toaster
             position="top-right"
@@ -34,10 +33,10 @@ export default function Providers({ children }: PropsWithChildren) {
               },
             }}
             icons={{
-              success: <FaCheck className="text-success" />,
-              info: <FaInfo className="text-sky-500" />,
-              warning: <FaExclamation className="text-warning" />,
-              error: <ImCross className="text-danger" />,
+              success: <Check className="text-success" />,
+              info: <Info className="text-sky-500" />,
+              warning: <Warning className="text-warning" />,
+              error: <Cross className="text-danger" />,
               loading: <Spinner size="sm" />,
             }}
           />
@@ -52,7 +51,7 @@ export default function Providers({ children }: PropsWithChildren) {
         </NextThemesProvider>
       </HeroUIProvider>
       <div className="hidden md:block">
-        <ReactQueryDevtools initialIsOpen={false} position="top" />
+        <ReactQueryDevtools initialIsOpen={false} />
       </div>
     </QueryClientProvider>
   );

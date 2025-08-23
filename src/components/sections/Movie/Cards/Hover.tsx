@@ -2,6 +2,7 @@ import { tmdb } from "@/api/tmdb";
 import BookmarkButton from "@/components/ui/button/BookmarkButton";
 import Genres from "@/components/ui/other/Genres";
 import Rating from "@/components/ui/other/Rating";
+import { SavedMovieDetails } from "@/types/movie";
 import { cn, isEmpty } from "@/utils/helpers";
 import { Calendar, Clock } from "@/utils/icons";
 import { getImageUrl, movieDurationString, mutateMovieTitle } from "@/utils/movies";
@@ -34,6 +35,17 @@ const HoverPosterCard: React.FC<{ id: number; fullWidth?: boolean }> = ({ id, fu
     movie.images.logos.find((logo) => logo.iso_639_1 === "en")?.file_path,
     "title",
   );
+  const bookmarkData: SavedMovieDetails = {
+    type: "movie",
+    adult: movie.adult,
+    backdrop_path: movie.backdrop_path,
+    id: movie.id,
+    poster_path: movie.poster_path,
+    release_date: movie.release_date,
+    title: fullTitle,
+    vote_average: movie.vote_average,
+    saved_date: new Date().toISOString(),
+  };
 
   return (
     <>
@@ -73,7 +85,7 @@ const HoverPosterCard: React.FC<{ id: number; fullWidth?: boolean }> = ({ id, fu
               >
                 Movie
               </Chip>
-              {movie?.adult && (
+              {movie.adult && (
                 <Chip size="sm" color="danger" variant="faded">
                   18+
                 </Chip>
@@ -83,7 +95,7 @@ const HoverPosterCard: React.FC<{ id: number; fullWidth?: boolean }> = ({ id, fu
             <div className="md:text-md flex flex-wrap gap-1 text-xs *:z-10">
               <div className="flex items-center gap-1">
                 <Clock />
-                <span>{movieDurationString(movie?.runtime)}</span>
+                <span>{movieDurationString(movie.runtime)}</span>
               </div>
               <p>&#8226;</p>
               <div className="flex items-center gap-1">
@@ -91,13 +103,13 @@ const HoverPosterCard: React.FC<{ id: number; fullWidth?: boolean }> = ({ id, fu
                 <span>{releaseYear}</span>
               </div>
               <p>&#8226;</p>
-              <Rating rate={movie?.vote_average || 0} />
+              <Rating rate={movie.vote_average || 0} />
             </div>
-            <Genres genres={movie?.genres as Genre[]} />
+            <Genres genres={movie.genres as Genre[]} />
             <div className="flex w-full justify-between gap-2 py-1">
               <Button
                 as={Link}
-                href={`/movie/${movie?.id}/player`}
+                href={`/movie/${movie.id}/player`}
                 fullWidth
                 color="primary"
                 variant="shadow"
@@ -105,10 +117,9 @@ const HoverPosterCard: React.FC<{ id: number; fullWidth?: boolean }> = ({ id, fu
               >
                 Play Now
               </Button>
-              {/* @ts-expect-error no error */}
-              <BookmarkButton movie={movie} isTooltipDisabled />
+              <BookmarkButton data={bookmarkData} isTooltipDisabled />
             </div>
-            <p className="text-sm">{movie?.overview}</p>
+            <p className="text-sm">{movie.overview}</p>
           </div>
         </div>
       </div>
