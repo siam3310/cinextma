@@ -43,7 +43,7 @@ const TvShowHomeList: React.FC<QueryList<TV>> = ({ query, name, param }) => {
               See All &gt;
             </Link>
           </div>
-          <Carousel classNames={{ container: "gap-2" }}>
+          <Carousel>
             {data?.results.map((tv) => (
               <div
                 key={tv.id}

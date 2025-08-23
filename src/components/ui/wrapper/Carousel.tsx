@@ -6,6 +6,7 @@ import IconButton from "../button/IconButton";
 import { EmblaOptionsType, EmblaPluginType } from "embla-carousel";
 import { cn } from "@/utils/helpers";
 import styles from "@/styles/embla-carousel.module.css";
+import { ChevronLeft, ChevronRight } from "@/utils/icons";
 
 export interface CarouselProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
@@ -23,7 +24,7 @@ export interface CarouselProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const Carousel = ({
   children,
-  withScrollShadow = false,
+  withScrollShadow = true,
   isButtonDisabled = false,
   autoHideButton = true,
   options = { dragFree: true, slidesToScroll: "auto" },
@@ -33,12 +34,19 @@ const Carousel = ({
 }: CarouselProps) => {
   const c = useCustomCarousel(options, plugins);
 
+  const getVisibility = () => {
+    if (c.canScrollPrev && c.canScrollNext) return "both";
+    if (c.canScrollPrev) return "left";
+    if (c.canScrollNext) return "right";
+    return "none";
+  };
+
   return (
     <ScrollShadow
       isEnabled={withScrollShadow}
       orientation="horizontal"
-      visibility="both"
-      size={20}
+      visibility={getVisibility()}
+      size={40}
       hideScrollBar
     >
       <div
@@ -50,31 +58,35 @@ const Carousel = ({
         {!isButtonDisabled && (
           <>
             <div
-              className={cn("absolute z-10", {
+              className={cn("absolute z-10 h-full", {
                 "hidden md:block": autoHideButton,
               })}
             >
               <IconButton
-                isDisabled={!c.canScrollPrev}
                 onPress={c.scrollPrev}
-                size="sm"
-                radius="full"
-                icon="mingcute:left-fill"
-                tooltip="Previous"
+                size="lg"
+                radius="none"
+                disableRipple
+                icon={<ChevronLeft size={24} />}
+                className={cn("h-full bg-transparent", {
+                  hidden: !c.canScrollPrev,
+                })}
               />
             </div>
             <div
-              className={cn("absolute z-10 place-self-end", {
+              className={cn("absolute z-10 h-full place-self-end", {
                 "hidden md:block": autoHideButton,
               })}
             >
               <IconButton
-                isDisabled={!c.canScrollNext}
                 onPress={c.scrollNext}
-                size="sm"
-                radius="full"
-                icon="mingcute:right-fill"
-                tooltip="Next"
+                size="lg"
+                radius="none"
+                disableRipple
+                icon={<ChevronRight size={24} />}
+                className={cn("h-full bg-transparent", {
+                  hidden: !c.canScrollNext,
+                })}
               />
             </div>
           </>

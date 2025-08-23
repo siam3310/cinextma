@@ -9,7 +9,7 @@ interface TvShowRelatedListProps {
 const TvShowRelatedList: React.FC<TvShowRelatedListProps> = ({ tvs }) => {
   return (
     <div className="z-[3] flex flex-col gap-2">
-      <Carousel classNames={{ container: "gap-2" }}>
+      <Carousel>
         {tvs.map((tv) => {
           return (
             <div key={tv.id} className="flex min-h-fit max-w-fit items-center px-1 py-2">

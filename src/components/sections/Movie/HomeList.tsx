@@ -43,7 +43,7 @@ const MovieHomeList: React.FC<QueryList<Movie>> = ({ query, name, param }) => {
               See All &gt;
             </Link>
           </div>
-          <Carousel className="-mx-5" classNames={{ container: "gap-2" }}>
+          <Carousel>
             {data?.results.map((movie) => {
               return (
                 <div
