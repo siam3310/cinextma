@@ -22,6 +22,7 @@
 
 - **🙍‍♂️ User Account**
 - **🏆 Achievements System**
+- **⚙️ Personal Settings**
 
 ## Work in Progress (WIP) Features
 - **📺 TV Shows**
