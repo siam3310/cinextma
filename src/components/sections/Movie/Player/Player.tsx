@@ -1,0 +1,70 @@
+import { siteConfig } from "@/config/site";
+import { useVidlinkPlayer } from "@/hooks/useVidlinkPlayer";
+import { cn } from "@/utils/helpers";
+import { mutateMovieTitle } from "@/utils/movies";
+import { getMoviePlayers } from "@/utils/players";
+import { Card, Skeleton } from "@heroui/react";
+import { useDisclosure, useDocumentTitle, useIdle } from "@mantine/hooks";
+import dynamic from "next/dynamic";
+import { parseAsInteger, useQueryState } from "nuqs";
+import { useMemo } from "react";
+import { MovieDetails } from "tmdb-ts/dist/types/movies";
+const AdsWarning = dynamic(() => import("@/components/ui/overlay/AdsWarning"));
+const MoviePlayerHeader = dynamic(() => import("./Header"));
+const MoviePlayerSourceSelection = dynamic(() => import("./SourceSelection"));
+
+interface MoviePlayerProps {
+  movie: MovieDetails;
+}
+
+const MoviePlayer: React.FC<MoviePlayerProps> = ({ movie }) => {
+  const players = getMoviePlayers(movie.id);
+  const title = mutateMovieTitle(movie);
+  const idle = useIdle(3000);
+  const { isPlaying } = useVidlinkPlayer();
+  const [opened, handlers] = useDisclosure(false);
+  const [selectedSource, setSelectedSource] = useQueryState<number>(
+    "src",
+    parseAsInteger.withDefault(0),
+  );
+
+  useDocumentTitle(`Play ${title} | ${siteConfig.name}`);
+
+  const PLAYER = useMemo(() => players[selectedSource] || players[0], [players, selectedSource]);
+
+  return (
+    <>
+      <AdsWarning />
+
+      <div className="relative -mx-3 -my-8 sm:-mx-5">
+        <MoviePlayerHeader
+          id={movie.id}
+          movieName={title}
+          onOpenSource={handlers.open}
+          hidden={idle && !opened && (isPlaying || selectedSource !== 0)}
+        />
+        <Card shadow="md" radius="none" className="relative h-screen">
+          <Skeleton className="absolute h-full w-full" />
+          <iframe
+            allowFullScreen
+            key={PLAYER.title}
+            src={PLAYER.source}
+            className={cn("z-10 h-full", { "md:pointer-events-none": idle })}
+          />
+        </Card>
+      </div>
+
+      <MoviePlayerSourceSelection
+        opened={opened}
+        onClose={handlers.close}
+        players={players}
+        selectedSource={selectedSource}
+        setSelectedSource={setSelectedSource}
+      />
+    </>
+  );
+};
+
+MoviePlayer.displayName = "MoviePlayer";
+
+export default MoviePlayer;

@@ -1,16 +1,30 @@
 "use client";
 
 import { cn } from "@/utils/helpers";
+import { Close } from "@/utils/icons";
 import { Button } from "@heroui/button";
+import { ScrollShadow } from "@heroui/react";
 import { Drawer, DialogProps } from "vaul";
 
-type DrawerProps = DialogProps & {
+export type DrawerProps = DialogProps & {
   children: React.ReactNode;
   trigger?: React.ReactNode;
   title: React.ReactNode;
   backdrop?: "opaque" | "blur" | "transparent";
   fullWidth?: boolean;
   hiddenTitle?: boolean;
+  hiddenHandler?: boolean;
+  scrollable?: boolean;
+  withCloseButton?: boolean;
+  classNames?: {
+    overlay?: string;
+    content?: string;
+    title?: string;
+    handler?: string;
+    contentWrapper?: string;
+    scollWrapper?: string;
+    childrenWrapper?: string;
+  };
 };
 
 export default function VaulDrawer({
@@ -20,10 +34,15 @@ export default function VaulDrawer({
   backdrop = "opaque",
   fullWidth,
   hiddenTitle,
+  direction = "bottom",
+  hiddenHandler,
+  scrollable = true,
+  withCloseButton,
+  classNames,
   ...props
 }: DrawerProps) {
   return (
-    <Drawer.Root {...props}>
+    <Drawer.Root {...props} direction={direction}>
       {trigger && (
         <Drawer.Trigger asChild>
           {typeof trigger === "string" ? <Button>{trigger}</Button> : trigger}
@@ -31,34 +50,78 @@ export default function VaulDrawer({
       )}
       <Drawer.Portal>
         <Drawer.Overlay
-          className={cn("fixed inset-0 z-[9998] bg-black/70", {
+          className={cn("fixed inset-0 z-[9998] bg-black/70", classNames?.overlay, {
             "backdrop-blur-sm": backdrop === "blur",
             "bg-transparent": backdrop === "transparent",
           })}
         />
         <Drawer.Content
           className={cn(
-            "fixed bottom-0 left-0 right-0 z-[9999] mt-24 grid h-fit max-h-[97%] w-full place-self-center rounded-t-2xl bg-secondary-background text-foreground outline-none",
+            "fixed z-[9999] place-self-center bg-secondary-background text-foreground outline-none",
+            classNames?.contentWrapper,
             {
-              "md:w-max": !fullWidth,
+              "bottom-0 left-0 right-0 mt-24 max-h-[97%] w-full rounded-t-2xl":
+                direction === "bottom",
+              "left-0 right-0 top-0 mb-24 max-h-[97%] w-full rounded-b-2xl": direction === "top",
+              "bottom-0 right-0 top-0 h-full w-full rounded-l-2xl": direction === "right",
+              "bottom-0 left-0 top-0 h-full w-full rounded-r-2xl": direction === "left",
+              "md:w-max": !fullWidth && (direction === "bottom" || direction === "top"),
+              "md:max-w-lg": !fullWidth && (direction === "right" || direction === "left"),
+              "w-full": fullWidth,
             },
           )}
         >
-          <div className="flex-1 space-y-5 rounded-t-2xl pb-6 pt-4">
-            <div
-              aria-hidden
-              className="mx-auto h-1.5 w-12 flex-shrink-0 rounded-full bg-foreground/50"
-            />
+          <div
+            className={cn(
+              "relative flex h-full flex-col space-y-5 pb-6 pt-4",
+              classNames?.content,
+              {
+                "rounded-t-2xl": direction === "bottom",
+                "rounded-b-2xl": direction === "top",
+                "rounded-l-2xl": direction === "right",
+                "rounded-r-2xl": direction === "left",
+              },
+            )}
+          >
+            {withCloseButton && (
+              <Button
+                isIconOnly
+                aria-label="Close"
+                radius="full"
+                variant="light"
+                className="absolute right-3 top-3"
+                size="sm"
+                onPress={props.onClose}
+              >
+                <Close size={24} />
+              </Button>
+            )}
+            {!hiddenHandler && (
+              <div
+                className={cn(
+                  "mx-auto h-1.5 w-12 flex-shrink-0 rounded-full bg-foreground/50",
+                  classNames?.handler,
+                )}
+              />
+            )}
             <Drawer.Title
-              aria-hidden={hiddenTitle}
-              className={cn("text-center text-xl", {
+              aria-hidden={hiddenTitle ? true : undefined}
+              className={cn("text-center text-xl", classNames?.title, {
                 hidden: hiddenTitle,
               })}
             >
               {title}
             </Drawer.Title>
             <Drawer.Description aria-hidden className="hidden" />
-            <div className="mx-auto max-w-lg">{children}</div>
+            <ScrollShadow isEnabled={scrollable} className={classNames?.scollWrapper}>
+              <div
+                className={cn("mx-auto", classNames?.childrenWrapper, {
+                  "max-w-lg": !fullWidth,
+                })}
+              >
+                {children}
+              </div>
+            </ScrollShadow>
           </div>
         </Drawer.Content>
       </Drawer.Portal>

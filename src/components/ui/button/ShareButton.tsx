@@ -1,7 +1,6 @@
 "use client";
 
 import IconButton from "./IconButton";
-import { IoIosShareAlt } from "react-icons/io";
 import VaulDrawer from "@/components/ui/overlay/VaulDrawer";
 import {
   WhatsappShareButton,
@@ -23,13 +22,18 @@ import {
 } from "react-share";
 import { Divider } from "@heroui/react";
 import CopyButton from "./CopyButton";
+import { ContentType } from "@/types";
+import { Share } from "@/utils/icons";
 
 interface ShareButtonProps {
   title: string;
   id: string | number;
+  type?: ContentType;
 }
 
-const shareButtons = [
+const HASTAGS = ["cinextma", "free", "movies", "streaming"];
+
+const SHARE_BUTTONS = [
   {
     label: "Facebook",
     Icon: FacebookIcon,
@@ -72,22 +76,23 @@ const shareButtons = [
   },
 ];
 
-const ShareButton: React.FC<ShareButtonProps> = ({ title, id }) => {
-  const url = `https://${location.hostname}/movie/${id}`;
+const ShareButton: React.FC<ShareButtonProps> = ({ title, id, type = "movie" }) => {
+  const url = `https://${location.hostname}/${type}/${id}`;
   const description = `Check out and stream ${title} on Cinextma for FREE!!`;
-  const shareIcon = <IoIosShareAlt size={20} />;
-  const trigger = <IconButton icon={shareIcon} variant="ghost" tooltip="Share" />;
-  const hashtags = ["cinextma", "free", "movies", "streaming"];
 
   return (
-    <VaulDrawer trigger={trigger} backdrop="blur" title="Share via">
+    <VaulDrawer
+      trigger={<IconButton icon={<Share size={20} />} variant="ghost" tooltip="Share" />}
+      backdrop="blur"
+      title="Share via"
+    >
       <div className="space-y-8 px-6">
         <div className="grid grid-cols-4 gap-x-5 gap-y-3 md:gap-x-10 md:gap-y-5">
-          {shareButtons.map(({ Component, Icon, label }) => (
+          {SHARE_BUTTONS.map(({ Component, Icon, label }) => (
             <Component
               key={label}
               title={description}
-              hashtags={hashtags}
+              hashtags={HASTAGS}
               url={url}
               subject={description}
               className="flex flex-col items-center justify-center gap-2"

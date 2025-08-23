@@ -1,0 +1,54 @@
+img.yarl__slide_image {
+  @apply rounded-medium !important;
+}
+
+.yarl__slide_title_container,
+.yarl__slide_captions_container {
+  @apply bg-transparent sm:p-2 !important;
+}
+
+.yarl__container,
+.yarl__thumbnails_container {
+  @apply bg-black/80 backdrop-blur-sm !important;
+}
+
+button.yarl__thumbnails_thumbnail {
+  @apply rounded-medium bg-transparent p-0 opacity-50 transition-[outline,opacity] duration-200 ease-in-out hover:opacity-100 !important;
+
+  &[aria-current="true"] {
+    @apply opacity-100 outline outline-[3px] outline-primary !important;
+  }
+}
+
+.yarl__slide_title {
+  @apply w-fit rounded-full bg-black/50 px-6 py-[5px] backdrop-blur-sm sm:text-base !important;
+}
+
+.yarl__slide_description_container {
+  @apply flex justify-center;
+}
+
+.yarl__slide_description {
+  @apply w-fit rounded-full bg-black/50 px-6 py-[5px] backdrop-blur-sm sm:-translate-y-1/2;
+}
+
+.yarl__toolbar {
+  @apply m-4 flex-col-reverse rounded-full bg-black/50 py-[1px] backdrop-blur-sm sm:flex-row !important;
+
+  & > .yarl__button {
+    @apply size-12 !important;
+
+    & > .yarl__icon {
+      @apply text-xs !important;
+    }
+  }
+}
+
+.yarl__navigation_next,
+.yarl__navigation_prev {
+  @apply rounded-full p-2 transition-colors duration-200 ease-in-out hover:bg-black/50 hover:backdrop-blur-sm sm:mx-4 !important;
+}
+
+.yarl__thumbnails_vignette {
+  @apply hidden !important;
+}

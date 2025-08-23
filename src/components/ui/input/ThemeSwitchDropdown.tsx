@@ -3,7 +3,7 @@
 import { siteConfig } from "@/config/site";
 import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@heroui/react";
 import { useTheme } from "next-themes";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const themes = siteConfig.themes;
 
@@ -36,7 +36,13 @@ const ThemeSwitchDropdown = () => {
       </DropdownTrigger>
       <DropdownMenu disallowEmptySelection selectionMode="single" selectedKeys={[theme ?? ""]}>
         {themes.map(({ name, icon }) => (
-          <DropdownItem color={color} value={name} key={name} textValue={name} onPress={() => setTheme(name)}>
+          <DropdownItem
+            color={color}
+            value={name}
+            key={name}
+            textValue={name}
+            onPress={() => setTheme(name)}
+          >
             <div className="flex items-center gap-2 pr-2 capitalize">
               <div className="max-h-[50px]">{icon}</div>
               <p>{name}</p>

@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@bprogress/next": "^3.2.12",
+    "@designbycode/tailwindcss-text-shadow": "^2.2.1",
     "@ducanh2912/next-pwa": "^10.2.9",
     "@heroui/react": "^2.7.11",
     "@mantine/hooks": "^8.2.4",

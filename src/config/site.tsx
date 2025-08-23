@@ -1,4 +1,5 @@
 import { tmdb } from "@/api/tmdb";
+import { SiteConfigType } from "@/types";
 import { BiSearchAlt2, BiSolidSearchAlt2 } from "react-icons/bi";
 import { GoHomeFill, GoHome } from "react-icons/go";
 import { HiComputerDesktop } from "react-icons/hi2";
@@ -12,7 +13,7 @@ import {
 } from "react-icons/io5";
 import { TbFolder, TbFolderFilled } from "react-icons/tb";
 
-export const siteConfig = {
+export const siteConfig: SiteConfigType = {
   name: "Cinextma",
   description: "Your only choice for a free movies and tv shows streaming website.",
   favicon: "/favicon.ico",
@@ -66,59 +67,62 @@ export const siteConfig = {
     movies: [
       {
         name: "Today's Trending Movies",
-        query: tmdb.trending.trending("movie", "day"),
+        query: () => tmdb.trending.trending("movie", "day"),
         param: "todayTrending",
       },
       {
         name: "This Week's Trending Movies",
-        query: tmdb.trending.trending("movie", "week"),
+        query: () => tmdb.trending.trending("movie", "week"),
         param: "thisWeekTrending",
       },
       {
         name: "Popular Movies",
-        query: tmdb.movies.popular(),
+        query: () => tmdb.movies.popular(),
         param: "popular",
       },
       {
         name: "Now Playing Movies",
-        query: tmdb.movies.nowPlaying(),
+        query: () => tmdb.movies.nowPlaying(),
         param: "nowPlaying",
       },
       {
         name: "Upcoming Movies",
-        query: tmdb.movies.upcoming(),
+        query: () => tmdb.movies.upcoming(),
         param: "upcoming",
       },
       {
         name: "Top Rated Movies",
-        query: tmdb.movies.topRated(),
+        query: () => tmdb.movies.topRated(),
         param: "topRated",
       },
     ],
     tvShows: [
       {
         name: "Today's Trending TV Shows",
-        query: tmdb.trending.trending("tv", "day"),
+        query: () => tmdb.trending.trending("tv", "day"),
         param: "todayTrending",
       },
       {
         name: "This Week's Trending TV Shows",
-        query: tmdb.trending.trending("tv", "week"),
+        query: () => tmdb.trending.trending("tv", "week"),
         param: "thisWeekTrending",
       },
       {
         name: "Popular TV Shows",
-        query: tmdb.tvShows.popular(),
+        // @ts-expect-error: Property 'adult' is missing in type 'PopularTvShowResult' but required in type 'TV'.
+        query: () => tmdb.tvShows.popular(),
         param: "popular",
       },
       {
         name: "On The Air TV Shows",
-        query: tmdb.tvShows.onTheAir(),
+        // @ts-expect-error: Property 'adult' is missing in type 'OnTheAirResult' but required in type 'TV'.
+        query: () => tmdb.tvShows.onTheAir(),
         param: "onTheAir",
       },
       {
         name: "Top Rated TV Shows",
-        query: tmdb.tvShows.topRated(),
+        // @ts-expect-error: Property 'adult' is missing in type 'TopRatedTvShowResult' but required in type 'TV'.
+        query: () => tmdb.tvShows.topRated(),
         param: "topRated",
       },
     ],

@@ -1,7 +1,8 @@
-import { MovieDetails } from "tmdb-ts";
+import { ContentType } from ".";
 
-export interface SavedMovieDetails extends MovieDetails {
+export interface SavedMovieDetails {
   adult: boolean;
+  type: ContentType;
   backdrop_path: string;
   id: number;
   poster_path?: string;
@@ -22,3 +23,14 @@ export const DISCOVER_MOVIES_VALID_QUERY_TYPES = [
 ] as const;
 
 export type DiscoverMoviesFetchQueryType = (typeof DISCOVER_MOVIES_VALID_QUERY_TYPES)[number];
+
+export const DISCOVER_TVS_VALID_QUERY_TYPES = [
+  "discover",
+  "todayTrending",
+  "thisWeekTrending",
+  "popular",
+  "onTheAir",
+  "topRated",
+] as const;
+
+export type DiscoverTvShowsFetchQueryType = (typeof DISCOVER_TVS_VALID_QUERY_TYPES)[number];

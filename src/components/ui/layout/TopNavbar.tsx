@@ -18,6 +18,10 @@ const TopNavbar = () => {
   const opacity = Math.min((y / 1000) * 5, 1);
   const hrefs = siteConfig.navItems.map((item) => item.href);
   const show = hrefs.includes(pathName);
+  const tv = pathName.includes("/tv/");
+  const player = pathName.includes("/player");
+
+  if (player) return null;
 
   return (
     <Navbar
@@ -36,7 +40,9 @@ const TopNavbar = () => {
           style={{ opacity: opacity }}
         />
       )}
-      <NavbarBrand>{show ? <Brand /> : <BackButton />}</NavbarBrand>
+      <NavbarBrand>
+        {show ? <Brand /> : <BackButton href={tv ? "/?content=tv" : "/"} />}
+      </NavbarBrand>
       {show && !pathName.startsWith("/search") && (
         <NavbarContent className="hidden w-full max-w-lg gap-2 md:flex" justify="center">
           <NavbarItem className="w-full">

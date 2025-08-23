@@ -18,6 +18,7 @@ const config: Config = {
   darkMode: "class",
   plugins: [
     require("tailwindcss-motion"),
+    require("@designbycode/tailwindcss-text-shadow"),
     heroui({
       themes: {
         light: {

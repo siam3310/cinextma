@@ -12,6 +12,7 @@ import {
 } from "@heroui/react";
 import { useEffect, useState } from "react";
 import clsx from "clsx";
+import { IS_BROWSER } from "@/utils/constants";
 
 const Disclaimer: React.FC = () => {
   const [disclaimer, setDisclaimer] = useLocalStorage<boolean>({
@@ -21,7 +22,7 @@ const Disclaimer: React.FC = () => {
   const interval = useInterval(() => setSeconds((s) => s - 1), 1000, {
     autoInvoke: true,
   });
-  const [opened, handlers] = useDisclosure(!disclaimer);
+  const [opened, handlers] = useDisclosure(!disclaimer && IS_BROWSER);
   const [seconds, setSeconds] = useState(10);
 
   function handleAgree() {
@@ -34,6 +35,8 @@ const Disclaimer: React.FC = () => {
       interval.stop();
     }
   }, [seconds]);
+
+  if (disclaimer) return null;
 
   return (
     <Modal

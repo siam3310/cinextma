@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import NavbarMenuItems from "../other/NavbarMenuItems";
 import { siteConfig } from "@/config/site";
 import { usePathname } from "next/navigation";
