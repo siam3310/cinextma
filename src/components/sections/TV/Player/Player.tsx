@@ -7,7 +7,7 @@ import dynamic from "next/dynamic";
 import { parseAsInteger, useQueryState } from "nuqs";
 import { memo, useMemo } from "react";
 import { Episode } from "tmdb-ts";
-import { useVidlinkPlayer } from "@/hooks/useVidlinkPlayer";
+import useBreakpoints from "@/hooks/useBreakpoints";
 const AdsWarning = dynamic(() => import("@/components/ui/overlay/AdsWarning"));
 const TvShowPlayerHeader = dynamic(() => import("./Header"));
 const TvShowPlayerSourceSelection = dynamic(() => import("./SourceSelection"));
@@ -28,7 +28,7 @@ const TvShowPlayer: React.FC<TvShowPlayerProps> = ({ id, episode, episodes, ...p
     `Play ${props.seriesName} - ${props.seasonName} - ${episode.name} | ${siteConfig.name}`,
   );
 
-  const { isPlaying } = useVidlinkPlayer();
+  const { mobile } = useBreakpoints();
   const players = getTvShowPlayers(id, episode.season_number, episode.episode_number);
   const idle = useIdle(3000);
   const [sourceOpened, sourceHandlers] = useDisclosure(false);
@@ -48,7 +48,7 @@ const TvShowPlayer: React.FC<TvShowPlayerProps> = ({ id, episode, episodes, ...p
         <TvShowPlayerHeader
           id={id}
           episode={episode}
-          hidden={idle && !sourceOpened && (isPlaying || selectedSource !== 0)}
+          hidden={idle && !mobile}
           selectedSource={selectedSource}
           onOpenSource={sourceHandlers.open}
           onOpenEpisode={episodeHandlers.open}
@@ -61,7 +61,7 @@ const TvShowPlayer: React.FC<TvShowPlayerProps> = ({ id, episode, episodes, ...p
             allowFullScreen
             key={PLAYER.title}
             src={PLAYER.source}
-            className={cn("z-10 h-full", { "md:pointer-events-none": idle })}
+            className={cn("z-10 h-full", { "pointer-events-none": idle && !mobile })}
           />
         </Card>
       </div>

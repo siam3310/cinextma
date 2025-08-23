@@ -1,5 +1,5 @@
 import { siteConfig } from "@/config/site";
-import { useVidlinkPlayer } from "@/hooks/useVidlinkPlayer";
+import useBreakpoints from "@/hooks/useBreakpoints";
 import { cn } from "@/utils/helpers";
 import { mutateMovieTitle } from "@/utils/movies";
 import { getMoviePlayers } from "@/utils/players";
@@ -21,7 +21,7 @@ const MoviePlayer: React.FC<MoviePlayerProps> = ({ movie }) => {
   const players = getMoviePlayers(movie.id);
   const title = mutateMovieTitle(movie);
   const idle = useIdle(3000);
-  const { isPlaying } = useVidlinkPlayer();
+  const { mobile } = useBreakpoints();
   const [opened, handlers] = useDisclosure(false);
   const [selectedSource, setSelectedSource] = useQueryState<number>(
     "src",
@@ -41,7 +41,7 @@ const MoviePlayer: React.FC<MoviePlayerProps> = ({ movie }) => {
           id={movie.id}
           movieName={title}
           onOpenSource={handlers.open}
-          hidden={idle && !opened && (isPlaying || selectedSource !== 0)}
+          hidden={idle && !mobile}
         />
         <Card shadow="md" radius="none" className="relative h-screen">
           <Skeleton className="absolute h-full w-full" />
@@ -49,7 +49,7 @@ const MoviePlayer: React.FC<MoviePlayerProps> = ({ movie }) => {
             allowFullScreen
             key={PLAYER.title}
             src={PLAYER.source}
-            className={cn("z-10 h-full", { "md:pointer-events-none": idle })}
+            className={cn("z-10 h-full", { "pointer-events-none": idle && !mobile })}
           />
         </Card>
       </div>
