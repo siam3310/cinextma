@@ -20,8 +20,12 @@
 
 ## Planned Features
 
-- **📺 TV Shows**
 - **🙍‍♂️ User Account**
+- **🏆 Achievements System**
+- **⚙️ Personal Settings**
+
+## Work in Progress (WIP) Features
+- **📺 TV Shows**
 
 ## Technologies Used
 
