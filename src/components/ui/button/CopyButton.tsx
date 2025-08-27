@@ -1,16 +1,17 @@
 "use client";
 
+import { addToast } from "@heroui/react";
 import IconButton, { IconButtonProps } from "./IconButton";
 import { useClipboard } from "@mantine/hooks";
-import { FaCheck } from "react-icons/fa6";
-import { MdContentCopy } from "react-icons/md";
-import { toast } from "sonner";
+import { Check, Copy } from "@/utils/icons";
+import { useCallback } from "react";
 
 interface CopyButtonProps {
   text: string;
   timeout?: number;
   label?: string;
   copiedLabel?: string;
+  onCopied?: () => void;
 }
 
 const CopyButton: React.FC<CopyButtonProps> = ({
@@ -18,20 +19,21 @@ const CopyButton: React.FC<CopyButtonProps> = ({
   timeout = 2000,
   label,
   copiedLabel = "Copied to clipboard!",
+  onCopied,
 }) => {
   const { copy, copied } = useClipboard({ timeout });
-  const icon = copied ? <FaCheck size={20} /> : <MdContentCopy size={20} />;
 
-  const handleCopy = () => {
+  const handleCopy = useCallback(() => {
     copy(text);
-    toast.success(copiedLabel);
-  };
+    addToast({ title: copiedLabel, color: "primary" });
+    onCopied?.();
+  }, [text, copiedLabel]);
 
   const buttonProps: IconButtonProps = {
     onClick: handleCopy,
     isDisabled: copied,
     radius: "full",
-    icon: icon,
+    icon: copied ? <Check size={20} /> : <Copy size={20} />,
     variant: "faded",
     size: "lg",
   };
@@ -42,7 +44,7 @@ const CopyButton: React.FC<CopyButtonProps> = ({
 
   return (
     <button onClick={handleCopy} disabled={copied} className="flex items-center gap-2">
-      <IconButton {...buttonProps} />
+      <IconButton as="div" {...buttonProps} />
       <p className="text-medium">{label}</p>
     </button>
   );

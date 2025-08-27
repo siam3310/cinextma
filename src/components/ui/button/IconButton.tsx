@@ -2,7 +2,7 @@ import { Tooltip, Button, ButtonProps, TooltipProps } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import Link from "next/link";
 
-export interface IconButtonProps extends Omit<ButtonProps, "isIconOnly" | "as"> {
+export interface IconButtonProps extends Omit<ButtonProps, "isIconOnly"> {
   icon: string | React.ReactNode;
   tooltip?: string;
   iconSize?: number;
@@ -10,6 +10,7 @@ export interface IconButtonProps extends Omit<ButtonProps, "isIconOnly" | "as"> 
 }
 
 const IconButton: React.FC<IconButtonProps> = ({
+  as,
   icon,
   tooltip,
   iconSize = 24,
@@ -18,7 +19,7 @@ const IconButton: React.FC<IconButtonProps> = ({
 }) => {
   return (
     <Tooltip isDisabled={!tooltip} content={tooltip} {...tooltipProps}>
-      <Button as={props.href ? Link : "button"} isIconOnly {...props}>
+      <Button as={as || (props.href ? Link : "button")} isIconOnly {...props}>
         {typeof icon === "string" ? <Icon icon={icon} fontSize={iconSize} /> : icon}
       </Button>
     </Tooltip>

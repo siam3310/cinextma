@@ -1,15 +1,22 @@
 import { Mail } from "@/utils/icons";
-import { Button, Input } from "@heroui/react";
+import { addToast, Button, Input } from "@heroui/react";
 import { AuthFormProps } from "./Forms";
 import { ForgotPasswordFormSchema } from "@/schemas/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { isEmpty } from "@/utils/helpers";
+import { useCallback, useState } from "react";
+import { sendResetPasswordEmail } from "@/app/auth/actions";
+import { Turnstile } from "@marsidev/react-turnstile";
 
 const AuthForgotPasswordForm: React.FC<AuthFormProps> = ({ setForm }) => {
+  const [isVerifying, setIsVerifying] = useState(false);
+
   const {
     register,
+    setValue,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm({
     resolver: zodResolver(ForgotPasswordFormSchema),
     mode: "onChange",
@@ -18,12 +25,47 @@ const AuthForgotPasswordForm: React.FC<AuthFormProps> = ({ setForm }) => {
     },
   });
 
-  const onSubmit = handleSubmit((data) => {
-    console.log({ forgot: data });
+  const onSubmit = handleSubmit(async (data) => {
+    if (isEmpty(data.captchaToken)) {
+      setIsVerifying(true);
+      return;
+    }
+
+    const error = await sendResetPasswordEmail(data);
+
+    if (error) {
+      setValue("captchaToken", undefined);
+      setIsVerifying(false);
+    }
+
+    return addToast({
+      title: error ? "Failed to send email" : "Email sent",
+      description: error ? error.message : `We have sent a password reset email to ${data.email}.`,
+      color: error ? "danger" : "success",
+      timeout: error ? undefined : Infinity,
+    });
   });
+
+  const onCaptchaSuccess = useCallback(
+    (token: string) => {
+      setValue("captchaToken", token);
+      setIsVerifying(false);
+      onSubmit();
+    },
+    [setValue, setIsVerifying, onSubmit],
+  );
+
+  const getButtonText = useCallback(() => {
+    if (isSubmitting) return "Sending Email...";
+    if (isVerifying) return "Verifying...";
+    return "Send";
+  }, [isSubmitting, isVerifying]);
 
   return (
     <form className="flex flex-col gap-3" onSubmit={onSubmit}>
+      <p className="mb-4 text-center text-small text-foreground-500">
+        You'll receive an email with a link to reset your password
+      </p>
       <Input
         {...register("email")}
         isInvalid={!!errors.email?.message}
@@ -35,9 +77,23 @@ const AuthForgotPasswordForm: React.FC<AuthFormProps> = ({ setForm }) => {
         type="email"
         variant="underlined"
         startContent={<Mail className="text-xl" />}
+        isDisabled={isSubmitting || isVerifying}
       />
-      <Button className="mt-3 w-full" color="primary" type="submit" variant="shadow">
-        Send
+      {isVerifying && (
+        <Turnstile
+          className="flex justify-center"
+          siteKey={process.env.NEXT_PUBLIC_CAPTCHA_SITE_KEY!}
+          onSuccess={onCaptchaSuccess}
+        />
+      )}
+      <Button
+        className="mt-3 w-full"
+        color="primary"
+        type="submit"
+        variant="shadow"
+        isLoading={isSubmitting || isVerifying}
+      >
+        {getButtonText()}
       </Button>
     </form>
   );

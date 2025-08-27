@@ -13,6 +13,7 @@ import { cn } from "@/utils/helpers";
 import BrandLogo from "../other/BrandLogo";
 import IconButton from "../button/IconButton";
 import { User } from "@/utils/icons";
+import UserProfileButton from "../button/UserProfileButton";
 
 const TopNavbar = () => {
   const pathName = usePathname();
@@ -62,14 +63,15 @@ const TopNavbar = () => {
         <NavbarItem className="flex gap-3">
           <ThemeSwitchDropdown />
           <FullscreenToggleButton />
-          <IconButton
+          <UserProfileButton />
+          {/* <IconButton
             tooltip={"Login"}
             tooltipProps={{ placement: "left" }}
             className="p-2"
             icon={<User className="text-xl" />}
             href="/auth"
             variant="light"
-          />
+          /> */}
         </NavbarItem>
       </NavbarContent>
     </Navbar>

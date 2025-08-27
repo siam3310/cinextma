@@ -32,3 +32,12 @@ export interface InputWrapperProps {
   /** Adds required attribute to the input and a red asterisk on the right side of label @default `false` */
   required?: boolean;
 }
+
+export interface DropdownItemProps {
+  label: string;
+  href?: string;
+  icon?: React.ReactNode;
+  onClick?: () => void;
+  color?: ColorType;
+  className?: string;
+}

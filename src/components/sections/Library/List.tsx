@@ -10,6 +10,7 @@ import ContentTypeSelection from "@/components/ui/other/ContentTypeSelection";
 import useDiscoverFilters from "@/hooks/useDiscoverFilters";
 import MoviePosterCard from "../Movie/Cards/Poster";
 import TvShowPosterCard from "../TV/Cards/Poster";
+import { LIBRARY_STORAGE_KEY } from "@/utils/constants";
 
 type SortOption = "title" | "release_date" | "vote_average" | "saved_date";
 
@@ -23,7 +24,7 @@ const SORT_OPTIONS: { key: SortOption; label: string }[] = [
 const LibraryList = () => {
   const { content } = useDiscoverFilters();
   const [savedMovies, setSavedMovies] = useLocalStorage<SavedMovieDetails[]>({
-    key: "bookmarks",
+    key: LIBRARY_STORAGE_KEY,
     defaultValue: [],
   });
 

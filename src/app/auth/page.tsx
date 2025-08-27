@@ -8,11 +8,7 @@ export const metadata: Metadata = {
 };
 
 const AuthPage: NextPage = () => {
-  return (
-    <Suspense>
-      <AuthForms />
-    </Suspense>
-  );
+  return <AuthForms />;
 };
 
 export default AuthPage;

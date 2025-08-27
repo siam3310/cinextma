@@ -2,9 +2,10 @@ import useDeviceVibration from "@/hooks/useDeviceVibration";
 import { SavedMovieDetails } from "@/types/movie";
 import { useLocalStorage } from "@mantine/hooks";
 import { BsBookmarkCheckFill, BsBookmarkFill } from "react-icons/bs";
-import { toast } from "sonner";
 import IconButton from "./IconButton";
 import { Trash } from "@/utils/icons";
+import { LIBRARY_STORAGE_KEY } from "@/utils/constants";
+import { addToast } from "@heroui/react";
 
 interface BookmarkButtonProps {
   data: SavedMovieDetails;
@@ -14,7 +15,7 @@ interface BookmarkButtonProps {
 const BookmarkButton: React.FC<BookmarkButtonProps> = ({ data, isTooltipDisabled }) => {
   const { startVibration } = useDeviceVibration();
   const [bookmarks, setBookmarks] = useLocalStorage<BookmarkButtonProps["data"][]>({
-    key: "bookmarks",
+    key: LIBRARY_STORAGE_KEY,
     defaultValue: [],
   });
 
@@ -31,13 +32,18 @@ const BookmarkButton: React.FC<BookmarkButtonProps> = ({ data, isTooltipDisabled
   const handleBookmark = () => {
     if (isSaved) {
       setBookmarks(bookmarks.filter((savedMovie) => savedMovie.id !== data.id));
-      toast(`${movieData.title} removed from your library!`, {
-        icon: <Trash className="text-danger" />,
+      addToast({
+        title: `${movieData.title} removed from your library!`,
+        color: "danger",
+        icon: <Trash />,
       });
     } else {
       setBookmarks([...bookmarks, movieData]);
       startVibration([100]);
-      toast.success(`${movieData.title} saved to your library!`);
+      addToast({
+        title: `${movieData.title} saved to your library!`,
+        color: "success",
+      });
     }
   };
 
