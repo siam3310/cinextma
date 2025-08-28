@@ -8,6 +8,7 @@ import { isEmpty } from "@/utils/helpers";
 import { useCallback, useState } from "react";
 import { sendResetPasswordEmail } from "@/app/auth/actions";
 import { Turnstile } from "@marsidev/react-turnstile";
+import { env } from "@/utils/env";
 
 const AuthForgotPasswordForm: React.FC<AuthFormProps> = ({ setForm }) => {
   const [isVerifying, setIsVerifying] = useState(false);
@@ -31,18 +32,17 @@ const AuthForgotPasswordForm: React.FC<AuthFormProps> = ({ setForm }) => {
       return;
     }
 
-    const error = await sendResetPasswordEmail(data);
+    const { success, message } = await sendResetPasswordEmail(data);
 
-    if (error) {
+    if (!success) {
       setValue("captchaToken", undefined);
       setIsVerifying(false);
     }
 
     return addToast({
-      title: error ? "Failed to send email" : "Email sent",
-      description: error ? error.message : `We have sent a password reset email to ${data.email}.`,
-      color: error ? "danger" : "success",
-      timeout: error ? undefined : Infinity,
+      title: message,
+      color: success ? "success" : "danger",
+      timeout: success ? Infinity : undefined,
     });
   });
 
@@ -81,8 +81,8 @@ const AuthForgotPasswordForm: React.FC<AuthFormProps> = ({ setForm }) => {
       />
       {isVerifying && (
         <Turnstile
-          className="flex justify-center"
-          siteKey={process.env.NEXT_PUBLIC_CAPTCHA_SITE_KEY!}
+          className="flex h-fit w-full items-center justify-center"
+          siteKey={env.NEXT_PUBLIC_CAPTCHA_SITE_KEY}
           onSuccess={onCaptchaSuccess}
         />
       )}

@@ -1,7 +1,6 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
+import { SupabaseClient } from "@supabase/supabase-js";
 import { createClient } from "@/utils/supabase/server";
 import {
   ForgotPasswordFormInput,
@@ -13,22 +12,57 @@ import {
   ResetPasswordFormInput,
   ResetPasswordFormSchema,
 } from "@/schemas/auth";
-import type { AuthError } from "@supabase/supabase-js";
+import { z } from "zod";
 
-type AuthResponse = Promise<AuthError | null>;
+type AuthResponse = Promise<{ success: boolean; message: string }>;
 
-export const signIn = async (formData: LoginFormInput): AuthResponse => {
-  const supabase = await createClient();
+/**
+ * A generic type for our authentication actions.
+ * @template T The type of the form data.
+ * @param data The validated form data.
+ * @param supabase The Supabase client instance.
+ * @returns An AuthResponse.
+ */
+type AuthAction<T> = (data: T, supabase: SupabaseClient) => AuthResponse;
 
-  const { data, error: parseError } = LoginFormSchema.safeParse(formData);
+/**
+ * A higher-order function to create a server action that handles
+ * form validation, captcha checks, and Supabase client creation.
+ * @template T The type of the form data, which must include an optional captchaToken.
+ * @param schema The Zod schema for validation.
+ * @param action The core logic of the server action.
+ * @returns An async function that serves as the server action.
+ */
+const createAuthAction = <T extends { captchaToken?: string }>(
+  schema: z.ZodSchema<T>,
+  action: AuthAction<T>,
+) => {
+  return async (formData: T): AuthResponse => {
+    const result = schema.safeParse(formData);
+    if (!result.success) {
+      const message = result.error.issues.map((issue) => issue.message).join(". ");
+      return { success: false, message };
+    }
 
-  if (!data) return { message: parseError.message } as AuthError;
+    if (!result.data.captchaToken) {
+      return { success: false, message: "Captcha is required." };
+    }
 
-  if (!data.captchaToken) {
-    return { message: "Captcha is required" } as AuthError;
-  }
+    try {
+      const supabase = await createClient();
+      return await action(result.data, supabase);
+    } catch (error) {
+      // Catch potential unhandled errors in actions
+      if (error instanceof Error) {
+        return { success: false, message: error.message };
+      }
+      return { success: false, message: "An unexpected error occurred." };
+    }
+  };
+};
 
-  const { error } = await supabase.auth.signInWithPassword({
+const signInWithEmailAction: AuthAction<LoginFormInput> = async (data, supabase) => {
+  const { data: user, error } = await supabase.auth.signInWithPassword({
     email: data.email,
     password: data.loginPassword,
     options: {
@@ -36,23 +70,26 @@ export const signIn = async (formData: LoginFormInput): AuthResponse => {
     },
   });
 
-  if (error) return error;
+  if (error) return { success: false, message: error.message };
 
-  revalidatePath("/", "layout");
-  return redirect("/");
-};
+  const { data: username, error: usernameError } = await supabase
+    .from("profiles")
+    .select("username")
+    .eq("id", user.user.id)
+    .maybeSingle();
 
-export const signUp = async (formData: RegisterFormInput): AuthResponse => {
-  const supabase = await createClient();
-
-  const { data, error: parseError } = RegisterFormSchema.safeParse(formData);
-
-  if (!data) return { message: parseError.message } as AuthError;
-
-  if (!data.captchaToken) {
-    return { message: "Captcha is required" } as AuthError;
+  if (!username) {
+    console.error("Username check error:", usernameError);
+    return {
+      success: false,
+      message: `Database error. Could not get username for ${user.user.email}.`,
+    };
   }
 
+  return { success: true, message: `Welcome back, ${username.username}` };
+};
+
+const signUpAction: AuthAction<RegisterFormInput> = async (data, supabase) => {
   // Check username availability
   const { data: usernameExists, error: usernameError } = await supabase
     .from("profiles")
@@ -60,17 +97,17 @@ export const signUp = async (formData: RegisterFormInput): AuthResponse => {
     .eq("username", data.username)
     .maybeSingle();
 
-  console.log({ usernameExists, usernameError });
-
-  if (usernameExists) {
-    return { message: "Username already taken" } as AuthError;
+  if (usernameError) {
+    console.error("Username check error:", usernameError);
+    return { success: false, message: "Database error. Could not check username availability." };
   }
 
-  // Insert user account data
-  const {
-    data: { user },
-    error,
-  } = await supabase.auth.signUp({
+  if (usernameExists) {
+    return { success: false, message: "Username already taken." };
+  }
+
+  // Create user
+  const { data: authData, error: signUpError } = await supabase.auth.signUp({
     email: data.email,
     password: data.password,
     options: {
@@ -78,69 +115,67 @@ export const signUp = async (formData: RegisterFormInput): AuthResponse => {
     },
   });
 
-  if (error) return error;
+  if (signUpError) return { success: false, message: signUpError.message };
+  if (!authData.user) return { success: false, message: "User not created. Please try again." };
 
-  // Insert username
-  if (user) {
-    const userId = user.id;
+  // Insert profile
+  const { error: profileError } = await supabase
+    .from("profiles")
+    .insert({ id: authData.user.id, username: data.username });
 
-    const { error: profileError } = await supabase
-      .from("profiles")
-      .insert([{ id: userId, username: data.username }]);
-
-    if (profileError) throw profileError;
+  if (profileError) {
+    console.error("Profile creation error:", profileError);
+    // This is a critical error. The user exists in auth but not in profiles.
+    // It's better to return a generic error and log it for investigation.
+    return { success: false, message: "Could not create user profile. Please contact support." };
   }
 
-  return null;
+  return {
+    success: true,
+    message:
+      "Sign up successful. Please check your email for verification. Check spam folder if you don't see it.",
+  };
 };
+
+const sendResetPasswordEmailAction: AuthAction<ForgotPasswordFormInput> = async (
+  data,
+  supabase,
+) => {
+  const { error } = await supabase.auth.resetPasswordForEmail(data.email, {
+    captchaToken: data.captchaToken,
+  });
+
+  if (error) return { success: false, message: error.message };
+
+  return {
+    success: true,
+    message: `We have sent an email to ${data.email}. Check spam folder if you don't see it.`,
+  };
+};
+
+const resetPasswordAction: AuthAction<ResetPasswordFormInput> = async (data, supabase) => {
+  const { error } = await supabase.auth.updateUser({
+    password: data.password,
+  });
+
+  if (error) return { success: false, message: error.message };
+
+  return { success: true, message: "Password has been reset successfully." };
+};
+
+export const signIn = createAuthAction(LoginFormSchema, signInWithEmailAction);
+export const signUp = createAuthAction(RegisterFormSchema, signUpAction);
+export const sendResetPasswordEmail = createAuthAction(
+  ForgotPasswordFormSchema,
+  sendResetPasswordEmailAction,
+);
+export const resetPassword = createAuthAction(ResetPasswordFormSchema, resetPasswordAction);
 
 export const signOut = async (): AuthResponse => {
   const supabase = await createClient();
   const { error } = await supabase.auth.signOut();
 
-  if (error) return error;
+  if (error) return { success: false, message: error.message };
 
-  revalidatePath("/", "layout");
-  return redirect("/auth");
-};
-
-export const sendResetPasswordEmail = async (formData: ForgotPasswordFormInput): AuthResponse => {
-  const supabase = await createClient();
-
-  const { data, error: parseError } = ForgotPasswordFormSchema.safeParse(formData);
-
-  if (!data) return { message: parseError.message } as AuthError;
-
-  if (!data.captchaToken) {
-    return { message: "Captcha is required" } as AuthError;
-  }
-
-  const { error } = await supabase.auth.resetPasswordForEmail(data.email, {
-    captchaToken: data.captchaToken,
-  });
-
-  if (error) return error;
-
-  return null;
-};
-
-export const resetPassword = async (formData: ResetPasswordFormInput): AuthResponse => {
-  const supabase = await createClient();
-
-  const { data, error: parseError } = ResetPasswordFormSchema.safeParse(formData);
-
-  if (!data) return { message: parseError.message } as AuthError;
-
-  if (!data.captchaToken) {
-    return { message: "Captcha is required" } as AuthError;
-  }
-
-  const { error } = await supabase.auth.updateUser({
-    password: data.password,
-  });
-
-  if (error) return error;
-
-  revalidatePath("/", "layout");
-  return redirect("/");
+  return { success: true, message: "You have been signed out." };
 };

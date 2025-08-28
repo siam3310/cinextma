@@ -1,14 +1,15 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+import { env } from "../env";
 
-const PROTECTED_URLS = process.env.PROTECTED_URLS?.split(",") ?? [];
+const PROTECTED_PATHS = env.PROTECTED_PATHS?.split(",") ?? [];
 
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({ request });
 
   const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,
+    env.NEXT_PUBLIC_SUPABASE_URL,
+    env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY,
     {
       cookies: {
         getAll() {
@@ -32,7 +33,7 @@ export async function updateSession(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
   // if user is not logged in and the current pathname is protected, redirect to login page
-  if (!user && PROTECTED_URLS.some((url) => pathname.startsWith(url))) {
+  if (!user && PROTECTED_PATHS.some((url) => pathname.startsWith(url))) {
     const url = request.nextUrl.clone();
     url.pathname = "/auth";
 

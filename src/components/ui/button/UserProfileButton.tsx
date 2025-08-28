@@ -2,8 +2,11 @@ import { signOut } from "@/app/auth/actions";
 import useBreakpoints from "@/hooks/useBreakpoints";
 import useSupabaseUser from "@/hooks/useSupabaseUser";
 import { DropdownItemProps } from "@/types/component";
+import { env } from "@/utils/env";
 import { Gear, Logout, User } from "@/utils/icons";
+import { useRouter } from "@bprogress/next/app";
 import {
+  addToast,
   Avatar,
   Button,
   Dropdown,
@@ -16,6 +19,7 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 
 const UserProfileButton: React.FC = () => {
+  const router = useRouter();
   const [logout, setLogout] = useState(false);
   const { data: user, isLoading } = useSupabaseUser();
   const { mobile } = useBreakpoints();
@@ -26,10 +30,18 @@ const UserProfileButton: React.FC = () => {
       { label: "Settings", href: "/settings", icon: <Gear /> },
       {
         label: "Logout",
-        onClick: () => {
+        onClick: async () => {
           if (logout) return;
           setLogout(true);
-          signOut();
+          const { success, message } = await signOut();
+          addToast({
+            title: message,
+            color: success ? "primary" : "danger",
+          });
+          if (!success) {
+            return setLogout(false);
+          }
+          return router.push("/auth");
         },
         icon: logout ? <Spinner size="sm" color="danger" /> : <Logout />,
         color: "danger",
@@ -42,7 +54,7 @@ const UserProfileButton: React.FC = () => {
   if (isLoading) return null;
 
   const guest = !user;
-  const avatar = `https://api.dicebear.com/9.x/fun-emoji/svg?seed=${user?.email}`;
+  const avatar = `${env.NEXT_PUBLIC_AVATAR_PROVIDER_URL}${user?.email}`;
 
   const ProfileButton = (
     <Button
@@ -51,7 +63,16 @@ const UserProfileButton: React.FC = () => {
       href={guest ? "/auth" : undefined}
       as={guest ? Link : undefined}
       isIconOnly={guest || mobile}
-      endContent={!guest ? <Avatar src={avatar} className="size-7" /> : undefined}
+      endContent={
+        !guest ? (
+          <Avatar
+            showFallback
+            src={avatar}
+            className="size-7"
+            fallback={<User className="text-xl" />}
+          />
+        ) : undefined
+      }
       className="min-w-fit"
     >
       {guest ? (
@@ -67,7 +88,11 @@ const UserProfileButton: React.FC = () => {
   return (
     <Dropdown showArrow closeOnSelect={false} className="w-10">
       <DropdownTrigger className="w-10">{ProfileButton}</DropdownTrigger>
-      <DropdownMenu aria-label="User profile dropdown" variant="flat">
+      <DropdownMenu
+        aria-label="User profile dropdown"
+        variant="flat"
+        disabledKeys={logout ? ITEMS.map((i) => i.label) : undefined}
+      >
         {ITEMS.map(({ label, icon, ...props }) => (
           <DropdownItem key={label} startContent={icon} {...props}>
             {label}

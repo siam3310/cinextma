@@ -26,5 +26,5 @@ export const GET = async (request: NextRequest) => {
     }
   }
 
-  return redirect("/auth");
+  return redirect("/auth?error=true");
 };

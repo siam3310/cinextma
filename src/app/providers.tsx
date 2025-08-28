@@ -24,7 +24,7 @@ export default function Providers({ children }: PropsWithChildren) {
           toastOffset={10}
           toastProps={{
             shouldShowTimeoutProgress: true,
-            timeout: 4000,
+            timeout: 5000,
             classNames: {
               content: "mr-7",
               closeButton: "opacity-100 absolute right-4 top-1/2 -translate-y-1/2",

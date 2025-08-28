@@ -1,8 +1,10 @@
 import { resetPassword } from "@/app/auth/actions";
 import PasswordInput from "@/components/ui/input/PasswordInput";
 import { ResetPasswordFormSchema } from "@/schemas/auth";
+import { env } from "@/utils/env";
 import { isEmpty } from "@/utils/helpers";
 import { LockPassword } from "@/utils/icons";
+import { useRouter } from "@bprogress/next/app";
 import { addToast, Button } from "@heroui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Turnstile } from "@marsidev/react-turnstile";
@@ -10,6 +12,7 @@ import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 
 const AuthResetPasswordForm: React.FC = () => {
+  const router = useRouter();
   const [isVerifying, setIsVerifying] = useState(false);
 
   const {
@@ -33,18 +36,20 @@ const AuthResetPasswordForm: React.FC = () => {
       return;
     }
 
-    const error = await resetPassword(data);
+    const { success, message } = await resetPassword(data);
 
-    if (error) {
+    addToast({
+      title: message,
+      color: success ? "success" : "danger",
+    });
+
+    if (!success) {
       setValue("captchaToken", undefined);
       setIsVerifying(false);
+      return;
     }
 
-    return addToast({
-      title: error ? "Reset password failed" : "Password reset successful",
-      color: error ? "danger" : "success",
-      description: error?.message,
-    });
+    return router.push("/");
   });
 
   const onCaptchaSuccess = useCallback(
@@ -91,8 +96,8 @@ const AuthResetPasswordForm: React.FC = () => {
       />
       {isVerifying && (
         <Turnstile
-          className="flex justify-center"
-          siteKey={process.env.NEXT_PUBLIC_CAPTCHA_SITE_KEY!}
+          className="flex h-fit w-full items-center justify-center"
+          siteKey={env.NEXT_PUBLIC_CAPTCHA_SITE_KEY}
           onSuccess={onCaptchaSuccess}
         />
       )}

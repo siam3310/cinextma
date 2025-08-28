@@ -9,6 +9,8 @@ import { useForm } from "react-hook-form";
 import { Turnstile } from "@marsidev/react-turnstile";
 import { useCallback, useState } from "react";
 import { isEmpty } from "@/utils/helpers";
+import { env } from "@/utils/env";
+import GoogleLoginButton from "@/components/ui/button/GoogleLoginButton";
 
 const AuthRegisterForm: React.FC<AuthFormProps> = ({ setForm }) => {
   const [isVerifying, setIsVerifying] = useState(false);
@@ -36,18 +38,17 @@ const AuthRegisterForm: React.FC<AuthFormProps> = ({ setForm }) => {
       return;
     }
 
-    const error = await signUp(data);
+    const { success, message } = await signUp(data);
 
-    if (error) {
+    if (!success) {
       setValue("captchaToken", undefined);
       setIsVerifying(false);
     }
 
     return addToast({
-      title: error ? "Registration failed" : "Registration successful",
-      description: error ? error?.message : "Please check your email to verify your account",
-      color: error ? "danger" : "success",
-      timeout: error ? undefined : Infinity,
+      title: message,
+      color: success ? "success" : "danger",
+      timeout: success ? Infinity : undefined,
     });
   });
 
@@ -121,8 +122,8 @@ const AuthRegisterForm: React.FC<AuthFormProps> = ({ setForm }) => {
         />
         {isVerifying && (
           <Turnstile
-            className="flex justify-center"
-            siteKey={process.env.NEXT_PUBLIC_CAPTCHA_SITE_KEY!}
+            className="flex h-fit w-full items-center justify-center"
+            siteKey={env.NEXT_PUBLIC_CAPTCHA_SITE_KEY}
             onSuccess={onCaptchaSuccess}
           />
         )}
@@ -141,13 +142,7 @@ const AuthRegisterForm: React.FC<AuthFormProps> = ({ setForm }) => {
         <p className="shrink-0 text-tiny text-default-500">OR</p>
         <Divider className="flex-1" />
       </div>
-      <Button
-        startContent={<Google width={24} />}
-        variant="faded"
-        isDisabled={isSubmitting || isVerifying}
-      >
-        Continue with Google
-      </Button>
+      <GoogleLoginButton isDisabled={isSubmitting || isVerifying} />
       <p className="text-center text-small">
         Already have an account?
         <Link

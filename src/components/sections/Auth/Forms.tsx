@@ -9,12 +9,12 @@ import { SpacingClasses } from "@/utils/constants";
 import { cn, isEmpty, shuffleArray } from "@/utils/helpers";
 import { ArrowLeft } from "@/utils/icons";
 import { getImageUrl } from "@/utils/movies";
-import { Card, CardBody, CardHeader, ScrollShadow, Spinner } from "@heroui/react";
+import { addToast, Card, CardBody, CardHeader, ScrollShadow, Spinner } from "@heroui/react";
 import { useQuery } from "@tanstack/react-query";
 import { AnimatePresence, motion } from "framer-motion";
 import { usePathname } from "next/navigation";
-import { parseAsStringLiteral, useQueryState } from "nuqs";
-import { useMemo } from "react";
+import { parseAsBoolean, parseAsStringLiteral, useQueryState } from "nuqs";
+import { useEffect, useMemo } from "react";
 import AuthForgotPasswordForm from "./ForgotPassword";
 import AuthLoginForm from "./Login";
 import AuthRegisterForm from "./Register";
@@ -30,6 +30,7 @@ const AuthForms = () => {
   const pathname = usePathname();
   const reset = pathname === "/auth/reset-password";
 
+  const [error, setError] = useQueryState("error", parseAsBoolean.withDefault(false));
   const [form, setForm] = useQueryState(
     "form",
     parseAsStringLiteral(ValidForms).withDefault("login"),
@@ -55,6 +56,16 @@ const AuthForms = () => {
       .map((show) => getImageUrl(show.poster_path, "poster"));
     return shuffleArray([...moviePosters, ...tvPosters]);
   }, [movies?.results, tvShows?.results]);
+
+  useEffect(() => {
+    if (error) {
+      addToast({
+        title: "An error occurred. Please try again.",
+        color: "danger",
+      });
+      setError(false);
+    }
+  }, [error]);
 
   if (isPendingMovies || isPendingTv) {
     return <Spinner size="lg" className="absolute-center" variant="simple" />;
