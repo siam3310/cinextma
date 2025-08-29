@@ -1,3 +1,4 @@
+import { PropsWithChildren } from "react";
 import { tv } from "tailwind-variants";
 
 export type ColorType = "warning" | "primary" | "secondary" | "success" | "danger";
@@ -40,4 +41,10 @@ export interface DropdownItemProps {
   onClick?: () => void;
   color?: ColorType;
   className?: string;
+}
+
+export interface OverlayProps extends PropsWithChildren {
+  isOpen: boolean;
+  onClose: () => void;
+  isLoading?: boolean;
 }

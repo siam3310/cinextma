@@ -54,7 +54,9 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html suppressHydrationWarning lang="en">
-      <body className={cn("min-h-screen select-none bg-background antialiased", Poppins.className)}>
+      <body
+        className={cn("min-h-[100dvh] select-none bg-background antialiased", Poppins.className)}
+      >
         <Providers>
           {IS_PRODUCTION && <Disclaimer />}
           <TopNavbar />

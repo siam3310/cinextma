@@ -12,6 +12,7 @@ const LIBRARY_STORAGE_KEY = "bookmarks";
 const SEARCH_HISTORY_STORAGE_KEY = "search-histories";
 
 // Others
+const ITEMS_PER_PAGE = 20;
 const SpacingClasses = {
   main: "px-3 py-8 sm:px-5",
   reset: "-mx-3 -my-8 sm:-mx-5",
@@ -28,5 +29,6 @@ export {
   ADS_WARNING_STORAGE_KEY,
   LIBRARY_STORAGE_KEY,
   SEARCH_HISTORY_STORAGE_KEY,
+  ITEMS_PER_PAGE,
   SpacingClasses,
 };

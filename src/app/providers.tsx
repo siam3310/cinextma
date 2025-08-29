@@ -21,12 +21,13 @@ export default function Providers({ children }: PropsWithChildren) {
       <HeroUIProvider navigate={push}>
         <ToastProvider
           placement="top-right"
+          maxVisibleToasts={1}
           toastOffset={10}
           toastProps={{
             shouldShowTimeoutProgress: true,
             timeout: 5000,
             classNames: {
-              content: "mr-7",
+              content: "mr-7 pointer-events-none",
               closeButton: "opacity-100 absolute right-4 top-1/2 -translate-y-1/2",
             },
           }}
