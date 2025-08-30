@@ -6,7 +6,11 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "sb-start": "supabase start --debug --ignore-health-check",
+    "sb-stop": "supabase stop --debug --all",
+    "sb-restart": "supabase stop --debug --all && supabase start --debug --ignore-health-check",
+    "sb-db-reset": "supabase db reset"
   },
   "dependencies": {
     "@bprogress/next": "^3.2.12",
