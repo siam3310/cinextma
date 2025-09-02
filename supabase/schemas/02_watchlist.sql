@@ -3,7 +3,7 @@ create table public.watchlist (
   id integer not null,
   type text not null check (type in ('movie','tv')),
   adult boolean not null,
-  backdrop_path text not null,
+  backdrop_path text,
   poster_path text,
   release_date date not null,
   title text not null,

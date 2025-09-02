@@ -10,7 +10,8 @@
     "sb-start": "supabase start --debug --ignore-health-check",
     "sb-stop": "supabase stop --debug --all",
     "sb-restart": "supabase stop --debug --all && supabase start --debug --ignore-health-check",
-    "sb-db-reset": "supabase db reset"
+    "sb-db-reset": "supabase db reset",
+    "sb-db-types": "supabase gen types typescript --local > src/utils/supabase/types.ts"
   },
   "dependencies": {
     "@bprogress/next": "^3.2.12",

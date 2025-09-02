@@ -133,3 +133,14 @@ export const shuffleArray = <T>(array: T[]): T[] => {
 
   return shuffled;
 };
+
+/**
+ * Calculates the absolute difference between two numbers.
+ *
+ * @param a - The first number
+ * @param b - The second number
+ * @returns The absolute difference between the two numbers
+ */
+export const diff = (a: number, b: number): number => {
+  return Math.abs(Math.round(a) - Math.round(b));
+};

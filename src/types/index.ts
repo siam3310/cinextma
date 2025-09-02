@@ -61,6 +61,7 @@ export interface PlayersProps {
   recommended?: boolean;
   fast?: boolean;
   ads?: boolean;
+  resumable?: boolean;
 }
 
 export interface Settings {

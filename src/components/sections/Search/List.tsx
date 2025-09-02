@@ -131,7 +131,7 @@ const SearchList = () => {
               <Spinner
                 size="lg"
                 className="absolute-center mt-56"
-                color="warning"
+                color={content === "movie" ? "primary" : "warning"}
                 variant="simple"
               />
             ) : (

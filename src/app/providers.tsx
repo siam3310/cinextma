@@ -27,8 +27,9 @@ export default function Providers({ children }: PropsWithChildren) {
             shouldShowTimeoutProgress: true,
             timeout: 5000,
             classNames: {
-              content: "mr-7 pointer-events-none",
-              closeButton: "opacity-100 absolute right-4 top-1/2 -translate-y-1/2",
+              content: "mr-7",
+              closeButton:
+                "opacity-100 absolute right-4 top-1/2 -translate-y-1/2 pointer-events-auto",
             },
           }}
         />

@@ -8,6 +8,7 @@ import { notFound } from "next/navigation";
 import { use } from "react";
 import dynamic from "next/dynamic";
 import { NextPage } from "next";
+import { getTvShowLastPosition } from "@/app/actions/histories";
 const TvShowPlayer = dynamic(() => import("@/components/sections/TV/Player/Player"));
 
 const TvShowPlayerPage: NextPage<Params<{ id: number; season: number; episode: number }>> = ({
@@ -33,7 +34,12 @@ const TvShowPlayerPage: NextPage<Params<{ id: number; season: number; episode: n
     queryKey: ["tv-show-season", id, season],
   });
 
-  if (isPendingTv || isPendingSeason) {
+  const { data: startAt, isPending: isPendingStartAt } = useQuery({
+    queryFn: () => getTvShowLastPosition(id, season, episode),
+    queryKey: ["tv-show-player-start-at", id, season, episode],
+  });
+
+  if (isPendingTv || isPendingSeason || isPendingStartAt) {
     return <Spinner size="lg" className="absolute-center" color="warning" variant="simple" />;
   }
 
@@ -63,6 +69,7 @@ const TvShowPlayerPage: NextPage<Params<{ id: number; season: number; episode: n
 
   return (
     <TvShowPlayer
+      tv={tv}
       id={id}
       seriesName={tv.name}
       seasonName={seasonDetail.name}
@@ -70,6 +77,7 @@ const TvShowPlayerPage: NextPage<Params<{ id: number; season: number; episode: n
       episodes={seasonDetail.episodes}
       nextEpisodeNumber={nextEpisodeNumber}
       prevEpisodeNumber={prevEpisodeNumber}
+      startAt={startAt}
     />
   );
 };

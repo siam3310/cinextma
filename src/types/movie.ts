@@ -1,4 +1,7 @@
+import { Database } from "@/utils/supabase/types";
 import { ContentType } from ".";
+
+export type HistoryDetail = Database["public"]["Tables"]["histories"]["Row"];
 
 export interface SavedMovieDetails {
   adult: boolean;

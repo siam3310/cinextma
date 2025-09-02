@@ -60,18 +60,10 @@ const TopNavbar = () => {
         </NavbarContent>
       )}
       <NavbarContent justify="end">
-        <NavbarItem className="flex gap-3">
+        <NavbarItem className="flex gap-1">
           <ThemeSwitchDropdown />
           <FullscreenToggleButton />
           <UserProfileButton />
-          {/* <IconButton
-            tooltip={"Login"}
-            tooltipProps={{ placement: "left" }}
-            className="p-2"
-            icon={<User className="text-xl" />}
-            href="/auth"
-            variant="light"
-          /> */}
         </NavbarItem>
       </NavbarContent>
     </Navbar>

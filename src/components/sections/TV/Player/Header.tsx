@@ -3,7 +3,7 @@ import { ArrowLeft, List, Next, Prev, Server } from "@/utils/icons";
 import ActionButton from "./ActionButton";
 import { TvShowPlayerProps } from "./Player";
 
-interface TvShowPlayerHeaderProps extends Omit<TvShowPlayerProps, "episodes"> {
+interface TvShowPlayerHeaderProps extends Omit<TvShowPlayerProps, "episodes" | "tv" | "startAt"> {
   hidden?: boolean;
   selectedSource: number;
   onOpenSource: () => void;

@@ -2,7 +2,7 @@ import { PlayersProps } from "@/types";
 import VaulDrawer from "@/components/ui/overlay/VaulDrawer";
 import { HandlerType } from "@/types/component";
 import SelectButton from "@/components/ui/input/SelectButton";
-import { Ads, Rocket, Star } from "@/utils/icons";
+import { Ads, Clock, Rocket, Star } from "@/utils/icons";
 
 interface MoviePlayerSourceSelectionProps extends HandlerType {
   players: PlayersProps[];
@@ -39,6 +39,10 @@ const MoviePlayerSourceSelection: React.FC<MoviePlayerSourceSelectionProps> = ({
             <span>Fast hosting</span>
           </div>
           <div className="flex items-center gap-2">
+            <Clock className="text-success-500" />
+            <span>Watch Progress Support</span>
+          </div>
+          <div className="flex items-center gap-2">
             <Ads className="text-primary-500" />
             <span>May contain popup ads</span>
           </div>
@@ -51,7 +55,7 @@ const MoviePlayerSourceSelection: React.FC<MoviePlayerSourceSelectionProps> = ({
             setSelectedSource(Number(value || 0));
             onClose();
           }}
-          data={players.map(({ title, recommended, fast, ads }, index) => {
+          data={players.map(({ title, recommended, fast, ads, resumable }, index) => {
             return {
               label: title,
               value: index.toString(),
@@ -59,6 +63,7 @@ const MoviePlayerSourceSelection: React.FC<MoviePlayerSourceSelectionProps> = ({
                 <div key={`info-${title}`} className="flex flex-wrap items-center gap-2">
                   {recommended && <Star className="text-warning" />}
                   {fast && <Rocket className="text-danger" />}
+                  {resumable && <Clock className="text-success" />}
                   {ads && <Ads className="text-primary" />}
                 </div>
               ),
