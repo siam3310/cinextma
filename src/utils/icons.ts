@@ -1,3 +1,4 @@
+import { AiFillDislike, AiFillLike } from "react-icons/ai";
 import {
   FaAd,
   FaCalendarAlt,
@@ -6,6 +7,7 @@ import {
   FaSearch,
   FaServer,
   FaSortAlphaDown,
+  FaUser,
 } from "react-icons/fa";
 import {
   FaCheck,
@@ -14,17 +16,21 @@ import {
   FaCirclePlay,
   FaClock,
   FaExclamation,
+  FaGear,
   FaInfo,
   FaStar,
   FaYoutube,
 } from "react-icons/fa6";
+import { FcGoogle } from "react-icons/fc";
+import { FiLogOut } from "react-icons/fi";
 import { HiArrowLongLeft, HiTrash } from "react-icons/hi2";
 import { ImCross } from "react-icons/im";
-import { IoIosClose, IoIosRocket, IoIosShareAlt, IoMdHelpCircle } from "react-icons/io";
-import { IoEye, IoGrid, IoMenuOutline } from "react-icons/io5";
+import { IoIosClose, IoIosMail, IoIosRocket, IoIosShareAlt, IoMdHelpCircle } from "react-icons/io";
+import { IoEye, IoEyeOff, IoGrid, IoMenuOutline } from "react-icons/io5";
 import { LuPlay } from "react-icons/lu";
-import { MdMovie } from "react-icons/md";
+import { MdContentCopy, MdMovie } from "react-icons/md";
 import { PiTelevisionFill } from "react-icons/pi";
+import { RiLockPasswordFill, RiRobot3Fill } from "react-icons/ri";
 import { TbPlayerTrackNextFilled, TbPlayerTrackPrevFilled } from "react-icons/tb";
 import { TiThList } from "react-icons/ti";
 
@@ -37,12 +43,21 @@ export {
   FaChevronRight as ChevronRight,
   FaClock as Clock,
   IoIosClose as Close,
+  MdContentCopy as Copy,
   ImCross as Cross,
+  AiFillDislike as Dislike,
   IoEye as Eye,
+  IoEyeOff as EyeOff,
+  FaGear as Gear,
+  FcGoogle as Google,
   IoGrid as Grid,
   IoMdHelpCircle as Help,
   FaInfo as Info,
+  AiFillLike as Like,
   TiThList as List,
+  RiLockPasswordFill as LockPassword,
+  FiLogOut as Logout,
+  IoIosMail as Mail,
   IoMenuOutline as Menu,
   MdMovie as Movie,
   TbPlayerTrackNextFilled as Next,
@@ -50,6 +65,7 @@ export {
   FaPlay as PlayFilled,
   LuPlay as PlayOutline,
   TbPlayerTrackPrevFilled as Prev,
+  RiRobot3Fill as Robot,
   IoIosRocket as Rocket,
   FaSearch as Search,
   FaCloudSun as Season,
@@ -59,6 +75,7 @@ export {
   FaStar as Star,
   HiTrash as Trash,
   PiTelevisionFill as TV,
+  FaUser as User,
   FaExclamation as Warning,
   FaYoutube as Youtube,
 };

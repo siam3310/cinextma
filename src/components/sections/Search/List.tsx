@@ -15,6 +15,7 @@ import MoviePosterCard from "../Movie/Cards/Poster";
 import SearchFilter from "./Filter";
 import { queryClient } from "@/app/providers";
 import { getLoadingLabel } from "@/utils/movies";
+import { SEARCH_HISTORY_STORAGE_KEY } from "@/utils/constants";
 
 type FetchType = {
   page: number;
@@ -39,7 +40,7 @@ const SearchList = () => {
     parseAsStringLiteral(["movie", "tv"]).withDefault("movie"),
   );
   const [searchHistories, setSearchHistories] = useLocalStorage<string[]>({
-    key: "search-histories",
+    key: SEARCH_HISTORY_STORAGE_KEY,
     defaultValue: [],
   });
 
@@ -130,7 +131,7 @@ const SearchList = () => {
               <Spinner
                 size="lg"
                 className="absolute-center mt-56"
-                color="warning"
+                color={content === "movie" ? "primary" : "warning"}
                 variant="simple"
               />
             ) : (

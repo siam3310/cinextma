@@ -24,6 +24,7 @@ import { Divider } from "@heroui/react";
 import CopyButton from "./CopyButton";
 import { ContentType } from "@/types";
 import { Share } from "@/utils/icons";
+import { useDisclosure } from "@mantine/hooks";
 
 interface ShareButtonProps {
   title: string;
@@ -80,34 +81,41 @@ const ShareButton: React.FC<ShareButtonProps> = ({ title, id, type = "movie" }) 
   const url = `https://${location.hostname}/${type}/${id}`;
   const description = `Check out and stream ${title} on Cinextma for FREE!!`;
 
+  const [opened, { open, close }] = useDisclosure(false);
+
   return (
-    <VaulDrawer
-      trigger={<IconButton icon={<Share size={20} />} variant="ghost" tooltip="Share" />}
-      backdrop="blur"
-      title="Share via"
-    >
-      <div className="space-y-8 px-6">
-        <div className="grid grid-cols-4 gap-x-5 gap-y-3 md:gap-x-10 md:gap-y-5">
-          {SHARE_BUTTONS.map(({ Component, Icon, label }) => (
-            <Component
-              key={label}
-              title={description}
-              hashtags={HASTAGS}
-              url={url}
-              subject={description}
-              className="flex flex-col items-center justify-center gap-2"
-            >
-              <Icon className="rounded-md" size={45} />
-              <span className="text-xs">{label}</span>
-            </Component>
-          ))}
+    <>
+      <IconButton icon={<Share size={20} />} variant="ghost" tooltip="Share" onPress={open} />
+      <VaulDrawer open={opened} onClose={close} backdrop="blur" title="Share via">
+        <div className="space-y-8 px-6">
+          <div className="grid grid-cols-4 gap-x-5 gap-y-3 md:gap-x-10 md:gap-y-5">
+            {SHARE_BUTTONS.map(({ Component, Icon, label }) => (
+              <Component
+                key={label}
+                title={description}
+                hashtags={HASTAGS}
+                url={url}
+                subject={description}
+                onClick={close}
+                className="flex flex-col items-center justify-center gap-2"
+              >
+                <Icon className="rounded-md" size={45} />
+                <span className="text-xs">{label}</span>
+              </Component>
+            ))}
+          </div>
         </div>
-      </div>
-      <Divider className="my-4" />
-      <div className="space-y-4 px-6">
-        <CopyButton text={url} label="Copy Link" copiedLabel="Link copied to clipboard!" />
-      </div>
-    </VaulDrawer>
+        <Divider className="my-4" />
+        <div className="space-y-4 px-6">
+          <CopyButton
+            text={url}
+            label="Copy Link"
+            copiedLabel="Link copied to clipboard!"
+            onCopied={close}
+          />
+        </div>
+      </VaulDrawer>
+    </>
   );
 };
 

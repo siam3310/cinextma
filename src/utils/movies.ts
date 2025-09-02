@@ -1,4 +1,13 @@
-import { intervalToDuration } from "date-fns";
+import {
+  intervalToDuration,
+  differenceInSeconds,
+  differenceInMinutes,
+  differenceInHours,
+  differenceInDays,
+  differenceInWeeks,
+  differenceInMonths,
+  differenceInYears,
+} from "date-fns";
 import { Movie, MovieDetails, TV, TvShowDetails } from "tmdb-ts";
 
 /**
@@ -15,6 +24,65 @@ export const movieDurationString = (minutes?: number): string => {
   const hours = duration.hours ? `${duration.hours}h ` : "";
   const mins = duration.minutes ? `${duration.minutes}m` : "";
   return `${hours}${mins}`;
+};
+
+/**
+ * Formats a duration in seconds to a human-readable format.
+ *
+ * @param seconds - The duration in seconds.
+ * @returns A string representing the duration in the format "X:Y:Z" or "Y:Z", where X is the number of hours, Y is the number of minutes, and Z is the number of seconds.
+ */
+export const formatDuration = (seconds: number): string => {
+  const s = Math.round(seconds);
+
+  const hrs = Math.floor(s / 3600);
+  const mins = Math.floor((s % 3600) / 60);
+  const secs = s % 60;
+
+  if (hrs > 0) {
+    return `${hrs}:${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
+  } else {
+    return `${mins}:${secs.toString().padStart(2, "0")}`;
+  }
+};
+
+/**
+ * Returns a string representing the time elapsed since the given date.
+ *
+ * @param date - The date to compare with the current date.
+ * @returns A string representing the time elapsed since the given date.
+ */
+export const timeAgo = (date: Date | string): string => {
+  const now = new Date();
+
+  const seconds = differenceInSeconds(now, date);
+  const minutes = differenceInMinutes(now, date);
+  const hours = differenceInHours(now, date);
+  const days = differenceInDays(now, date);
+  const weeks = differenceInWeeks(now, date);
+  const months = differenceInMonths(now, date);
+  const years = differenceInYears(now, date);
+
+  if (seconds < 20) return "Just now";
+  if (seconds < 60) return `${seconds} seconds ago`;
+
+  if (minutes === 1) return "1 minute ago";
+  if (minutes < 60) return `${minutes} minutes ago`;
+
+  if (hours === 1) return "1 hour ago";
+  if (hours < 24) return `${hours} hours ago`;
+
+  if (days === 1) return "yesterday";
+  if (days < 7) return `${days} days ago`;
+
+  if (weeks === 1) return "1 week ago";
+  if (weeks < 5) return `${weeks} weeks ago`;
+
+  if (months === 1) return "last month";
+  if (months < 12) return `${months} months ago`;
+
+  if (years === 1) return "last year";
+  return `${years} years ago`;
 };
 
 /**

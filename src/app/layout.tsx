@@ -10,7 +10,7 @@ import Sidebar from "@/components/ui/layout/Sidebar";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
 import { cn } from "@/utils/helpers";
-import { IS_PRODUCTION } from "@/utils/constants";
+import { IS_PRODUCTION, SpacingClasses } from "@/utils/constants";
 import dynamic from "next/dynamic";
 const Disclaimer = dynamic(() => import("@/components/ui/overlay/Disclaimer"));
 
@@ -54,12 +54,16 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html suppressHydrationWarning lang="en">
-      <body className={cn("min-h-screen select-none bg-background antialiased", Poppins.className)}>
+      <body
+        className={cn("min-h-[100dvh] select-none bg-background antialiased", Poppins.className)}
+      >
         <Providers>
           {IS_PRODUCTION && <Disclaimer />}
           <TopNavbar />
           <Sidebar>
-            <main className="container mx-auto max-w-full px-3 py-8 sm:px-5">{children}</main>
+            <main className={cn("container mx-auto max-w-full", SpacingClasses.main)}>
+              {children}
+            </main>
           </Sidebar>
           <BottomNavbar />
         </Providers>

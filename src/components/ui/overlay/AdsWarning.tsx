@@ -11,11 +11,11 @@ import {
   ScrollShadow,
   Link,
 } from "@heroui/react";
-import { IS_BROWSER } from "@/utils/constants";
+import { ADS_WARNING_STORAGE_KEY, IS_BROWSER } from "@/utils/constants";
 
 const AdsWarning: React.FC = () => {
   const [seen, setSeen] = useLocalStorage<boolean>({
-    key: "ads-warning-seen",
+    key: ADS_WARNING_STORAGE_KEY,
     getInitialValueInEffect: false,
   });
   const [opened, handlers] = useDisclosure(!seen && IS_BROWSER);

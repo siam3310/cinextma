@@ -10,7 +10,10 @@ import ThemeSwitchDropdown from "../input/ThemeSwitchDropdown";
 import FullscreenToggleButton from "../button/FullscreenToggleButton";
 import Link from "next/link";
 import { cn } from "@/utils/helpers";
-import Brand from "../other/Brand";
+import BrandLogo from "../other/BrandLogo";
+import IconButton from "../button/IconButton";
+import { User } from "@/utils/icons";
+import UserProfileButton from "../button/UserProfileButton";
 
 const TopNavbar = () => {
   const pathName = usePathname();
@@ -20,8 +23,9 @@ const TopNavbar = () => {
   const show = hrefs.includes(pathName);
   const tv = pathName.includes("/tv/");
   const player = pathName.includes("/player");
+  const auth = pathName.includes("/auth");
 
-  if (player) return null;
+  if (auth || player) return null;
 
   return (
     <Navbar
@@ -41,7 +45,7 @@ const TopNavbar = () => {
         />
       )}
       <NavbarBrand>
-        {show ? <Brand /> : <BackButton href={tv ? "/?content=tv" : "/"} />}
+        {show ? <BrandLogo /> : <BackButton href={tv ? "/?content=tv" : "/"} />}
       </NavbarBrand>
       {show && !pathName.startsWith("/search") && (
         <NavbarContent className="hidden w-full max-w-lg gap-2 md:flex" justify="center">
@@ -56,9 +60,10 @@ const TopNavbar = () => {
         </NavbarContent>
       )}
       <NavbarContent justify="end">
-        <NavbarItem className="flex gap-3">
+        <NavbarItem className="flex gap-1">
           <ThemeSwitchDropdown />
           <FullscreenToggleButton />
+          <UserProfileButton />
         </NavbarItem>
       </NavbarContent>
     </Navbar>

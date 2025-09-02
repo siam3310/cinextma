@@ -61,4 +61,12 @@ export interface PlayersProps {
   recommended?: boolean;
   fast?: boolean;
   ads?: boolean;
+  resumable?: boolean;
+}
+
+export interface Settings {
+  theme: "light" | "dark" | "system";
+  showSpecialSeason: boolean;
+  disableAnimation: boolean;
+  saveWatchHistory: boolean;
 }
