@@ -52,8 +52,14 @@ const ResumeCard: React.FC<ResumeCardProps> = ({ media }) => {
               S{media.season} E{media.episode}
             </Chip>
           )}
-          <Chip radius="sm" size="sm" variant="faded" className="absolute left-2 top-2 z-20">
-            {formatDuration(media.last_position)}
+          <Chip
+            radius="sm"
+            size="sm"
+            variant="faded"
+            className="absolute left-2 top-2 z-20"
+            color={media.completed ? "success" : undefined}
+          >
+            {media.completed ? "Completed" : formatDuration(media.last_position)}
           </Chip>
           <Progress
             size="sm"
