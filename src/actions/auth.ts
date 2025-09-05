@@ -13,17 +13,16 @@ import {
   ResetPasswordFormSchema,
 } from "@/schemas/auth";
 import { z } from "zod";
-
-type AuthResponse = Promise<{ success: boolean; message: string }>;
+import { ActionResponse } from "@/types";
 
 /**
  * A generic type for our authentication actions.
  * @template T The type of the form data.
  * @param data The validated form data.
  * @param supabase The Supabase client instance.
- * @returns An AuthResponse.
+ * @returns An ActionResponse.
  */
-type AuthAction<T> = (data: T, supabase: SupabaseClient) => AuthResponse;
+type AuthAction<T> = (data: T, supabase: SupabaseClient) => ActionResponse;
 
 /**
  * A higher-order function to create a server action that handles
@@ -38,7 +37,7 @@ const createAuthAction = <T extends { captchaToken?: string }>(
   action: AuthAction<T>,
   admin?: boolean,
 ) => {
-  return async (formData: T): AuthResponse => {
+  return async (formData: T): ActionResponse => {
     const result = schema.safeParse(formData);
     if (!result.success) {
       const message = result.error.issues.map((issue) => issue.message).join(". ");
@@ -172,7 +171,7 @@ export const sendResetPasswordEmail = createAuthAction(
 );
 export const resetPassword = createAuthAction(ResetPasswordFormSchema, resetPasswordAction);
 
-export const signOut = async (): AuthResponse => {
+export const signOut = async (): ActionResponse => {
   const supabase = await createClient();
   const { error } = await supabase.auth.signOut();
 

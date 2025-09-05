@@ -18,12 +18,12 @@ export const colors = tv({
   },
 });
 
-export interface HandlerType {
+export type HandlerType = {
   opened: boolean;
   onClose: () => void;
-}
+};
 
-export interface InputWrapperProps {
+export type InputWrapperProps = {
   /** Contents of `Input.Label` component. If not set, label is not displayed. */
   label?: React.ReactNode;
   /** Contents of `Input.Description` component. If not set, description is not displayed. */
@@ -32,19 +32,19 @@ export interface InputWrapperProps {
   error?: React.ReactNode;
   /** Adds required attribute to the input and a red asterisk on the right side of label @default `false` */
   required?: boolean;
-}
+};
 
-export interface DropdownItemProps {
+export type DropdownItemProps = {
   label: string;
   href?: string;
   icon?: React.ReactNode;
   onClick?: () => void;
   color?: ColorType;
   className?: string;
-}
+};
 
-export interface OverlayProps extends PropsWithChildren {
+export type OverlayProps = PropsWithChildren & {
   isOpen: boolean;
   onClose: () => void;
   isLoading?: boolean;
-}
+};

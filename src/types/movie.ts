@@ -3,7 +3,7 @@ import { ContentType } from ".";
 
 export type HistoryDetail = Database["public"]["Tables"]["histories"]["Row"];
 
-export interface SavedMovieDetails {
+export type SavedMovieDetails = {
   adult: boolean;
   type: ContentType;
   backdrop_path: string;
@@ -13,7 +13,7 @@ export interface SavedMovieDetails {
   title: string;
   vote_average: number;
   saved_date: string;
-}
+};
 
 export const DISCOVER_MOVIES_VALID_QUERY_TYPES = [
   "discover",

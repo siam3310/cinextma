@@ -2,9 +2,15 @@ import { Movie, TV } from "tmdb-ts/dist/types";
 
 export type ContentType = "movie" | "tv";
 
-export interface Params<T> {
+export type Params<T> = {
   params: Promise<T>;
-}
+};
+
+export type ActionResponse<T = null> = Promise<{
+  success: boolean;
+  message?: string;
+  data?: T;
+}>;
 
 export type MovieParam =
   | "todayTrending"
@@ -21,7 +27,7 @@ export type TvShowParam =
   | "onTheAir"
   | "topRated";
 
-export interface QueryList<T extends Movie | TV> {
+export type QueryList<T extends Movie | TV> = {
   name: string;
   query: () => Promise<{
     page: number;
@@ -30,9 +36,9 @@ export interface QueryList<T extends Movie | TV> {
     total_pages: number;
   }>;
   param: T extends Movie ? MovieParam : TvShowParam;
-}
+};
 
-export interface SiteConfigType {
+export type SiteConfigType = {
   name: string;
   description: string;
   favicon: string;
@@ -53,20 +59,20 @@ export interface SiteConfigType {
   socials: {
     github: string;
   };
-}
+};
 
-export interface PlayersProps {
+export type PlayersProps = {
   title: string;
   source: `https://${string}`;
   recommended?: boolean;
   fast?: boolean;
   ads?: boolean;
   resumable?: boolean;
-}
+};
 
-export interface Settings {
+export type Settings = {
   theme: "light" | "dark" | "system";
   showSpecialSeason: boolean;
   disableAnimation: boolean;
   saveWatchHistory: boolean;
-}
+};

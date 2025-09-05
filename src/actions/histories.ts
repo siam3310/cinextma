@@ -2,10 +2,15 @@
 
 import { tmdb } from "@/api/tmdb";
 import { VidlinkEventData } from "@/hooks/useVidlinkPlayer";
+import { ActionResponse } from "@/types";
+import { HistoryDetail } from "@/types/movie";
 import { mutateMovieTitle, mutateTvShowTitle } from "@/utils/movies";
 import { createClient } from "@/utils/supabase/server";
 
-export const syncHistory = async (data: VidlinkEventData["data"], completed?: boolean) => {
+export const syncHistory = async (
+  data: VidlinkEventData["data"],
+  completed?: boolean,
+): ActionResponse => {
   console.info("Saving history:", data);
 
   if (!data) return { success: false, message: "No data to save" };
@@ -100,7 +105,7 @@ export const syncHistory = async (data: VidlinkEventData["data"], completed?: bo
   }
 };
 
-export const getUserHistories = async (limit: number = 20) => {
+export const getUserHistories = async (limit: number = 20): ActionResponse<HistoryDetail[]> => {
   try {
     const supabase = await createClient();
 

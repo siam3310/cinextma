@@ -1,6 +1,6 @@
 import { siteConfig } from "@/config/site";
 import { Metadata, NextPage } from "next/types";
-import { Suspense } from "react";
+import { cache, Suspense } from "react";
 import dynamic from "next/dynamic";
 import { createClient } from "@/utils/supabase/server";
 const UnauthorizedNotice = dynamic(() => import("@/components/ui/notice/Unauthorized"));
@@ -10,12 +10,19 @@ export const metadata: Metadata = {
   title: `Library | ${siteConfig.name}`,
 };
 
-const LibraryPage: NextPage = async () => {
+const getUser = cache(async () => {
   const supabase = await createClient();
+
   const {
     data: { user },
     error,
   } = await supabase.auth.getUser();
+
+  return { user, error };
+});
+
+const LibraryPage: NextPage = async () => {
+  const { user, error } = await getUser();
 
   return (
     <Suspense>

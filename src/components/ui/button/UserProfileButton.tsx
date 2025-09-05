@@ -1,4 +1,4 @@
-import { signOut } from "@/app/auth/actions";
+import { signOut } from "@/actions/auth";
 import useBreakpoints from "@/hooks/useBreakpoints";
 import useSupabaseUser from "@/hooks/useSupabaseUser";
 import { DropdownItemProps } from "@/types/component";

@@ -1,4 +1,4 @@
-import { signIn } from "@/app/auth/actions";
+import { signIn } from "@/actions/auth";
 import PasswordInput from "@/components/ui/input/PasswordInput";
 import { LoginFormSchema } from "@/schemas/auth";
 import { isEmpty } from "@/utils/helpers";
@@ -71,7 +71,7 @@ const AuthLoginForm: React.FC<AuthFormProps> = ({ setForm }) => {
   return (
     <div className="flex flex-col gap-5">
       <form className="flex flex-col gap-3" onSubmit={onSubmit}>
-        <p className="mb-4 text-center text-small text-foreground-500">
+        <p className="text-small text-foreground-500 mb-4 text-center">
           Sign in to continue your streaming journey
         </p>
         <Input
@@ -100,7 +100,7 @@ const AuthLoginForm: React.FC<AuthFormProps> = ({ setForm }) => {
         <div className="flex w-full items-center justify-end px-1 py-2">
           <Link
             size="sm"
-            className="cursor-pointer text-foreground"
+            className="text-foreground cursor-pointer"
             onClick={() => setForm("forgot")}
             isDisabled={isSubmitting || isVerifying}
           >
@@ -126,11 +126,11 @@ const AuthLoginForm: React.FC<AuthFormProps> = ({ setForm }) => {
       </form>
       <div className="flex items-center gap-4">
         <Divider className="flex-1" />
-        <p className="shrink-0 text-tiny text-default-500">OR</p>
+        <p className="text-tiny text-default-500 shrink-0">OR</p>
         <Divider className="flex-1" />
       </div>
       <GoogleLoginButton isDisabled={isSubmitting || isVerifying} />
-      <p className="text-center text-small">
+      <p className="text-small text-center">
         Don't have an account?
         <Link
           isBlock

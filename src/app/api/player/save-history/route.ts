@@ -1,4 +1,4 @@
-import { syncHistory } from "@/app/actions/histories";
+import { syncHistory } from "@/actions/histories";
 import { VidlinkEventData } from "@/hooks/useVidlinkPlayer";
 import { NextResponse } from "next/server";
 

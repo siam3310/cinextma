@@ -21,6 +21,9 @@ const nextConfig: NextConfig = {
   turbopack: {
     resolveExtensions: [".mdx", ".tsx", ".ts", ".jsx", ".js", ".mjs", ".json"],
   },
+  experimental: {
+    optimizePackageImports: ["@heroui/react"],
+  },
 };
 
 const pwa = withPWA(nextConfig);

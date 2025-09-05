@@ -1,7 +1,7 @@
 "use client";
 
 import { tmdb } from "@/api/tmdb";
-import { getMovieLastPosition } from "@/app/actions/histories";
+import { getMovieLastPosition } from "@/actions/histories";
 import MoviePlayer from "@/components/sections/Movie/Player/Player";
 import { Params } from "@/types";
 import { isEmpty } from "@/utils/helpers";

@@ -1,4 +1,4 @@
-import { signUp } from "@/app/auth/actions";
+import { signUp } from "@/actions/auth";
 import { Google, LockPassword, Mail, User } from "@/utils/icons";
 import { addToast, Button, Divider, Input, Link } from "@heroui/react";
 import { AuthFormProps } from "./Forms";
@@ -70,7 +70,7 @@ const AuthRegisterForm: React.FC<AuthFormProps> = ({ setForm }) => {
   return (
     <div className="flex flex-col gap-5">
       <form className="flex flex-col gap-3" onSubmit={onSubmit}>
-        <p className="mb-4 text-center text-small text-foreground-500">
+        <p className="text-small text-foreground-500 mb-4 text-center">
           Join to track your favorites and watch history
         </p>
         <Input
@@ -138,11 +138,11 @@ const AuthRegisterForm: React.FC<AuthFormProps> = ({ setForm }) => {
       </form>
       <div className="flex items-center gap-4 py-2">
         <Divider className="flex-1" />
-        <p className="shrink-0 text-tiny text-default-500">OR</p>
+        <p className="text-tiny text-default-500 shrink-0">OR</p>
         <Divider className="flex-1" />
       </div>
       <GoogleLoginButton isDisabled={isSubmitting || isVerifying} />
-      <p className="text-center text-small">
+      <p className="text-small text-center">
         Already have an account?
         <Link
           isBlock

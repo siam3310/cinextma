@@ -1,4 +1,4 @@
-import { syncHistory } from "@/app/actions/histories";
+import { syncHistory } from "@/actions/histories";
 import { ContentType } from "@/types";
 import { useEffect, useRef, useState } from "react";
 import useSupabaseUser from "./useSupabaseUser";

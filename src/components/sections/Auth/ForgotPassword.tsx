@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { isEmpty } from "@/utils/helpers";
 import { useCallback, useState } from "react";
-import { sendResetPasswordEmail } from "@/app/auth/actions";
+import { sendResetPasswordEmail } from "@/actions/auth";
 import { Turnstile } from "@marsidev/react-turnstile";
 import { env } from "@/utils/env";
 
@@ -63,7 +63,7 @@ const AuthForgotPasswordForm: React.FC<AuthFormProps> = ({ setForm }) => {
 
   return (
     <form className="flex flex-col gap-3" onSubmit={onSubmit}>
-      <p className="mb-4 text-center text-small text-foreground-500">
+      <p className="text-small text-foreground-500 mb-4 text-center">
         You'll receive an email with a link to reset your password
       </p>
       <Input

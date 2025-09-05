@@ -1,6 +1,6 @@
 "use client";
 
-import { getWatchlist, removeAllWatchlist } from "@/app/library/actions";
+import { getWatchlist, removeAllWatchlist } from "@/actions/library";
 import { queryClient } from "@/app/providers";
 import BackToTopButton from "@/components/ui/button/BackToTopButton";
 import ContentTypeSelection from "@/components/ui/other/ContentTypeSelection";
@@ -249,7 +249,7 @@ const LibraryList = () => {
           Are you sure you want to remove all {content === "movie" ? "movies" : "TV shows"} from
           your watchlist? This action cannot be undone.
         </p>
-        <p className="text-sm text-default-500">
+        <p className="text-default-500 text-sm">
           {sortedWatchlist.length} {sortedWatchlist.length === 1 ? "item" : "items"} will be
           removed.
         </p>

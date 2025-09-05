@@ -8,7 +8,7 @@ import { Trash } from "@/utils/icons";
 import useDeviceVibration from "@/hooks/useDeviceVibration";
 import useSupabaseUser from "@/hooks/useSupabaseUser";
 import { SavedMovieDetails } from "@/types/movie";
-import { addToWatchlist, removeFromWatchlist, checkInWatchlist } from "@/app/library/actions";
+import { addToWatchlist, removeFromWatchlist, checkInWatchlist } from "@/actions/library";
 import { queryClient } from "@/app/providers";
 import { usePathname } from "next/navigation";
 

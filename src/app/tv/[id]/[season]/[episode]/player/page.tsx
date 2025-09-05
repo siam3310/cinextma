@@ -8,7 +8,7 @@ import { notFound } from "next/navigation";
 import { use } from "react";
 import dynamic from "next/dynamic";
 import { NextPage } from "next";
-import { getTvShowLastPosition } from "@/app/actions/histories";
+import { getTvShowLastPosition } from "@/actions/histories";
 const TvShowPlayer = dynamic(() => import("@/components/sections/TV/Player/Player"));
 
 const TvShowPlayerPage: NextPage<Params<{ id: number; season: number; episode: number }>> = ({

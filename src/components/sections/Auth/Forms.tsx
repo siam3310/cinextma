@@ -3,7 +3,6 @@
 import { tmdb } from "@/api/tmdb";
 import ThreeDMarquee from "@/components/ui/background/ThreeDMarquee";
 import IconButton from "@/components/ui/button/IconButton";
-import ThemeSwitchDropdown from "@/components/ui/input/ThemeSwitchDropdown";
 import Brand from "@/components/ui/other/BrandLogo";
 import { SpacingClasses } from "@/utils/constants";
 import { cn, isEmpty, shuffleArray } from "@/utils/helpers";
@@ -26,7 +25,7 @@ export interface AuthFormProps {
   setForm: (form: (typeof ValidForms)[number]) => void;
 }
 
-const AuthForms = () => {
+const AuthForms: React.FC = () => {
   const pathname = usePathname();
   const reset = pathname === "/auth/reset-password";
 
@@ -81,12 +80,11 @@ const AuthForms = () => {
         SpacingClasses.reset,
       )}
     >
-      <div className="container pointer-events-none relative z-50 mx-auto flex size-full flex-col items-center justify-center p-3">
+      <div className="pointer-events-none relative z-50 container mx-auto flex size-full flex-col items-center justify-center p-3">
         <Card
           shadow="lg"
-          className="pointer-events-auto w-full max-w-lg border-2 border-foreground-200 bg-background/70 p-1 backdrop-blur-md dark:bg-background/80 md:p-3"
+          className="border-foreground-200 bg-background/70 dark:bg-background/80 pointer-events-auto w-full max-w-lg border-2 p-1 backdrop-blur-md md:p-3"
         >
-          <ThemeSwitchDropdown />
           <CardHeader className="relative flex items-center justify-center">
             {form === "forgot" && (
               <IconButton
@@ -109,10 +107,15 @@ const AuthForms = () => {
                 transition={{ duration: 0.4 }}
               >
                 <CardBody>
-                  {reset && <AuthResetPasswordForm />}
-                  {!reset && form === "login" && <AuthLoginForm setForm={setForm} />}
-                  {!reset && form === "register" && <AuthRegisterForm setForm={setForm} />}
-                  {!reset && form === "forgot" && <AuthForgotPasswordForm setForm={setForm} />}
+                  {reset ? (
+                    <AuthResetPasswordForm />
+                  ) : (
+                    {
+                      login: <AuthLoginForm setForm={setForm} />,
+                      register: <AuthRegisterForm setForm={setForm} />,
+                      forgot: <AuthForgotPasswordForm setForm={setForm} />,
+                    }[form]
+                  )}
                 </CardBody>
               </motion.div>
             </AnimatePresence>

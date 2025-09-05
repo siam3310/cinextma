@@ -1,4 +1,4 @@
-import { resetPassword } from "@/app/auth/actions";
+import { resetPassword } from "@/actions/auth";
 import PasswordInput from "@/components/ui/input/PasswordInput";
 import { ResetPasswordFormSchema } from "@/schemas/auth";
 import { env } from "@/utils/env";
@@ -69,7 +69,7 @@ const AuthResetPasswordForm: React.FC = () => {
 
   return (
     <form className="flex flex-col gap-3" onSubmit={onSubmit}>
-      <p className="mb-4 text-center text-small text-foreground-500">
+      <p className="text-small text-foreground-500 mb-4 text-center">
         Please enter your new password to continue your streaming journey
       </p>
       <PasswordInput
