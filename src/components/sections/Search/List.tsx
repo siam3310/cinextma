@@ -1,21 +1,20 @@
 "use client";
 
 import { tmdb } from "@/api/tmdb";
+import { queryClient } from "@/app/providers";
 import TvShowHomeCard from "@/components/sections/TV/Cards/Poster";
 import BackToTopButton from "@/components/ui/button/BackToTopButton";
+import useDiscoverFilters from "@/hooks/useDiscoverFilters";
 import { ContentType } from "@/types";
 import { isEmpty } from "@/utils/helpers";
+import { getLoadingLabel } from "@/utils/movies";
 import { Spinner } from "@heroui/react";
-import { useDebouncedValue, useInViewport, useLocalStorage } from "@mantine/hooks";
+import { useInViewport } from "@mantine/hooks";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { parseAsString, parseAsStringLiteral, useQueryState } from "nuqs";
-import { useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Movie, Search, TV } from "tmdb-ts/dist/types";
 import MoviePosterCard from "../Movie/Cards/Poster";
 import SearchFilter from "./Filter";
-import { queryClient } from "@/app/providers";
-import { getLoadingLabel } from "@/utils/movies";
-import { SEARCH_HISTORY_STORAGE_KEY } from "@/utils/constants";
 
 type FetchType = {
   page: number;
@@ -33,29 +32,20 @@ const fetchData = async ({
 };
 
 const SearchList = () => {
-  const [searchQuery, setSearchQuery] = useQueryState("q", parseAsString.withDefault(""));
-  const [debouncedSearchQuery] = useDebouncedValue(searchQuery.trim(), searchQuery ? 500 : 0);
-  const [content] = useQueryState(
-    "content",
-    parseAsStringLiteral(["movie", "tv"]).withDefault("movie"),
-  );
-  const [searchHistories, setSearchHistories] = useLocalStorage<string[]>({
-    key: SEARCH_HISTORY_STORAGE_KEY,
-    defaultValue: [],
-  });
-
-  const isSearchTriggered = !isEmpty(debouncedSearchQuery);
-
+  const { content } = useDiscoverFilters();
   const { ref, inViewport } = useInViewport();
-  const { data, isPending, fetchNextPage, isFetchingNextPage, hasNextPage } = useInfiniteQuery({
-    enabled: isSearchTriggered,
-    queryKey: ["search-list", content, debouncedSearchQuery],
-    queryFn: ({ pageParam: page }) =>
-      fetchData({ page, type: content, query: debouncedSearchQuery }),
-    initialPageParam: 1,
-    getNextPageParam: (lastPage) =>
-      lastPage.page < lastPage.total_pages ? lastPage.page + 1 : undefined,
-  });
+  const [submittedSearchQuery, setSubmittedSearchQuery] = useState("");
+  const triggered = !isEmpty(submittedSearchQuery);
+  const { data, isFetching, isPending, fetchNextPage, isFetchingNextPage, hasNextPage } =
+    useInfiniteQuery({
+      enabled: triggered,
+      queryKey: ["search-list", content, submittedSearchQuery],
+      queryFn: ({ pageParam: page }) =>
+        fetchData({ page, type: content, query: submittedSearchQuery }),
+      initialPageParam: 1,
+      getNextPageParam: (lastPage) =>
+        lastPage.page < lastPage.total_pages ? lastPage.page + 1 : undefined,
+    });
 
   useEffect(() => {
     if (inViewport) {
@@ -64,67 +54,55 @@ const SearchList = () => {
   }, [inViewport]);
 
   useEffect(() => {
-    if (debouncedSearchQuery && !searchHistories.includes(debouncedSearchQuery)) {
-      const newHistories = [...searchHistories, debouncedSearchQuery].sort();
-      if (newHistories.length > 10) {
-        newHistories.shift();
-      }
-      setSearchHistories(newHistories);
-    }
-  }, [debouncedSearchQuery]);
-
-  useEffect(() => {
     queryClient.removeQueries({ queryKey: ["search-list"] });
   }, [content]);
 
-  const renderSearchResults = () => {
-    if (isEmpty(data?.pages[0].results)) {
-      return (
-        <h5 className="mt-56 text-center text-xl">
-          No {content === "movie" ? "movies" : "TV series"} found with query{" "}
-          <span className="font-bold text-warning">"{debouncedSearchQuery}"</span>
-        </h5>
-      );
-    }
+  const renderSearchResults = useMemo(() => {
+    return () => {
+      if (isEmpty(data?.pages[0].results)) {
+        return (
+          <h5 className="mt-56 text-center text-xl">
+            No {content === "movie" ? "movies" : "TV series"} found with query{" "}
+            <span className="text-warning font-semibold">"{submittedSearchQuery}"</span>
+          </h5>
+        );
+      }
 
-    return (
-      <>
-        <h5 className="text-center text-xl">
-          <span className="motion-preset-focus">
-            Found <span className="font-bold text-primary">{data?.pages[0].total_results}</span>{" "}
-            {content === "movie" ? "movies" : "TV series"} with query{" "}
-            <span className="font-bold text-warning">"{debouncedSearchQuery}"</span>
-          </span>
-        </h5>
-        <div className="movie-grid">
-          {content === "movie"
-            ? data?.pages.map((page) =>
-                page.results.map((movie) => (
-                  <MoviePosterCard key={movie.id} movie={movie as Movie} variant="bordered" />
-                )),
-              )
-            : data?.pages.map((page) =>
-                page.results.map((tv) => (
-                  <TvShowHomeCard key={tv.id} tv={tv as TV} variant="bordered" />
-                )),
-              )}
-        </div>
-      </>
-    );
-  };
+      return (
+        <>
+          <h5 className="text-center text-xl">
+            <span className="motion-preset-focus">
+              Found{" "}
+              <span className="text-success font-semibold">{data?.pages[0].total_results}</span>{" "}
+              {content === "movie" ? "movies" : "TV series"} with query{" "}
+              <span className="text-warning font-semibold">"{submittedSearchQuery}"</span>
+            </span>
+          </h5>
+          <div className="movie-grid">
+            {content === "movie"
+              ? data?.pages.map((page) =>
+                  page.results.map((movie) => (
+                    <MoviePosterCard key={movie.id} movie={movie as Movie} variant="bordered" />
+                  )),
+                )
+              : data?.pages.map((page) =>
+                  page.results.map((tv) => (
+                    <TvShowHomeCard key={tv.id} tv={tv as TV} variant="bordered" />
+                  )),
+                )}
+          </div>
+        </>
+      );
+    };
+  }, [content, data?.pages, submittedSearchQuery]);
 
   return (
     <div className="flex flex-col items-center gap-8">
       <SearchFilter
-        content={content}
-        isPending={isPending}
-        searchQuery={searchQuery}
-        searchHistories={searchHistories}
-        isSearchTriggered={isSearchTriggered}
-        setSearchQuery={setSearchQuery}
-        setSearchHistories={setSearchHistories}
+        isLoading={isFetching}
+        onSearchSubmit={(value) => setSubmittedSearchQuery(value.trim())}
       />
-      {isSearchTriggered && (
+      {triggered && (
         <>
           <div className="relative flex flex-col items-center gap-8">
             {isPending ? (
