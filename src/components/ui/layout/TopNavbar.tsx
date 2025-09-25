@@ -1,19 +1,17 @@
 "use client";
 
-import { siteConfig } from "@/config/site";
-import { usePathname } from "next/navigation";
-import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@heroui/react";
 import BackButton from "@/components/ui/button/BackButton";
+import { siteConfig } from "@/config/site";
+import { cn } from "@/utils/helpers";
+import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@heroui/react";
 import { useWindowScroll } from "@mantine/hooks";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import FullscreenToggleButton from "../button/FullscreenToggleButton";
+import UserProfileButton from "../button/UserProfileButton";
 import SearchInput from "../input/SearchInput";
 import ThemeSwitchDropdown from "../input/ThemeSwitchDropdown";
-import FullscreenToggleButton from "../button/FullscreenToggleButton";
-import Link from "next/link";
-import { cn } from "@/utils/helpers";
 import BrandLogo from "../other/BrandLogo";
-import IconButton from "../button/IconButton";
-import { User } from "@/utils/icons";
-import UserProfileButton from "../button/UserProfileButton";
 
 const TopNavbar = () => {
   const pathName = usePathname();
@@ -40,7 +38,7 @@ const TopNavbar = () => {
     >
       {!show && (
         <div
-          className="absolute inset-0 h-full w-full border-b border-background bg-background"
+          className="border-background bg-background absolute inset-0 h-full w-full border-b"
           style={{ opacity: opacity }}
         />
       )}
