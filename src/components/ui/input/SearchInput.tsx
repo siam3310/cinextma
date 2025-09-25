@@ -12,15 +12,13 @@ interface SearchInputProps extends InputProps {
   isLoading?: boolean;
 }
 
-const SearchInput = ({
-  value,
+const SearchInput: React.FC<SearchInputProps> = ({
   onChange,
   className,
-  autoFocus,
-  placeholder = "Search...",
   isLoading,
-  isDisabled,
-}: SearchInputProps) => {
+  placeholder = "Search...",
+  ...props
+}) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
   const pathName = usePathname();
@@ -30,10 +28,9 @@ const SearchInput = ({
       "ctrl+K",
       () => {
         if (pathName !== "/search") {
-          router.push("/search");
-        } else {
-          inputRef.current?.focus();
+          return router.push("/search");
         }
+        inputRef.current?.focus();
       },
       { preventDefault: true },
     ],
@@ -42,12 +39,9 @@ const SearchInput = ({
   return (
     <Input
       ref={inputRef}
-      isDisabled={isDisabled}
       autoComplete="off"
-      autoFocus={autoFocus}
       className={cn(className, "w-full")}
       placeholder={placeholder}
-      value={value}
       radius="full"
       onChange={onChange}
       classNames={{
@@ -57,12 +51,14 @@ const SearchInput = ({
       aria-label="Search"
       type="search"
       labelPlacement="outside"
-      endContent={<Kbd className="hidden md:inline-block">CTRL+K</Kbd>}
+      disabled={isLoading}
+      endContent={!props.value && <Kbd className="hidden md:inline-block">CTRL+K</Kbd>}
       startContent={
-        <div className="pointer-events-none flex shrink-0 items-center pr-1 text-default-400">
+        <div className="text-default-400 pointer-events-none flex shrink-0 items-center pr-1">
           {isLoading ? <Spinner color="default" size="sm" /> : <FaSearch />}
         </div>
       }
+      {...props}
     />
   );
 };
