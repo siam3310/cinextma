@@ -46,6 +46,7 @@ const SearchFilter: React.FC<SearchFilterProps> = ({ isLoading, onSearchSubmit, 
 
   const handleSubmit = useCallback(
     (e: React.FormEvent) => {
+      e.preventDefault();
       setTriggered(!isEmpty(searchQuery));
       onSearchSubmit?.(searchQuery);
       if (searchQuery && !searchHistories.includes(searchQuery)) {
