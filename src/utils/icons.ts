@@ -23,11 +23,12 @@ import {
 } from "react-icons/fa6";
 import { FcGoogle } from "react-icons/fc";
 import { FiLogOut } from "react-icons/fi";
+import { GoArrowUpLeft } from "react-icons/go";
 import { HiArrowLongLeft, HiTrash } from "react-icons/hi2";
 import { ImCross } from "react-icons/im";
 import { IoIosClose, IoIosMail, IoIosRocket, IoIosShareAlt, IoMdHelpCircle } from "react-icons/io";
 import { IoEye, IoEyeOff, IoGrid, IoMenuOutline } from "react-icons/io5";
-import { LuPlay } from "react-icons/lu";
+import { LuHistory, LuPlay } from "react-icons/lu";
 import { MdContentCopy, MdMovie } from "react-icons/md";
 import { PiTelevisionFill } from "react-icons/pi";
 import { RiLockPasswordFill, RiRobot3Fill } from "react-icons/ri";
@@ -37,6 +38,7 @@ import { TiThList } from "react-icons/ti";
 export {
   FaAd as Ads,
   HiArrowLongLeft as ArrowLeft,
+  GoArrowUpLeft as ArrowUpLeft,
   FaCalendarAlt as Calendar,
   FaCheck as Check,
   FaChevronLeft as ChevronLeft,
@@ -52,6 +54,7 @@ export {
   FcGoogle as Google,
   IoGrid as Grid,
   IoMdHelpCircle as Help,
+  LuHistory as History,
   FaInfo as Info,
   AiFillLike as Like,
   TiThList as List,
