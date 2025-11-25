@@ -24,7 +24,6 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ["@heroui/react"],
   },
-  serverExternalPackages: ["@supabase/ssr"],
 };
 
 const pwa = withPWA(nextConfig);
