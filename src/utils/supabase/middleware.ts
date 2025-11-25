@@ -62,3 +62,8 @@ export async function updateSession(request: NextRequest) {
 
   return supabaseResponse;
 }
+
+export const unstable_allowDynamic = [
+  "@supabase/supabase-js/dist/module/index.js",
+  "@supabase/realtime-js/dist/module/index.js",
+];
