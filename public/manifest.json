@@ -1,7 +1,7 @@
 {
-  "name": "Cinextma",
-  "short_name": "Cinextma",
-  "description": "Your only choice for a free movies and tv shows streaming website.",
+  "name": "Shinema",
+  "short_name": "Shinema",
+  "description": "Shinema, for movie lovers.",
   "theme_color": "#0D0C0F",
   "background_color": "#0D0C0F",
   "start_url": "/",
