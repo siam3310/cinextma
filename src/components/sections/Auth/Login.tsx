@@ -87,7 +87,12 @@ const AuthLoginForm: React.FC<AuthFormProps> = ({ setForm }) => {
           {isSubmitting ? "Signing In..." : "Sign In"}
         </Button>
       </form>
-
+      <div className="flex items-center gap-4">
+        <Divider className="flex-1" />
+        <p className="text-tiny text-default-500 shrink-0">OR</p>
+        <Divider className="flex-1" />
+      </div>
+      <GoogleLoginButton isDisabled={isSubmitting} />
       <p className="text-small text-center">
         Don't have an account?
         <Link

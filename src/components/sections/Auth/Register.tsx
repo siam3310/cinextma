@@ -1,11 +1,12 @@
 import { signUp } from "@/actions/auth";
 import { LockPassword, Mail, User } from "@/utils/icons";
-import { addToast, Button, Input, Link } from "@heroui/react";
+import { addToast, Button, Divider, Input, Link } from "@heroui/react";
 import { AuthFormProps } from "./Forms";
 import { RegisterFormSchema } from "@/schemas/auth";
 import PasswordInput from "@/components/ui/input/PasswordInput";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import GoogleLoginButton from "@/components/ui/button/GoogleLoginButton";
 
 const AuthRegisterForm: React.FC<AuthFormProps> = ({ setForm }) => {
   const {
@@ -94,7 +95,12 @@ const AuthRegisterForm: React.FC<AuthFormProps> = ({ setForm }) => {
           Sign Up
         </Button>
       </form>
-
+      <div className="flex items-center gap-4">
+        <Divider className="flex-1" />
+        <p className="text-tiny text-default-500 shrink-0">OR</p>
+        <Divider className="flex-1" />
+      </div>
+      <GoogleLoginButton isDisabled={isSubmitting} />
       <p className="text-small text-center">
         Already have an account?
         <Link
