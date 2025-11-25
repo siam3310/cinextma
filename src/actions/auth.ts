@@ -26,13 +26,13 @@ type AuthAction<T> = (data: T, supabase: SupabaseClient) => ActionResponse;
 
 /**
  * A higher-order function to create a server action that handles
- * form validation, captcha checks, and Supabase client creation.
- * @template T The type of the form data, which must include an optional captchaToken.
+ * form validation and Supabase client creation.
+ * @template T The type of the form data.
  * @param schema The Zod schema for validation.
  * @param action The core logic of the server action.
  * @returns An async function that serves as the server action.
  */
-const createAuthAction = <T extends { captchaToken?: string }>(
+const createAuthAction = <T>(
   schema: z.ZodSchema<T>,
   action: AuthAction<T>,
   admin?: boolean,
@@ -42,10 +42,6 @@ const createAuthAction = <T extends { captchaToken?: string }>(
     if (!result.success) {
       const message = result.error.issues.map((issue) => issue.message).join(". ");
       return { success: false, message };
-    }
-
-    if (!result.data.captchaToken) {
-      return { success: false, message: "Captcha is required." };
     }
 
     try {
@@ -66,7 +62,7 @@ const signInWithEmailAction: AuthAction<LoginFormInput> = async (data, supabase)
     email: data.email,
     password: data.loginPassword,
     options: {
-      captchaToken: data.captchaToken,
+      // captchaToken: data.captchaToken, // Removed captchaToken
     },
   });
 
@@ -111,7 +107,7 @@ const signUpAction: AuthAction<RegisterFormInput> = async (data, supabase) => {
     email: data.email,
     password: data.password,
     options: {
-      captchaToken: data.captchaToken,
+      // captchaToken: data.captchaToken, // Removed captchaToken
     },
   });
 
@@ -142,7 +138,7 @@ const sendResetPasswordEmailAction: AuthAction<ForgotPasswordFormInput> = async 
   supabase,
 ) => {
   const { error } = await supabase.auth.resetPasswordForEmail(data.email, {
-    captchaToken: data.captchaToken,
+    // captchaToken: data.captchaToken, // Removed captchaToken
   });
 
   if (error) return { success: false, message: error.message };
