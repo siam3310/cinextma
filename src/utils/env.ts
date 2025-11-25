@@ -10,8 +10,8 @@ export const env = createEnv({
     NEXT_PUBLIC_TMDB_ACCESS_TOKEN: z.string().min(1),
     NEXT_PUBLIC_SUPABASE_URL: z.url().min(1),
     NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: z.string().min(1),
-    NEXT_PUBLIC_CAPTCHA_SITE_KEY: z.string().min(1).optional(),
-    NEXT_PUBLIC_AVATAR_PROVIDER_URL: z.url().min(1).optional(),
+    NEXT_PUBLIC_CAPTCHA_SITE_KEY: z.string().optional(),
+    NEXT_PUBLIC_AVATAR_PROVIDER_URL: z.url().optional(),
   },
   experimental__runtimeEnv: {
     PROTECTED_PATHS: process.env.PROTECTED_PATHS,

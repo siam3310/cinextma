@@ -23,6 +23,7 @@ const nextConfig: NextConfig = {
   },
   experimental: {
     optimizePackageImports: ["@heroui/react"],
+    serverComponentsExternalPackages: ["@supabase/ssr"],
   },
 };
 
