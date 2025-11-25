@@ -23,8 +23,8 @@ const nextConfig: NextConfig = {
   },
   experimental: {
     optimizePackageImports: ["@heroui/react"],
-    serverComponentsExternalPackages: ["@supabase/ssr"],
   },
+  serverExternalPackages: ["@supabase/ssr"],
 };
 
 const pwa = withPWA(nextConfig);

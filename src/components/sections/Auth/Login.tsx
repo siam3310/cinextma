@@ -2,7 +2,7 @@ import { signIn } from "@/actions/auth";
 import PasswordInput from "@/components/ui/input/PasswordInput";
 import { LoginFormSchema } from "@/schemas/auth";
 import { Google, LockPassword, Mail } from "@/utils/icons";
-import { addToast, Button, Divider, Input, Link } from "heroui/react";
+import { addToast, Button, Divider, Input, Link } from "@heroui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { AuthFormProps } from "./Forms";
