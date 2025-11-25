@@ -86,45 +86,17 @@ const signInWithEmailAction: AuthAction<LoginFormInput> = async (data, supabase)
 };
 
 const signUpAction: AuthAction<RegisterFormInput> = async (data, supabase) => {
-  // Check username availability
-  const { data: usernameExists, error: usernameError } = await supabase
-    .from("profiles")
-    .select("id")
-    .eq("username", data.username)
-    .maybeSingle();
-
-  if (usernameError) {
-    console.error("Username check error:", usernameError);
-    return { success: false, message: "Database error. Could not check username availability." };
-  }
-
-  if (usernameExists) {
-    return { success: false, message: "Username already taken." };
-  }
-
-  // Create user
-  const { data: authData, error: signUpError } = await supabase.auth.signUp({
+  const { error } = await supabase.auth.signUp({
     email: data.email,
     password: data.password,
     options: {
-      // captchaToken: data.captchaToken, // Removed captchaToken
+      data: {
+        username: data.username,
+      },
     },
   });
 
-  if (signUpError) return { success: false, message: signUpError.message };
-  if (!authData.user) return { success: false, message: "User not created. Please try again." };
-
-  // Insert profile
-  const { error: profileError } = await supabase
-    .from("profiles")
-    .insert({ id: authData.user.id, username: data.username });
-
-  if (profileError) {
-    console.error("Profile creation error:", profileError);
-    // This is a critical error. The user exists in auth but not in profiles.
-    // It's better to return a generic error and log it for investigation.
-    return { success: false, message: "Could not create user profile. Please contact support." };
-  }
+  if (error) return { success: false, message: error.message };
 
   return {
     success: true,

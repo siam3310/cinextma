@@ -52,7 +52,7 @@ const AuthLoginForm: React.FC<AuthFormProps> = ({ setForm }) => {
           label="Email Address"
           placeholder="Enter your email"
           type="email"
-          variant="underlined"
+          variant="bordered"
           startContent={<Mail className="text-xl" />}
           isDisabled={isSubmitting}
         />
@@ -61,7 +61,7 @@ const AuthLoginForm: React.FC<AuthFormProps> = ({ setForm }) => {
           isInvalid={!!errors.loginPassword?.message}
           errorMessage={errors.loginPassword?.message}
           isRequired
-          variant="underlined"
+          variant="bordered"
           label="Password"
           placeholder="Enter your password"
           startContent={<LockPassword className="text-xl" />}
@@ -87,12 +87,7 @@ const AuthLoginForm: React.FC<AuthFormProps> = ({ setForm }) => {
           {isSubmitting ? "Signing In..." : "Sign In"}
         </Button>
       </form>
-      <div className="flex items-center gap-4">
-        <Divider className="flex-1" />
-        <p className="text-tiny text-default-500 shrink-0">OR</p>
-        <Divider className="flex-1" />
-      </div>
-      <GoogleLoginButton isDisabled={isSubmitting} />
+
       <p className="text-small text-center">
         Don't have an account?
         <Link

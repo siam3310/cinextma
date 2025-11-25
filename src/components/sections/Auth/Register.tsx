@@ -1,15 +1,13 @@
 import { signUp } from "@/actions/auth";
-import { Google, LockPassword, Mail, User } from "@/utils/icons";
-import { addToast, Button, Divider, Input, Link } from "@heroui/react";
+import { LockPassword, Mail, User } from "@/utils/icons";
+import { addToast, Button, Input, Link } from "@heroui/react";
 import { AuthFormProps } from "./Forms";
 import { RegisterFormSchema } from "@/schemas/auth";
 import PasswordInput from "@/components/ui/input/PasswordInput";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import GoogleLoginButton from "@/components/ui/button/GoogleLoginButton";
 
 const AuthRegisterForm: React.FC<AuthFormProps> = ({ setForm }) => {
-
   const {
     register,
     handleSubmit,
@@ -26,7 +24,6 @@ const AuthRegisterForm: React.FC<AuthFormProps> = ({ setForm }) => {
   });
 
   const onSubmit = handleSubmit(async (data) => {
-
     const { success, message } = await signUp(data);
 
     return addToast({
@@ -49,7 +46,7 @@ const AuthRegisterForm: React.FC<AuthFormProps> = ({ setForm }) => {
           isRequired
           label="Username"
           placeholder="Enter your username"
-          variant="underlined"
+          variant="bordered"
           startContent={<User className="text-xl" />}
           isDisabled={isSubmitting}
         />
@@ -61,7 +58,7 @@ const AuthRegisterForm: React.FC<AuthFormProps> = ({ setForm }) => {
           label="Email Address"
           placeholder="Enter your email"
           type="email"
-          variant="underlined"
+          variant="bordered"
           startContent={<Mail className="text-xl" />}
           isDisabled={isSubmitting}
         />
@@ -70,7 +67,7 @@ const AuthRegisterForm: React.FC<AuthFormProps> = ({ setForm }) => {
           isInvalid={!!errors.password?.message}
           errorMessage={errors.password?.message}
           isRequired
-          variant="underlined"
+          variant="bordered"
           label="Password"
           placeholder="Enter your password"
           startContent={<LockPassword className="text-xl" />}
@@ -81,7 +78,7 @@ const AuthRegisterForm: React.FC<AuthFormProps> = ({ setForm }) => {
           isInvalid={!!errors.confirm?.message}
           errorMessage={errors.confirm?.message}
           isRequired
-          variant="underlined"
+          variant="bordered"
           label="Confirm Password"
           placeholder="Confirm your password"
           startContent={<LockPassword className="text-xl" />}
@@ -97,12 +94,7 @@ const AuthRegisterForm: React.FC<AuthFormProps> = ({ setForm }) => {
           Sign Up
         </Button>
       </form>
-      <div className="flex items-center gap-4 py-2">
-        <Divider className="flex-1" />
-        <p className="text-tiny text-default-500 shrink-0">OR</p>
-        <Divider className="flex-1" />
-      </div>
-      <GoogleLoginButton isDisabled={isSubmitting} />
+
       <p className="text-small text-center">
         Already have an account?
         <Link
