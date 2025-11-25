@@ -7,12 +7,7 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "sb-start": "supabase start --debug --ignore-health-check",
-    "sb-stop": "supabase stop --debug --all",
-    "sb-restart": "supabase stop --debug --all && supabase start --debug --ignore-health-check",
-    "sb-db-reset": "supabase db reset",
-    "sb-db-types": "supabase gen types typescript --local > src/utils/supabase/types.ts"
+    "lint": "next lint"
   },
   "dependencies": {
     "@bprogress/next": "^3.2.12",
@@ -20,8 +15,6 @@
     "@heroui/react": "^2.8.3",
     "@hookform/resolvers": "^5.2.1",
     "@mantine/hooks": "^8.2.4",
-    "@supabase/ssr": "^0.7.0",
-    "@supabase/supabase-js": "^2.56.0",
     "@t3-oss/env-nextjs": "^0.13.8",
     "@tanstack/react-query": "^5.85.3",
     "@vercel/analytics": "^1.5.0",
