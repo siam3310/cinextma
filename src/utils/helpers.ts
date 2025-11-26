@@ -59,6 +59,11 @@ export function formatNumber(
     uppercase?: boolean;
   } = {},
 ): string {
+
+  if (isNaN(num) || typeof num !== 'number') {
+    return "0";
+  }
+
   const { decimals = 1, forceDecimals = false, uppercase = false } = options;
 
   const isNegative = num < 0;

@@ -17,16 +17,15 @@ const MoviePlayerSourceSelection = dynamic(() => import("./SourceSelection"));
 
 interface MoviePlayerProps {
   movie: MovieDetails;
-  startAt?: number;
 }
 
-const MoviePlayer: React.FC<MoviePlayerProps> = ({ movie, startAt }) => {
+const MoviePlayer: React.FC<MoviePlayerProps> = ({ movie }) => {
   const [seen] = useLocalStorage<boolean>({
     key: ADS_WARNING_STORAGE_KEY,
     getInitialValueInEffect: false,
   });
 
-  const players = getMoviePlayers(movie.id, startAt);
+  const players = getMoviePlayers(movie.id);
   const title = mutateMovieTitle(movie);
   const idle = useIdle(3000);
   const { mobile } = useBreakpoints();
@@ -36,7 +35,7 @@ const MoviePlayer: React.FC<MoviePlayerProps> = ({ movie, startAt }) => {
     parseAsInteger.withDefault(0),
   );
 
-  useVidlinkPlayer({ saveHistory: true });
+  useVidlinkPlayer({ saveHistory: false });
   useDocumentTitle(`Play ${title} | ${siteConfig.name}`);
 
   const PLAYER = useMemo(() => players[selectedSource] || players[0], [players, selectedSource]);
