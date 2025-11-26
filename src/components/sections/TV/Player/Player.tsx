@@ -41,7 +41,7 @@ const TvShowPlayer: React.FC<TvShowPlayerProps> = ({
   });
 
   const { mobile } = useBreakpoints();
-  const players = getTvShowPlayers(id, episode.season_number, episode.episode_number, startAt);
+  const players = getTvShowPlayers(id, episode.season_number, episode.episode_number);
   const idle = useIdle(3000);
   const [sourceOpened, sourceHandlers] = useDisclosure(false);
   const [episodeOpened, episodeHandlers] = useDisclosure(false);

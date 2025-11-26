@@ -1,7 +1,4 @@
-import { Database } from "@/utils/supabase/types";
 import { ContentType } from ".";
-
-export type HistoryDetail = Database["public"]["Tables"]["histories"]["Row"];
 
 export type SavedMovieDetails = {
   adult: boolean;

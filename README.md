@@ -37,7 +37,6 @@ CINEXTMA is built using the following technologies:
 - **TypeScript**: The codebase is written in TypeScript, ensuring better type safety, developer productivity, and maintainability.
 - **TanStack Query**: The application uses the TanStack Query library for efficient data fetching and caching, providing a smooth and responsive user experience.
 - **The Movie Database (TMDB) API**: CINEXTMA integrates with the TMDB API to retrieve movie and TV show data, ensuring access to a vast and up-to-date content library.
-- **Supabase**: The project uses Supabase for user authentication and database management.
 
 ## Getting Started
 
