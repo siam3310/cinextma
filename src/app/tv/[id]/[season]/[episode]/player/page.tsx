@@ -2,13 +2,13 @@
 
 import { tmdb } from "@/api/tmdb";
 import { Params } from "@/types";
-import { Spinner } from "@heroui/react";
+import { Spinner } from "heroui-react";
 import { useQuery } from "@tanstack/react-query";
 import { notFound } from "next/navigation";
 import { use } from "react";
 import dynamic from "next/dynamic";
 import { NextPage } from "next";
-import { getTvShowLastPosition } from "@/actions/histories";
+
 const TvShowPlayer = dynamic(() => import("@/components/sections/TV/Player/Player"));
 
 const TvShowPlayerPage: NextPage<Params<{ id: number; season: number; episode: number }>> = ({
@@ -34,12 +34,7 @@ const TvShowPlayerPage: NextPage<Params<{ id: number; season: number; episode: n
     queryKey: ["tv-show-season", id, season],
   });
 
-  const { data: startAt, isPending: isPendingStartAt } = useQuery({
-    queryFn: () => getTvShowLastPosition(id, season, episode),
-    queryKey: ["tv-show-player-start-at", id, season, episode],
-  });
-
-  if (isPendingTv || isPendingSeason || isPendingStartAt) {
+  if (isPendingTv || isPendingSeason) {
     return <Spinner size="lg" className="absolute-center" color="warning" variant="simple" />;
   }
 
@@ -77,7 +72,7 @@ const TvShowPlayerPage: NextPage<Params<{ id: number; season: number; episode: n
       episodes={seasonDetail.episodes}
       nextEpisodeNumber={nextEpisodeNumber}
       prevEpisodeNumber={prevEpisodeNumber}
-      startAt={startAt}
+      startAt={0}
     />
   );
 };

@@ -1,8 +1,7 @@
-"use client";
+'use client';
 
 import { Image, Chip, Button } from "@heroui/react";
 import { getImageUrl, mutateTvShowTitle } from "@/utils/movies";
-import BookmarkButton from "@/components/ui/button/BookmarkButton";
 import ShareButton from "@/components/ui/button/ShareButton";
 import { AppendToResponse } from "tmdb-ts/dist/types/options";
 import { useDocumentTitle } from "@mantine/hooks";
@@ -14,7 +13,6 @@ import { Calendar, List, Season } from "@/utils/icons";
 import Rating from "@/components/ui/other/Rating";
 import SectionTitle from "@/components/ui/other/SectionTitle";
 import Trailer from "@/components/ui/overlay/Trailer";
-import { SavedMovieDetails } from "@/types/movie";
 
 export interface TvShowOverviewSectionProps {
   tv: AppendToResponse<TvShowDetails, "videos"[], "tvShow">;
@@ -31,17 +29,6 @@ export const TvShowOverviewSection: React.FC<TvShowOverviewSectionProps> = ({
   const posterImage = getImageUrl(tv.poster_path);
   const title = mutateTvShowTitle(tv);
   const fullTitle = title;
-  const bookmarkData: SavedMovieDetails = {
-    type: "tv",
-    adult: "adult" in tv ? (tv.adult as boolean) : false,
-    backdrop_path: tv.backdrop_path,
-    id: tv.id,
-    poster_path: tv.poster_path,
-    release_date: tv.first_air_date,
-    title: fullTitle,
-    vote_average: tv.vote_average,
-    saved_date: new Date().toISOString(),
-  };
 
   useDocumentTitle(`${fullTitle} | ${siteConfig.name}`);
 
@@ -109,7 +96,6 @@ export const TvShowOverviewSection: React.FC<TvShowOverviewSectionProps> = ({
             </div>
             <div className="flex flex-wrap gap-2">
               <ShareButton id={tv.id} title={title} type="tv" />
-              <BookmarkButton data={bookmarkData} />
             </div>
           </div>
 
