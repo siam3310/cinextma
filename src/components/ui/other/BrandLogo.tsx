@@ -3,8 +3,6 @@
 import Link from "next/link";
 import { Saira } from "@/utils/fonts";
 import { cn } from "@/utils/helpers";
-import { Next } from "@/utils/icons";
-import useDiscoverFilters from "@/hooks/useDiscoverFilters";
 
 export interface BrandLogoProps {
   animate?: boolean;
@@ -12,8 +10,6 @@ export interface BrandLogoProps {
 }
 
 const BrandLogo: React.FC<BrandLogoProps> = ({ animate = false, className }) => {
-  const { content } = useDiscoverFilters();
-
   return (
     <Link href="/" className="group">
       <span
@@ -28,16 +24,7 @@ const BrandLogo: React.FC<BrandLogoProps> = ({ animate = false, className }) => 
           className,
         )}
       >
-        Shine{" "}
-        <span>
-          <Next
-            className={cn("size-full px-[2px] transition-colors", {
-              "text-primary": content === "movie",
-              "text-warning": content === "tv",
-            })}
-          />
-        </span>{" "}
-        MA
+        Shinema
       </span>
     </Link>
   );
