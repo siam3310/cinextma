@@ -1,4 +1,3 @@
-tsx
 import { FaGithub } from "react-icons/fa6";
 import { siteConfig } from "@/config/site";
 import Link from "next/link";
