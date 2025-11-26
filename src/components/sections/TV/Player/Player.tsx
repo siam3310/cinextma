@@ -50,10 +50,7 @@ const TvShowPlayer: React.FC<TvShowPlayerProps> = ({
     parseAsInteger.withDefault(0),
   );
 
-  useVidlinkPlayer({
-    saveHistory: true,
-    metadata: { season: episode.season_number, episode: episode.episode_number },
-  });
+  useVidlinkPlayer();
   useDocumentTitle(
     `Play ${props.seriesName} - ${props.seasonName} - ${episode.name} | ${siteConfig.name}`,
   );

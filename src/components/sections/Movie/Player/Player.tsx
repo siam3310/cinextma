@@ -10,7 +10,7 @@ import dynamic from "next/dynamic";
 import { parseAsInteger, useQueryState } from "nuqs";
 import { useMemo } from "react";
 import { MovieDetails } from "tmdb-ts/dist/types/movies";
-import { useVidlinkPlayer } from "@/hooks/useVidlinkPlayer";
+
 const AdsWarning = dynamic(() => import("@/components/ui/overlay/AdsWarning"));
 const MoviePlayerHeader = dynamic(() => import("./Header"));
 const MoviePlayerSourceSelection = dynamic(() => import("./SourceSelection"));
@@ -35,7 +35,6 @@ const MoviePlayer: React.FC<MoviePlayerProps> = ({ movie }) => {
     parseAsInteger.withDefault(0),
   );
 
-  useVidlinkPlayer({ saveHistory: false });
   useDocumentTitle(`Play ${title} | ${siteConfig.name}`);
 
   const PLAYER = useMemo(() => players[selectedSource] || players[0], [players, selectedSource]);
