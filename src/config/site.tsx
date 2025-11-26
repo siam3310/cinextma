@@ -11,7 +11,6 @@ import {
   IoInformationCircleOutline,
   IoMoon,
 } from "react-icons/io5";
-import { TbFolder, TbFolderFilled } from "react-icons/tb";
 
 export const siteConfig: SiteConfigType = {
   name: "Shinema",
@@ -35,12 +34,6 @@ export const siteConfig: SiteConfigType = {
       href: "/search",
       icon: <BiSearchAlt2 className="size-full" />,
       activeIcon: <BiSolidSearchAlt2 className="size-full" />,
-    },
-    {
-      label: "Library",
-      href: "/library",
-      icon: <TbFolder className="size-full" />,
-      activeIcon: <TbFolderFilled className="size-full" />,
     },
     {
       label: "About",
