@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
 import { tmdb } from "@/api/tmdb";
 import { Params } from "@/types";
-import { Spinner } from "heroui-react";
+import { Spinner } from "@heroui/react";
 import { useQuery } from "@tanstack/react-query";
 import { notFound } from "next/navigation";
 import { use } from "react";
