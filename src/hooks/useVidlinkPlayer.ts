@@ -1,9 +1,5 @@
-import { syncHistory } from "@/actions/histories";
 import { ContentType } from "@/types";
 import { useEffect, useRef, useState } from "react";
-import useSupabaseUser from "./useSupabaseUser";
-import { useDocumentVisibility } from "@mantine/hooks";
-import { diff } from "@/utils/helpers";
 
 export type VidlinkEventType = "play" | "pause" | "seeked" | "ended" | "timeupdate";
 
@@ -27,7 +23,6 @@ export interface UseVidlinkPlayerOptions {
     season?: number;
     episode?: number;
   };
-  saveHistory?: boolean;
   onPlay?: (data: Data) => void;
   onPause?: (data: Data) => void;
   onSeeked?: (data: Data) => void;
@@ -36,61 +31,16 @@ export interface UseVidlinkPlayerOptions {
 }
 
 export function useVidlinkPlayer(options: UseVidlinkPlayerOptions = {}) {
-  const { data: user } = useSupabaseUser();
-  const documentState = useDocumentVisibility();
-  const { metadata, saveHistory, onPlay, onPause, onSeeked, onEnded, onTimeUpdate } = options;
+  const { metadata, onPlay, onPause, onSeeked, onEnded, onTimeUpdate } = options;
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [lastEvent, setLastEvent] = useState<VidlinkEventType | null>(null);
-  const [lastCurrentTime, setLastCurrentTime] = useState(0);
   const eventDataRef = useRef<Data | null>(null);
   const episodeRed = useRef<number | null>(null);
   const seasonRef = useRef<number | null>(null);
 
-  const syncToServer = async (data: Data, completed?: boolean) => {
-    if (!saveHistory || !user) return;
-    if (diff(data.currentTime, lastCurrentTime) <= 5) return; //prevent spam
-
-    const dataToSync: Data = {
-      ...data,
-      season: seasonRef.current || 0,
-      episode: episodeRed.current || 0,
-    };
-
-    const { success, message } = await syncHistory(dataToSync, completed);
-
-    if (success) {
-      setLastCurrentTime(data.currentTime);
-      return;
-    }
-
-    console.error("Save history failed:", message);
-  };
-
   useEffect(() => {
-    if (!saveHistory || !user) return;
-    if (documentState === "visible") return;
-    if (!eventDataRef.current) return;
-    syncToServer(eventDataRef.current);
-  }, [documentState, lastCurrentTime]);
-
-  useEffect(() => {
-    const handleBeforeUnload = () => {
-      if (!saveHistory || !user) return;
-
-      if (eventDataRef.current) {
-        const payload = {
-          ...eventDataRef.current,
-          season: seasonRef.current || 0,
-          episode: episodeRed.current || 0,
-          completed: eventDataRef.current.event === "ended",
-        };
-
-        navigator.sendBeacon("/api/player/save-history", JSON.stringify(payload));
-      }
-    };
-
     const handleMessage = (event: MessageEvent) => {
       if (event.origin !== "https://vidlink.pro") return;
       const data = event.data as VidlinkEventData;
@@ -119,7 +69,6 @@ export function useVidlinkPlayer(options: UseVidlinkPlayerOptions = {}) {
 
           case "ended":
             setIsPlaying(false);
-            syncToServer(data.data, true);
             onEnded?.(data.data);
             break;
 
@@ -139,15 +88,9 @@ export function useVidlinkPlayer(options: UseVidlinkPlayerOptions = {}) {
     };
 
     window.addEventListener("message", handleMessage);
-    window.addEventListener("beforeunload", handleBeforeUnload);
 
     return () => {
-      if (eventDataRef.current) {
-        handleBeforeUnload();
-      }
-
       window.removeEventListener("message", handleMessage);
-      window.removeEventListener("beforeunload", handleBeforeUnload);
     };
   }, []);
 
