@@ -1,8 +1,6 @@
 import { tmdb } from "@/api/tmdb";
-import BookmarkButton from "@/components/ui/button/BookmarkButton";
 import Genres from "@/components/ui/other/Genres";
 import Rating from "@/components/ui/other/Rating";
-import { SavedMovieDetails } from "@/types/movie";
 import { cn, isEmpty } from "@/utils/helpers";
 import { Calendar, Clock } from "@/utils/icons";
 import { getImageUrl, movieDurationString, mutateMovieTitle } from "@/utils/movies";
@@ -35,17 +33,6 @@ const HoverPosterCard: React.FC<{ id: number; fullWidth?: boolean }> = ({ id, fu
     movie.images.logos.find((logo) => logo.iso_639_1 === "en")?.file_path,
     "title",
   );
-  const bookmarkData: SavedMovieDetails = {
-    type: "movie",
-    adult: movie.adult,
-    backdrop_path: movie.backdrop_path,
-    id: movie.id,
-    poster_path: movie.poster_path,
-    release_date: movie.release_date,
-    title: fullTitle,
-    vote_average: movie.vote_average,
-    saved_date: new Date().toISOString(),
-  };
 
   return (
     <>
@@ -117,7 +104,6 @@ const HoverPosterCard: React.FC<{ id: number; fullWidth?: boolean }> = ({ id, fu
               >
                 Play Now
               </Button>
-              <BookmarkButton data={bookmarkData} isTooltipDisabled />
             </div>
             <p className="text-sm">{movie.overview}</p>
           </div>

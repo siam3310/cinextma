@@ -2,7 +2,6 @@
 
 import { Image, Chip, Button } from "@heroui/react";
 import { getImageUrl, movieDurationString, mutateMovieTitle } from "@/utils/movies";
-import BookmarkButton from "@/components/ui/button/BookmarkButton";
 import { MovieDetails } from "tmdb-ts/dist/types/movies";
 import Rating from "../../../ui/other/Rating";
 import ShareButton from "@/components/ui/button/ShareButton";
@@ -15,7 +14,6 @@ import SectionTitle from "@/components/ui/other/SectionTitle";
 import Trailer from "@/components/ui/overlay/Trailer";
 import { Calendar, Clock } from "@/utils/icons";
 import Link from "next/link";
-import { SavedMovieDetails } from "@/types/movie";
 
 interface OverviewSectionProps {
   movie: AppendToResponse<MovieDetails, "videos"[], "movie">;
@@ -26,17 +24,6 @@ const OverviewSection: React.FC<OverviewSectionProps> = ({ movie }) => {
   const posterImage = getImageUrl(movie.poster_path);
   const title = mutateMovieTitle(movie);
   const fullTitle = title;
-  const bookmarkData: SavedMovieDetails = {
-    type: "movie",
-    adult: movie.adult,
-    backdrop_path: movie.backdrop_path,
-    id: movie.id,
-    poster_path: movie.poster_path,
-    release_date: movie.release_date,
-    title: fullTitle,
-    vote_average: movie.vote_average,
-    saved_date: new Date().toISOString(),
-  };
 
   useDocumentTitle(`${fullTitle} | ${siteConfig.name}`);
 
@@ -103,7 +90,6 @@ const OverviewSection: React.FC<OverviewSectionProps> = ({ movie }) => {
             </div>
             <div className="flex flex-wrap gap-2">
               <ShareButton id={movie.id} title={title} />
-              <BookmarkButton data={bookmarkData} />
             </div>
           </div>
 
