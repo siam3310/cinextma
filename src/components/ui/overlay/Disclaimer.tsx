@@ -14,7 +14,7 @@ import {
 import { DISCLAIMER_STORAGE_KEY, IS_BROWSER } from "@/utils/constants";
 import { cn } from "@/utils/helpers";
 
-const COUNTDOWN_DURATION = 10;
+const COUNTDOWN_DURATION = 3;
 const MODAL_SIZE = "3xl";
 const DISCLAIMER_CONTENT = {
   title: "Disclaimer",

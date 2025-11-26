@@ -1,3 +1,4 @@
+tsx
 import { FaGithub } from "react-icons/fa6";
 import { siteConfig } from "@/config/site";
 import Link from "next/link";
@@ -18,9 +19,6 @@ const AboutPage: NextPage = () => {
         <Suspense>
           <FAQ />
         </Suspense>
-        <Link target="_blank" href={siteConfig.socials.github} className="flex justify-center">
-          <FaGithub size={30} />
-        </Link>
       </div>
     </div>
   );
